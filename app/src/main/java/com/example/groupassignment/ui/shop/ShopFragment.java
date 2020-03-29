@@ -26,13 +26,13 @@ public class ShopFragment extends Fragment {
         shopViewModel =
                 ViewModelProviders.of(this).get(ShopViewModel.class);
         View root = inflater.inflate(R.layout.fragment_shop, container, false);
-        final TextView textView = root.findViewById(R.id.text_shop);
-        shopViewModel.getText().observe(this, new Observer<String>() {
+        //final TextView textView = root.findViewById(R.id.text_shop);
+        /*shopViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 }

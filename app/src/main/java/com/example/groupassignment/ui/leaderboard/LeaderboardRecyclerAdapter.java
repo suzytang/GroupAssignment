@@ -33,7 +33,7 @@ public class LeaderboardRecyclerAdapter extends RecyclerView.Adapter<Leaderboard
 
     @Override
     public MyViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.learn_levels, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.leaderboard_list, parent, false);
         //return new MyViewHolder(v, listener);
         return new MyViewHolder(v);
     }

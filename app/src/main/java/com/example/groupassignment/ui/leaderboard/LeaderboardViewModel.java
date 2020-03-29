@@ -9,11 +9,11 @@ public class LeaderboardViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
     public LeaderboardViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is leaderboard fragment");
+        /*mText = new MutableLiveData<>();
+        mText.setValue("This is leaderboard fragment");*/
     }
 
-    public LiveData<String> getText() {
+    /*public LiveData<String> getText() {
         return mText;
-    }
+    }*/
 }
