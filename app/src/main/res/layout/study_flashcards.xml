@@ -9,7 +9,7 @@
     <com.wajahatkarim3.easyflipview.EasyFlipView
         android:id="@+id/easyFlipView"
         android:layout_width="0dp"
-        android:layout_height="260dp"
+        android:layout_height="240dp"
         app:autoFlipBack="true"
         app:autoFlipBackTime="500"
         app:flipDuration="500"
@@ -22,11 +22,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include
+            android:id="@+id/frontCard"
             layout="@layout/flash_card_layout_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <include
+            android:id="@+id/backCard"
             layout="@layout/flash_card_layout_front"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
