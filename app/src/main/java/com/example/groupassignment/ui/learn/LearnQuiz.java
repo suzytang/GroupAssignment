@@ -2,13 +2,11 @@ package com.example.groupassignment.ui.learn;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.example.groupassignment.R;
 
@@ -18,10 +16,13 @@ public class LearnQuiz extends AppCompatActivity {
     private Button learnButton;
     private Button quizButton;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learnquiz);
+
 
         Intent intent = getIntent();
         final String level = intent.getStringExtra("level");
@@ -34,20 +35,19 @@ public class LearnQuiz extends AppCompatActivity {
         learnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openLearnFlashCards();
-
+                Intent intent2 = new Intent(LearnQuiz.this, LearnFlashcards.class);
+                intent2.putExtra("level", level);
+                startActivity(intent2);
             }
         });
 
 
     }
-    public void openLearnFlashCards(){
-        Intent intent = new Intent(this, LearnFlashcards.class);
-        intent.putExtra("placeholder", "Level placeholder");
-        startActivity(intent);
+    /*public void openLearnFlashCards(){
+        Intent intent2 = new Intent(this, LearnFlashcards.class);
+        intent2.putExtra("level", level);
+        startActivity(intent2);
 
-        startActivity(intent);
-
-    }
+    }*/
 
 }

@@ -36,7 +36,7 @@
     </com.wajahatkarim3.easyflipview.EasyFlipView>
 
     <TextView
-        android:id="@+id/level"
+        android:id="@+id/levelText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="174dp"
