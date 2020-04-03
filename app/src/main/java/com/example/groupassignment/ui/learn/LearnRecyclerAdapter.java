@@ -38,7 +38,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.textView.setText("Level " + (position + 1));
+        holder.levelText.setText("Level " + (position + 1));
 
     }
 
@@ -49,7 +49,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView textView;
+        TextView levelText;
         RecyclerViewClickListener listener;
 
         public MyViewHolder( View itemView, RecyclerViewClickListener listener) {
@@ -58,7 +58,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
             itemView.setOnClickListener(this);
 
             this.listener = listener;
-            this.textView = itemView.findViewById(R.id.textView);
+            this.levelText = itemView.findViewById(R.id.levelText);
         }
 
         @Override
