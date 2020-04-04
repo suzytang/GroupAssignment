@@ -69,6 +69,8 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
                         dialog.dismiss();
                     }
                 });
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
                 break;
             case R.id.wallpapersButton:
                 Intent intent2 = new Intent(getActivity(), WallpapersList.class);
@@ -81,8 +83,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
                 break;
 
         }
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
+
 
     }
 
