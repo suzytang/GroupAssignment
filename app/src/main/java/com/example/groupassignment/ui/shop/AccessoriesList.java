@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.groupassignment.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class AccessoriesList extends AppCompatActivity {
@@ -63,6 +65,11 @@ public class AccessoriesList extends AppCompatActivity {
 
         dialog.setContentView(R.layout.shop_popup);
         Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+        TextView shopItem = (TextView) dialog.findViewById(R.id.shopItem);
+        TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
+
+        shopItem.setText(shop.getAccessories().get(position).getItemName());
+        shopPrice.setText(shop.getAccessories().get(position).getItemPrice());
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {

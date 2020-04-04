@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -59,6 +60,11 @@ public class WallpapersList extends AppCompatActivity {
 
         dialog.setContentView(R.layout.shop_popup);
         Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+        TextView shopItem = (TextView) dialog.findViewById(R.id.shopItem);
+        TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
+
+        shopItem.setText(shop.getWallpapers().get(position).getItemName());
+        shopPrice.setText(shop.getWallpapers().get(position).getItemPrice());
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +73,9 @@ public class WallpapersList extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 

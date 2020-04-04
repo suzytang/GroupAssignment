@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.groupassignment.R;
 
@@ -52,8 +53,14 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
         switch(v.getId()){
             case R.id.foodButton:
 
-
                 dialog.setContentView(R.layout.shop_popup);
+
+                TextView shopItem = (TextView) dialog.findViewById(R.id.shopItem);
+                TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
+
+                shopItem.setText("Food");
+                shopPrice.setText("20 coins");
+
                 Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
 
                 cancelButton.setOnClickListener(new View.OnClickListener() {

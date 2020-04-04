@@ -1,5 +1,6 @@
 package com.example.groupassignment.ui.shop;
 
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     RecyclerViewClickListener listener;
     final Shop shop = new Shop();
     ArrayList<Shop> accessories = new ArrayList<>();
+    Dialog dialog;
 
     public AccessoriesAdapter(ArrayList<Shop> accessories, RecyclerViewClickListener listener) {
         this.accessories = accessories;
@@ -76,3 +78,4 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         }
     }
 }
+
