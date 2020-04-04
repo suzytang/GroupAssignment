@@ -22,6 +22,14 @@
         </activity>
         <activity android:name=".ui.learn.LearnFlashcards">
         </activity>
+        <activity android:name=".ui.shop.ShopPopup">
+        </activity>
+        <activity android:name=".ui.shop.AccessoriesList">
+        </activity>
+        <activity android:name=".ui.shop.WallpapersList">
+        </activity>
+
+
     </application>
 
 

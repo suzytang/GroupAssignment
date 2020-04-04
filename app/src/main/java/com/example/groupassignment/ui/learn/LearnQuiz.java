@@ -43,11 +43,6 @@ public class LearnQuiz extends AppCompatActivity {
 
 
     }
-    /*public void openLearnFlashCards(){
-        Intent intent2 = new Intent(this, LearnFlashcards.class);
-        intent2.putExtra("level", level);
-        startActivity(intent2);
 
-    }*/
 
 }

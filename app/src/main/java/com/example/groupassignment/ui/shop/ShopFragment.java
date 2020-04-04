@@ -1,38 +1,83 @@
 package com.example.groupassignment.ui.shop;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.example.groupassignment.R;
-import com.example.groupassignment.ui.shop.ShopViewModel;
 
-public class ShopFragment extends Fragment {
+public class ShopFragment extends Fragment implements View.OnClickListener{
 
     private ShopViewModel shopViewModel;
+    private Button foodButton, accessoriesButton, wallpapersButton, cancelButton;
+    private Dialog dialog;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         shopViewModel =
                 ViewModelProviders.of(this).get(ShopViewModel.class);
         View root = inflater.inflate(R.layout.fragment_shop, container, false);
-        //final TextView textView = root.findViewById(R.id.text_shop);
-        /*shopViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
+
+        Button foodButton = (Button) root.findViewById(R.id.foodButton);
+        Button accessoriesButton = (Button) root.findViewById(R.id.accessoriesButton);
+        Button wallpapersButton = (Button) root.findViewById(R.id.wallpapersButton);
+
+        dialog = new Dialog(getActivity());
+
+        foodButton.setOnClickListener(this);
+        accessoriesButton.setOnClickListener(this);
+        wallpapersButton.setOnClickListener(this);
+
+
         return root;
     }
+
+
+    @Override
+    public void onClick(View v){
+        switch(v.getId()){
+            case R.id.foodButton:
+
+
+                dialog.setContentView(R.layout.shop_popup);
+                Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                break;
+            case R.id.wallpapersButton:
+                Intent intent2 = new Intent(getActivity(), WallpapersList.class);
+                startActivity(intent2);
+                break;
+            case R.id.accessoriesButton:
+                Intent intent = new Intent(getActivity(), AccessoriesList.class);
+
+                startActivity(intent);
+                break;
+
+        }
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+    }
+
+
 }
