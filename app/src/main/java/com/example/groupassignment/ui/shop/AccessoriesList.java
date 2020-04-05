@@ -23,6 +23,12 @@ import com.example.groupassignment.ui.Inventory;
 
 import org.w3c.dom.Text;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class AccessoriesList extends AppCompatActivity {
@@ -93,24 +99,9 @@ public class AccessoriesList extends AppCompatActivity {
         buyButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                /*inventory.setName(shop.getAccessories().get(position).getItemName());
-                inventory.setImage(R.drawable.ic_home_black_24dp);*/
-
-                //inventory.getAccessoriesInventory().add(shop.getAccessories().get(position).getItemName(), R.drawable.ic_home_black_24dp);
-                /*if ((inventory.getCoins()) - (shop.getAccessories().get(position).getItemPrice()) > 0){
-                    int paid = (inventory.getCoins()) - (shop.getAccessories().get(position).getItemPrice());
-                    inventory.setCoins(paid);
 
 
-                    dialog.dismiss();
-                    Toast.makeText(AccessoriesList.this,
-                            shop.getAccessories().get(position).getItemName() + " has been added to your inventory!", Toast.LENGTH_LONG).show();
-                } else{
-                    Toast.makeText(AccessoriesList.this,
-                            "You don't have enough coins to purchase this!", Toast.LENGTH_LONG).show();
-                }*/
-
-                if ((DataHolder.getInstance().inventory.getCoins()) - (shop.getAccessories().get(position).getItemPrice()) > 0){
+                /*if ((DataHolder.getInstance().inventory.getCoins()) - (shop.getAccessories().get(position).getItemPrice()) > 0){
                     int paid = (DataHolder.getInstance().inventory.getCoins()) - (shop.getAccessories().get(position).getItemPrice());
                     DataHolder.getInstance().inventory.setCoins(paid);
 
@@ -121,7 +112,38 @@ public class AccessoriesList extends AppCompatActivity {
                 } else{
                     Toast.makeText(AccessoriesList.this,
                             "You don't have enough coins to purchase this!", Toast.LENGTH_LONG).show();
+                }*/
+
+
+                try {
+                    Connection conn = DriverManager.getConnection("jdbc:sqlite:infs3634.db");
+                    Statement st = conn.createStatement();
+
+                    String selectQuery = "SELECT coins FROM Pet";
+
+                    ResultSet rs = st.executeQuery(selectQuery);
+
+                    int coins = rs.getInt(1);
+
+                    if(coins - (shop.getAccessories().get(position).getItemPrice()) > 0){
+                        int paid = coins - (shop.getAccessories().get(position).getItemPrice());
+                        String updateQuery = "UPDATE Pet SET coins = ?";
+                        PreparedStatement ps = conn.prepareStatement(updateQuery);
+                        ps.setInt(1,paid);
+
+                        dialog.dismiss();
+                        Toast.makeText(AccessoriesList.this,
+                                shop.getAccessories().get(position).getItemName() + " has been added to your inventory!", Toast.LENGTH_LONG).show();
+                    } else{
+                        Toast.makeText(AccessoriesList.this,
+                                "You don't have enough coins to purchase this!", Toast.LENGTH_LONG).show();
+                    }
+
+
+                } catch(Exception e) {
+                    System.out.println("Could not get coins");
                 }
+
 
 
 

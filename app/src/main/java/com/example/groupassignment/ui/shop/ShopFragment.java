@@ -16,10 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.groupassignment.R;
 import com.example.groupassignment.ui.DataHolder;
 import com.example.groupassignment.ui.Inventory;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class ShopFragment extends Fragment implements View.OnClickListener{
 
@@ -43,7 +50,24 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
         TextView coins = (TextView) root.findViewById(R.id.coins);
 
 
-        coins.setText(DataHolder.getInstance().inventory.getCoins() + " coins");
+        //coins.setText(DataHolder.getInstance().inventory.getCoins() + " coins");
+
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:infs3634.db");
+            Statement st = conn.createStatement();
+
+            String selectQuery = "SELECT coins FROM Pet WHERE id = 1;";
+
+            ResultSet rs = st.executeQuery(selectQuery);
+            while(rs.next()){
+                int getCoins = rs.getInt(1);
+                coins.setText(getCoins + " coins");
+            }
+
+
+        } catch(Exception e) {
+            System.out.println("Could not get coins");
+        }
 
         dialog = new Dialog(getActivity());
 

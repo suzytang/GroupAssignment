@@ -14,6 +14,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.sql.SQLException;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -22,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            loadDatabase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
 
@@ -33,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
 
+
+    }
+
+    private void loadDatabase() throws SQLException {
+        Database.createPetTable();
+        Database.createAccessoriesTable();
+        Database.createWallpapersTable();
 
     }
 

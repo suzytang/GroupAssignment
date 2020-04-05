@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':sqlite-jdbc-3.27.2.1'
 rootProject.name='GroupAssignment'
