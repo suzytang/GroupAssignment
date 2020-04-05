@@ -1,9 +1,12 @@
 package com.example.groupassignment.ui.pet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -14,22 +17,29 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.groupassignment.R;
 
-public class PetFragment extends Fragment {
+public class PetFragment extends Fragment implements View.OnClickListener{
 
     private PetViewModel petViewModel;
+    private ImageView inventoryButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         petViewModel =
                 ViewModelProviders.of(this).get(PetViewModel.class);
         View root = inflater.inflate(R.layout.fragment_pet, container, false);
-        final TextView textView = root.findViewById(R.id.text_pet);
-        petViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+        ImageView inventoryButton = (ImageView) root.findViewById(R.id.inventoryButton);
+        inventoryButton.setOnClickListener(this);
+
         return root;
+
+
+
+    }
+
+    @Override
+    public void onClick(View v){
+        Intent intent = new Intent(getContext(), PetInventory.class);
+        startActivity(intent);
     }
 }

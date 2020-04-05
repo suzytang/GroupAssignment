@@ -18,12 +18,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.groupassignment.R;
+import com.example.groupassignment.ui.DataHolder;
+import com.example.groupassignment.ui.Inventory;
 
 public class ShopFragment extends Fragment implements View.OnClickListener{
 
     private ShopViewModel shopViewModel;
     private Button foodButton, accessoriesButton, wallpapersButton, cancelButton;
     private Dialog dialog;
+    //final Inventory inventory = new Inventory();
+
 
 
 
@@ -36,6 +40,10 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
         Button foodButton = (Button) root.findViewById(R.id.foodButton);
         Button accessoriesButton = (Button) root.findViewById(R.id.accessoriesButton);
         Button wallpapersButton = (Button) root.findViewById(R.id.wallpapersButton);
+        TextView coins = (TextView) root.findViewById(R.id.coins);
+
+
+        coins.setText(DataHolder.getInstance().inventory.getCoins() + " coins");
 
         dialog = new Dialog(getActivity());
 

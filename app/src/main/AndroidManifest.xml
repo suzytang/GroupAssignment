@@ -28,6 +28,8 @@
         </activity>
         <activity android:name=".ui.shop.WallpapersList">
         </activity>
+        <activity android:name=".ui.pet.PetInventory">
+        </activity>
 
 
     </application>

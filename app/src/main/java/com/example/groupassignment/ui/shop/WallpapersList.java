@@ -64,7 +64,7 @@ public class WallpapersList extends AppCompatActivity {
         TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
 
         shopItem.setText(shop.getWallpapers().get(position).getItemName());
-        shopPrice.setText(shop.getWallpapers().get(position).getItemPrice());
+        shopPrice.setText(shop.getWallpapers().get(position).getItemPrice() + " coins");
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {

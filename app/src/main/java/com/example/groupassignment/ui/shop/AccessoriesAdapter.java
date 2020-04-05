@@ -42,7 +42,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     @Override
     public void onBindViewHolder(AccessoriesAdapter.MyViewHolder holder, int position) {
         holder.itemName.setText(shop.getAccessories().get(position).getItemName());
-        holder.itemPrice.setText(shop.getAccessories().get(position).getItemPrice());
+        holder.itemPrice.setText(shop.getAccessories().get(position).getItemPrice() + " coins");
 
 
     }
