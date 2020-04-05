@@ -5,28 +5,154 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/wallpaper"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/background"
+        app:srcCompat="@drawable/wallpaper1" />
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="0dp"
+        android:layout_height="168dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/screen_background_light" />
+
+    <ImageView
+        android:id="@+id/background2"
+        android:layout_width="58dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/petName"
+        app:srcCompat="@android:drawable/screen_background_light" />
+
+    <ImageView
+        android:id="@+id/pet"
+        android:layout_width="192dp"
+        android:layout_height="289dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/wallpaper"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wallpaper"
+        app:srcCompat="@drawable/pet" />
+
+    <ImageButton
+        android:id="@+id/feedButton"
+        android:layout_width="143dp"
+        android:layout_height="106dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="2dp"
+        android:background="?android:selectableItemBackground"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/pet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/dog_bowl" />
+
     <TextView
-        android:id="@+id/text_pet"
-        android:layout_width="match_parent"
+        android:id="@+id/level"
+        android:layout_width="17dp"
+        android:layout_height="43dp"
+        android:text="1"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/medalImage"
+        app:layout_constraintEnd_toEndOf="@+id/background2"
+        app:layout_constraintStart_toEndOf="@+id/medalImage"
+        app:layout_constraintTop_toTopOf="@+id/medalImage" />
+
+    <ImageView
+        android:id="@+id/medalImage"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        app:layout_constraintStart_toStartOf="@+id/background2"
+        app:layout_constraintTop_toTopOf="@+id/background2"
+        app:srcCompat="@drawable/medal" />
+
+    <ImageView
+        android:id="@+id/thinkingImage"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/coin"
+        app:layout_constraintEnd_toStartOf="@+id/status"
+        app:layout_constraintTop_toTopOf="@+id/coin"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/thinking" />
+
+    <ImageView
+        android:id="@+id/coinImage"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="@+id/petName"
+        app:layout_constraintTop_toBottomOf="@+id/petName"
+        app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/coin"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="3,120"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/coinImage"
+        app:layout_constraintStart_toEndOf="@+id/coinImage"
+        app:layout_constraintTop_toTopOf="@+id/coinImage"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hungry"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/thinkingImage"
+        app:layout_constraintEnd_toEndOf="@+id/petName"
+        app:layout_constraintTop_toTopOf="@+id/thinkingImage"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/petName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:gravity="center"
+        android:text="Pet Name"
+        android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/inventoryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="223dp"
-        android:layout_marginLeft="223dp"
-        android:layout_marginTop="219dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_pet"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_width="120dp"
+        android:layout_height="137dp"
+        android:background="?android:selectableItemBackground"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="@+id/feedButton"
+        app:layout_constraintStart_toStartOf="@+id/feedButton"
+        app:layout_constraintTop_toTopOf="@+id/pet"
+        app:srcCompat="@drawable/backpack4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
