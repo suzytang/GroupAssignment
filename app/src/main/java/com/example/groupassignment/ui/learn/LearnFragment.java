@@ -50,7 +50,7 @@ public class LearnFragment extends Fragment {
         myArray = new ArrayList<String>();
 
         int i = 1;
-        for (int x = 1; x < 11; x++) {
+        for (int x = 1; x < 10; x++) {
             myArray.add(String.valueOf(i));
             i++;
         }
@@ -85,7 +85,7 @@ public class LearnFragment extends Fragment {
 
     public void clickResponse (int position){
         Intent intent = new Intent(getActivity(), LearnQuiz.class);
-        intent.putExtra("level", "Level " + myArray.get(position));
+        intent.putExtra("level", myArray.get(position));
         startActivity(intent);
 
     }

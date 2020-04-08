@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.groupassignment.LearnData;
 import com.example.groupassignment.R;
 
 import java.util.ArrayList;
@@ -38,8 +39,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.levelText.setText("Level " + (position + 1));
-
+        holder.levelText.setText(LearnData.getLearnData().get(10*position+1).getCategory());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
             itemView.setOnClickListener(this);
 
             this.listener = listener;
-            this.levelText = itemView.findViewById(R.id.levelText);
+            this.levelText = itemView.findViewById(R.id.category);
         }
 
         @Override

@@ -27,7 +27,7 @@ public class LearnQuiz extends AppCompatActivity {
         Intent intent = getIntent();
         final String level = intent.getStringExtra("level");
 
-        TextView levelText = (TextView) findViewById(R.id.levelText);
+        TextView levelText = (TextView) findViewById(R.id.category);
         Button learnButton = (Button) findViewById(R.id.learnButton);
         Button quizButton = (Button) findViewById(R.id.quizButton);
         levelText.setText(level);
