@@ -41,6 +41,15 @@ public class LearnQuiz extends AppCompatActivity {
             }
         });
 
+        quizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(LearnQuiz.this, QuizTest.class);
+                intent2.putExtra("level", level);
+                startActivity(intent2);
+            }
+        });
+
 
     }
 

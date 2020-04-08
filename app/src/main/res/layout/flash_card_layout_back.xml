@@ -17,11 +17,7 @@
             android:id="@+id/backText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="169dp"
-            android:layout_marginLeft="169dp"
             android:layout_marginTop="80dp"
-            android:layout_marginEnd="168dp"
-            android:layout_marginRight="168dp"
             android:text="TextView"
             android:textColor="@color/cardview_light_background"
             android:textSize="30sp"
@@ -36,13 +32,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginLeft="18dp"
-            android:layout_marginTop="64dp"
             android:layout_marginEnd="17dp"
             android:layout_marginRight="17dp"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backText"
             app:srcCompat="@android:color/background_light" />
+
+        <ImageButton
+            android:id="@+id/translatedSpeech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

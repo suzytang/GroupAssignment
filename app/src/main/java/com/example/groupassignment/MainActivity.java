@@ -1,6 +1,9 @@
 package com.example.groupassignment;
 
 import android.app.FragmentManager;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.example.groupassignment.ui.learn.LearnFragment;
@@ -17,15 +20,11 @@ import androidx.navigation.ui.NavigationUI;
 import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
-
-
-
+    DatabaseHelper dB = new DatabaseHelper(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        LearnData.getLearnData();
 
         try {
             loadDatabase();
@@ -42,9 +41,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-
-
     }
+
+//    public Cursor createDatabase() {
+//        DatabaseHelper dB = new DatabaseHelper(this);
+//        return dB.getAllData();
+//    }
 
     private void loadDatabase() throws SQLException {
         Database.createPetTable();
@@ -52,5 +54,4 @@ public class MainActivity extends AppCompatActivity {
         Database.createWallpapersTable();
 
     }
-
 }

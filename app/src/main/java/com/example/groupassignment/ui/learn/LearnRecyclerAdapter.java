@@ -1,5 +1,6 @@
 package com.example.groupassignment.ui.learn;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.groupassignment.DatabaseHelper;
 import com.example.groupassignment.LearnData;
 import com.example.groupassignment.R;
 

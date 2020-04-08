@@ -12,6 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="240dp">
 
+        <ImageButton
+            android:id="@+id/englishSpeech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
+
         <TextView
             android:id="@+id/frontText"
             android:layout_width="wrap_content"
@@ -28,11 +36,11 @@
             android:id="@+id/line"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frontText"
             app:srcCompat="@android:color/black" />
 
         <TextView
