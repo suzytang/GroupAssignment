@@ -69,7 +69,7 @@ public class LearnData {
         learnData.add(new LearnData(5,"General",0,"Bad",null));
         learnData.add(new LearnData(6,"General",0,"Please",null));
         learnData.add(new LearnData(7,"General",0,"Thank you",null));
-        learnData.add(new LearnData(8,"General",0,"You’re Welcome",null));
+        learnData.add(new LearnData(8,"General",0,"You’re welcome",null));
         learnData.add(new LearnData(9,"General",0,"Excuse me",null));
         learnData.add(new LearnData(10,"General",0,"I’m sorry",null));
         learnData.add(new LearnData(11,"Conversation",0,"Yes",null));
@@ -148,7 +148,7 @@ public class LearnData {
         learnData.add(new LearnData(84,"Emergency",0,"Ambulance",null));
         learnData.add(new LearnData(85,"Emergency",0,"Firefighter",null));
         learnData.add(new LearnData(86,"Emergency",1,"I need help",null));
-        learnData.add(new LearnData(87,"Emergency",1,"I need a...",null));
+        learnData.add(new LearnData(87,"Emergency",1,"I need a…",null));
         learnData.add(new LearnData(88,"Emergency",1,"Call the…",null));
         learnData.add(new LearnData(89,"Emergency",1,"Can I use your phone?",null));
         learnData.add(new LearnData(90,"Emergency",1,"Leave me alone",null));

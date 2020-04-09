@@ -18,6 +18,7 @@ public class QuizResults extends AppCompatActivity {
 
         Intent intent = getIntent();
         String level = intent.getStringExtra("level");
+//        ArrayList<QuizAnswers> results = (ArrayList<QuizAnswers>) getIntent().getSerializableExtra("QuizAnswers");
 
     }
 }

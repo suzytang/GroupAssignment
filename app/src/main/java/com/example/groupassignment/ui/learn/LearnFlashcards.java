@@ -37,14 +37,13 @@ public class LearnFlashcards extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.study_flashcards);
 
-        TextView levelText = (TextView) findViewById(R.id.category);
-        final Button next = (Button) findViewById(R.id.next);
-        final Button prev = (Button) findViewById(R.id.prev);
-        final TextView question = (TextView) findViewById(R.id.progress);
-        final TextView frontText = (TextView) findViewById(R.id.frontText);
-        final TextView backText = (TextView) findViewById(R.id.backText);
-        final Button menu = (Button) findViewById(R.id.menu);
-        final Button quiz = (Button) findViewById(R.id.quiz);
+        final ImageButton next = findViewById(R.id.next);
+        final ImageButton prev = findViewById(R.id.prev);
+        final TextView question = findViewById(R.id.progress);
+        final TextView frontText = findViewById(R.id.frontText);
+        final TextView backText = findViewById(R.id.backText);
+        final Button menu = findViewById(R.id.menu);
+        final Button quiz = findViewById(R.id.quiz);
 
 
 
@@ -53,7 +52,8 @@ public class LearnFlashcards extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String level = intent.getStringExtra("level");
-        levelText.setText("Level "+level);
+//        String category = LearnData.getLearnData().get(Integer.parseInt(level)*10 - 1).getCategory();
+
         question.setText((i+1)+"/10");
         final int position = Integer.parseInt(level);
 
@@ -146,6 +146,7 @@ public class LearnFlashcards extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             i--;
+            next.setEnabled(true);
             if (i < 10) {
                 prev.setEnabled(true);
                 frontText.setText(LearnData.getLearnData().get(10 * (position - 1) + i).getText());
@@ -167,7 +168,7 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
-        final EasyFlipView easyFlipView2 = (EasyFlipView) findViewById(R.id.easyFlipView);
+        final EasyFlipView easyFlipView2 = findViewById(R.id.easyFlipView);
         easyFlipView2.setFlipDuration(500);
         easyFlipView2.setToHorizontalType();
         easyFlipView2.setFlipTypeFromLeft();

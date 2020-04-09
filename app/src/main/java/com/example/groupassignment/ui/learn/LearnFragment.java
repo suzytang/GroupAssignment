@@ -70,7 +70,7 @@ public class LearnFragment extends Fragment {
         };
 
 
-        adapter = new LearnRecyclerAdapter(myArray, listener);
+        adapter = new LearnRecyclerAdapter(this.getContext(), myArray, listener);
 
         //Attach the adapter to the recyclerView
         recyclerView.setAdapter(adapter);

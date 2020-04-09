@@ -40,13 +40,15 @@ public class QuizTest extends AppCompatActivity {
         final String level = intent.getStringExtra("level");
         final int position = Integer.parseInt(level);
 
-        submit = (Button) findViewById(R.id.submit);
-        progress = (TextView) findViewById(R.id.progress);
-        question = (TextView) findViewById(R.id.question);
-        input = (EditText) findViewById(R.id.input);
+        submit = findViewById(R.id.submit);
+        progress = findViewById(R.id.progress);
+        question = findViewById(R.id.question);
+        input = findViewById(R.id.input);
 
-        right = (TextView) findViewById(R.id.right);
-        wrong = (TextView) findViewById(R.id.wrong);
+        right = findViewById(R.id.right);
+        wrong = findViewById(R.id.wrong);
+
+        final ArrayList<QuizAnswers> quizAnswers = new ArrayList<>();
 
         final ArrayList<Integer> shuffle = new ArrayList<Integer>();
         for (int j = 0; j < 10; j++) {
@@ -54,46 +56,45 @@ public class QuizTest extends AppCompatActivity {
         }
         Collections.shuffle(shuffle);
 
-        progress .setText((count+1)+"/10");
+        progress.setText((count+1)+"/10");
         question.setText(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(0)).getText());
-
-        final ArrayList<Integer> score = new ArrayList<Integer>();
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count != 10) {
-                    TranslateRequest tR = new TranslateRequest();
-                    String result = null;
-                    try {
-                        result = tR.execute(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText().toLowerCase()).get();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    if (input.getText().toString().toLowerCase().equals(result)) {
-                        score.add(1);
-                    } else {
-                        score.add(0);
-                    }
-
-                    count++;
-                    question.setText(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText());
-                    progress.setText((count + 1) + "/10");
-
-                    if (count == 9) {
-                        submit.setText("Complete");
-                        count++;
-                    }
-                } else {
-                    Intent intent = new Intent(QuizTest.this, QuizResults.class);
-                    intent.putExtra("level", level);
-                    //                    intent.putIntegerArrayListExtra("score",score);
-                    //                    intent.putExtra("questions",shuffle);
-                    startActivity(intent);
+            if (count != 10) {
+                TranslateRequest tR = new TranslateRequest();
+                String result = null;
+                try {
+                    result = tR.execute(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText().toLowerCase()).get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+
+                if (input.getText().toString().toLowerCase().equals(result)) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
+
+                quizAnswers.add(new QuizAnswers(count, LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText(), score, input.getText().toString(), result));
+
+                count++;
+                question.setText(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText());
+                progress.setText((count + 1) + "/10");
+
+                if (count == 9) {
+                    submit.setText("Complete");
+                    count++;
+                }
+            } else {
+                Intent intent = new Intent(QuizTest.this, QuizResults.class);
+                intent.putExtra("level", level);
+                intent.putExtra("quiz", quizAnswers);
+                startActivity(intent);
+            }
             }
         });
     }
