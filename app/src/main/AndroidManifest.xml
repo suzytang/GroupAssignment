@@ -31,6 +31,7 @@
         <activity android:name=".ui.shop.AccessoriesList" />
         <activity android:name=".ui.shop.WallpapersList" />
         <activity android:name=".ui.pet.PetInventory" />
+        <activity android:name=".MainActivity_Learn" />
     </application>
 
 </manifest>

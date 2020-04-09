@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.groupassignment.LearnData;
+import com.example.groupassignment.MainActivity_Learn;
 import com.example.groupassignment.R;
 import com.example.groupassignment.TranslateRequest;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -65,14 +66,13 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
-//        menu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(LearnFlashcards.this, ???.class);
-//                intent.putExtra("level", level);
-//                startActivity(intent);
-//            }
-//        });
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LearnFlashcards.this, MainActivity_Learn.class);
+                startActivity(intent);
+            }
+        });
 
         final EasyFlipView easyFlipView = (EasyFlipView) findViewById(R.id.easyFlipView);
         easyFlipView.setFlipDuration(500);
