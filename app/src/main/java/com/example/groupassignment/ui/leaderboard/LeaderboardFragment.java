@@ -76,11 +76,4 @@ public class LeaderboardFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    /*public void clickResponse (int position){
-        Intent intent = new Intent(getActivity(), LearnQuiz.class);
-        intent.putExtra("level", "Level " + myArray.get(position));
-        startActivity(intent);
-
-    }*/
-
 }

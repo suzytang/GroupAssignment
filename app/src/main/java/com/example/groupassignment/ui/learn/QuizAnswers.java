@@ -1,13 +1,23 @@
 package com.example.groupassignment.ui.learn;
 
-public class QuizAnswers {
+import java.io.Serializable;
+
+public class QuizAnswers implements Serializable {
     private int question;
     private String english;
     private int score;
     private String answer;
     private String translation;
 
-    public QuizAnswers(int count, String text, int score, String toString, String result) {
+    public QuizAnswers() {
+    }
+
+    public QuizAnswers(int question, String english, int score, String answer, String translation) {
+        this.question = question;
+        this.english = english;
+        this.score = score;
+        this.answer = answer;
+        this.translation = translation;
     }
 
     public int getQuestion() {

@@ -14,6 +14,7 @@ import com.example.groupassignment.LearnData;
 import com.example.groupassignment.R;
 import com.example.groupassignment.TranslateRequest;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
@@ -45,10 +46,7 @@ public class QuizTest extends AppCompatActivity {
         question = findViewById(R.id.question);
         input = findViewById(R.id.input);
 
-        right = findViewById(R.id.right);
-        wrong = findViewById(R.id.wrong);
-
-        final ArrayList<QuizAnswers> quizAnswers = new ArrayList<>();
+        final ArrayList<QuizAnswers> quizAnswers = new ArrayList<QuizAnswers>();
 
         final ArrayList<Integer> shuffle = new ArrayList<Integer>();
         for (int j = 0; j < 10; j++) {
@@ -56,46 +54,60 @@ public class QuizTest extends AppCompatActivity {
         }
         Collections.shuffle(shuffle);
 
-        progress.setText((count+1)+"/10");
+        progress.setText((count + 1) + "/10");
         question.setText(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(0)).getText());
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if (count != 10) {
-                TranslateRequest tR = new TranslateRequest();
-                String result = null;
-                try {
-                    result = tR.execute(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText().toLowerCase()).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                if (count < 10) {
+                    TranslateRequest tR = new TranslateRequest();
+                    String result = null;
+                    try {
+                        result = tR.execute(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText().toLowerCase()).get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-                if (input.getText().toString().toLowerCase().equals(result)) {
-                    score = 1;
-                } else {
-                    score = 0;
-                }
-
-                quizAnswers.add(new QuizAnswers(count, LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText(), score, input.getText().toString(), result));
-
-                count++;
-                question.setText(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText());
-                progress.setText((count + 1) + "/10");
-
-                if (count == 9) {
-                    submit.setText("Complete");
+                    if (input.getText().toString().toLowerCase().equals(result)) {
+                        score = 1;
+                    } else {
+                        score = 0;
+                    }
+                    QuizAnswers answer = new QuizAnswers(count+1, LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText(), score, input.getText().toString(), result);
+                    quizAnswers.add(answer);
                     count++;
+                    if (count == 9) {
+                        submit.setText("Complete");
+                    }
+                    if (count < 10) {
+                        question.setText(LearnData.getLearnData().get(10 * (position - 1) + shuffle.get(count)).getText());
+                        progress.setText((count + 1) + "/10");
+                        input.getText().clear();
+                    } else {
+                        Intent intent = new Intent(QuizTest.this, QuizSummary.class);
+                        Bundle args = new Bundle();
+                        args.putSerializable("ARRAYLIST", quizAnswers);
+                        intent.putExtra("BUNDLE", args);
+                        intent.putExtra("level", level);
+                        startActivity(intent);
+                    }
                 }
-            } else {
-                Intent intent = new Intent(QuizTest.this, QuizResults.class);
-                intent.putExtra("level", level);
-                intent.putExtra("quiz", quizAnswers);
-                startActivity(intent);
-            }
+//                String s = "";
+//                for (int i = 0; i < quizAnswers.size(); i++) {
+//                    s += quizAnswers.get(i).getQuestion() + " ,";
+//                    s += quizAnswers.get(i).getEnglish() + " ,";
+//                    s += quizAnswers.get(i).getScore() + " ,";
+//                    s += quizAnswers.get(i).getAnswer() + " ,";
+//                    s += quizAnswers.get(i).getTranslation() + " ,";
+//                    s += "\n";
+//                }
+//                check.setText(s);
             }
         });
     }
 }
+
+
