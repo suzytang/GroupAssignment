@@ -62,15 +62,15 @@ public class LearnFragment extends Fragment {
 
 
 
-        LearnRecyclerAdapter.RecyclerViewClickListener listener = new LearnRecyclerAdapter.RecyclerViewClickListener() {
+        /*LearnRecyclerAdapter.RecyclerViewClickListener listener = new LearnRecyclerAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
                 clickResponse(position);
             }
-        };
+        };*/
 
 
-        adapter = new LearnRecyclerAdapter(this.getContext(), myArray, listener);
+        adapter = new LearnRecyclerAdapter(this.getContext(), myArray);
 
         //Attach the adapter to the recyclerView
         recyclerView.setAdapter(adapter);
@@ -83,11 +83,11 @@ public class LearnFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    public void clickResponse (int position){
+    /*public void clickResponse (int position){
         Intent intent = new Intent(getActivity(), LearnQuiz.class);
         intent.putExtra("level", myArray.get(position));
         startActivity(intent);
 
-    }
+    }*/
 
 }

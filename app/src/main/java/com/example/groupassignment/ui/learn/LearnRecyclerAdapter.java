@@ -25,11 +25,11 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     private Context mContext;
 
     ArrayList<String> myArray;
-    RecyclerViewClickListener listener;
+    //RecyclerViewClickListener listener;
 
-    public LearnRecyclerAdapter(Context context,ArrayList<String> myArray, RecyclerViewClickListener listener) {
+    public LearnRecyclerAdapter(Context context,ArrayList<String> myArray) {
         this.myArray = myArray;
-        this.listener = listener;
+        //this.listener = listener;
         this.mContext = context;
     }
 
@@ -42,7 +42,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     @Override
     public MyViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.learn_levels, parent, false);
-        return new MyViewHolder(v, listener);
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -73,26 +73,26 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView levelText;
-        RecyclerViewClickListener listener;
+        //RecyclerViewClickListener listener;
         Button quiz;
         Button learn;
 
-        public MyViewHolder(View itemView, RecyclerViewClickListener listener) {
+        public MyViewHolder(View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(this);
-            this.listener = listener;
+            //itemView.setOnClickListener(this);
+            //this.listener = listener;
             this.levelText = itemView.findViewById(R.id.category);
             this.quiz = itemView.findViewById(R.id.quiz);
             this.learn = itemView.findViewById(R.id.learn);
         }
 
-        @Override
+        /*@Override
         public void onClick(View v) {
             Log.d(TAG, "onClick: inside myadapter on click");
             listener.onClick(v,getAdapterPosition());
-        }
+        }*/
     }
 }
