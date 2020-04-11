@@ -35,7 +35,12 @@ public class QuizTest extends AppCompatActivity {
         Intent intent = getIntent();
         final int level = intent.getIntExtra("level", 0);
         final String table = intent.getStringExtra("table");
-        this.setTitle(LearnCategories.getCategories().get(level-1).getCategoryName()+" Quiz");
+        if (table.equals("learn_table")) {
+            this.setTitle(LearnCategories.getCategories().get(level - 1).getCategoryName() + " Quiz");
+        } else {
+            this.setTitle("Self-Learn Quiz");
+        }
+
 
         submit = findViewById(R.id.submit);
         progress = findViewById(R.id.progress);
@@ -43,17 +48,17 @@ public class QuizTest extends AppCompatActivity {
         input = findViewById(R.id.input);
 
         final ArrayList<QuizAnswers> quizAnswers = new ArrayList<QuizAnswers>();
-
-        final ArrayList<Integer> shuffle = new ArrayList<Integer>();
-        for (int j = 1; j < 11; j++) {
-            shuffle.add(j);
-        }
-        Collections.shuffle(shuffle);
-
         int amount = 0;
         if (table.equals("learn_table")) {
             amount = 10;
+        } else {
+            amount = myDb.rowsUserData();
         }
+        final ArrayList<Integer> shuffle = new ArrayList<Integer>();
+        for (int j = 1; j < amount+1; j++) {
+            shuffle.add(j);
+        }
+        Collections.shuffle(shuffle);
 
         progress.setText(i + "/"+amount);
         question.setText(myDb.pullData(table, "Expression",level,shuffle.get(i-1)));

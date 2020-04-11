@@ -2,6 +2,7 @@ package com.example.groupassignment;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.concurrent.ExecutionException;
@@ -10,7 +11,7 @@ import java.util.concurrent.ExecutionException;
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "463232243324322242387238348792389323423423223498323487239842234287329823892379238347928379238.db";
+    public static final String DATABASE_NAME = "463232243322348923724322242387238282483793248732874237329823892379238347928379238.db";
     private static final int DATABASE_VERSION = 1;
     public static final String COL_1 = "Level";
     public static final String COL_2 = "Position";
@@ -24,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table learn_table (ID INTEGER PRIMARY KEY AUTOINCREMENT,Level INTEGER,Position INTEGER, Expression TEXT, Translation TEXT)");
-        db.execSQL("create table user_table (ID INTEGER PRIMARY KEY AUTOINCREMENT,Expression TEXT, Translation TEXT)");
+        db.execSQL("create table user_table (ID INTEGER PRIMARY KEY AUTOINCREMENT,Level INTEGER,Position INTEGER, Expression TEXT, Translation TEXT)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (1, 1, 'Hello', null)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (1, 2, 'Goodbye', null)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (1, 3, 'How are you?', null)");
@@ -138,14 +139,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS user_table");
         onCreate(db);
     }
-//
-//    public Cursor getAllData() {
+    //
+    public Cursor getAllData(String table) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor csr = db.rawQuery("select * from "+table,null);
+        if (csr != null) {
+            csr.moveToFirst();
+        }
+        return csr;
+    }
+
+//    public boolean empty() {
 //        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor res = db.rawQuery("select * from learn_table",null);
-//        if (res != null) {
-//            res.moveToFirst();
+//        String count = "SELECT count(*) FROM user_table";
+//        Cursor csr = db.rawQuery(count, null);
+//        csr.moveToFirst();
+//        int i = csr.getInt(0);
+//        if (i > 0) {
+//            return false;
+//        } else {
+//            return true;
 //        }
-//        return res;
 //    }
 
     public String getData(SQLiteDatabase db, String table, String column, int i) {
@@ -178,5 +192,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("update "+table+" set "+column+"='"+value+"' where ID = "+i);
         db.close();
+    }
+
+    public void storeUserData(String english, String translation) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int i = rowsUserData() + 1;
+        String translationFormatted = translation.replace("'","''");
+        db.execSQL("insert into user_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (0, "+i+", '"+english+"', '"+translationFormatted+"')");
+        db.close();
+    }
+
+    public int rowsUserData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rows = (int) DatabaseUtils.queryNumEntries(db, "user_table");
+        return rows;
+    }
+
+    public boolean dataExists(String check) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean exists = false;
+        Cursor csr = db.rawQuery("select "+COL_3+" from user_table",null);
+        while (csr.moveToNext()) {
+            if (check.toLowerCase().equals(csr.getString(0).toLowerCase())) {
+                exists = true;
+            }
+        }
+        return exists;
     }
 }
