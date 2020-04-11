@@ -19,11 +19,6 @@ public class MainActivity_Learn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_learn);
 
-        try {
-            loadDatabase();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
 
@@ -41,10 +36,5 @@ public class MainActivity_Learn extends AppCompatActivity {
 //        return dB.getAllData();
 //    }
 
-    private void loadDatabase() throws SQLException {
-        Database.createPetTable();
-        Database.createAccessoriesTable();
-        Database.createWallpapersTable();
 
-    }
 }

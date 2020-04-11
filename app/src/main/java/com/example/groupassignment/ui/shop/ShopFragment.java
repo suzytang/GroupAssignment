@@ -18,7 +18,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.groupassignment.DatabaseManager;
 import com.example.groupassignment.R;
+import com.example.groupassignment.SQLiteHelper;
 import com.example.groupassignment.ui.DataHolder;
 import com.example.groupassignment.ui.Inventory;
 
@@ -33,8 +35,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
     private ShopViewModel shopViewModel;
     private Button foodButton, accessoriesButton, wallpapersButton, cancelButton;
     private Dialog dialog;
-    //final Inventory inventory = new Inventory();
-
 
 
 
@@ -49,25 +49,9 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
         Button wallpapersButton = (Button) root.findViewById(R.id.wallpapersButton);
         TextView coins = (TextView) root.findViewById(R.id.coins);
 
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
 
-        //coins.setText(DataHolder.getInstance().inventory.getCoins() + " coins");
-
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:infs3634.db");
-            Statement st = conn.createStatement();
-
-            String selectQuery = "SELECT coins FROM Pet WHERE id = 1;";
-
-            ResultSet rs = st.executeQuery(selectQuery);
-            while(rs.next()){
-                int getCoins = rs.getInt(1);
-                coins.setText(getCoins + " coins");
-            }
-
-
-        } catch(Exception e) {
-            System.out.println("Could not get coins");
-        }
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
 
         dialog = new Dialog(getActivity());
 

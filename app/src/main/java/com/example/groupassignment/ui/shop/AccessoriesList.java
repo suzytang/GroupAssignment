@@ -1,13 +1,9 @@
 package com.example.groupassignment.ui.shop;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,18 +14,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.groupassignment.R;
-import com.example.groupassignment.ui.DataHolder;
-import com.example.groupassignment.ui.Inventory;
+import com.example.groupassignment.SQLiteHelper;
 
-import org.w3c.dom.Text;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 public class AccessoriesList extends AppCompatActivity {
 
@@ -37,23 +24,21 @@ public class AccessoriesList extends AppCompatActivity {
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     Dialog dialog;
+    SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String COINS = "text";
+
 
 
 
     final Shop shop = new Shop();
-    //final Inventory inventory = new Inventory();
-    //ArrayList<Shop> accessories;
-    //ArrayList <Inventory> accessoriesInventory;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_list);
-
-        //accessories = new ArrayList<Shop>();
-
-
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -64,7 +49,11 @@ public class AccessoriesList extends AppCompatActivity {
         AccessoriesAdapter.RecyclerViewClickListener listener = new AccessoriesAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                clickResponse(position);
+                try {
+                    clickResponse(position);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
             }
         };
@@ -72,12 +61,28 @@ public class AccessoriesList extends AppCompatActivity {
         adapter = new AccessoriesAdapter(shop.getAccessories(), listener);
         recyclerView.setAdapter(adapter);
 
+        //TextView coins = (TextView) findViewById(R.id.coins);
+        /*try {Integer.parseInt(
+            dbManager.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Cursor cursor = dbManager.fetch();
+        cursor.moveToFirst();
+        coins.setText(Integer.toString(cursor.getInt(3))+ " coins");*/
+
+
+        TextView coins = (TextView) findViewById(R.id.coins);
+
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+
+
     }
-    public void clickResponse (final int position){
+    public void clickResponse (final int position) throws SQLException {
+
 
         final Dialog dialog = new Dialog(this);
-
-
 
         dialog.setContentView(R.layout.shop_popup);
         Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
@@ -85,8 +90,14 @@ public class AccessoriesList extends AppCompatActivity {
         TextView shopItem = (TextView) dialog.findViewById(R.id.shopItem);
         TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
 
+        final TextView coins = (TextView) findViewById(R.id.coins);
+
         shopItem.setText(shop.getAccessories().get(position).getItemName());
         shopPrice.setText(shop.getAccessories().get(position).getItemPrice() + " coins");
+
+
+
+
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +107,37 @@ public class AccessoriesList extends AppCompatActivity {
             }
         });
 
+
         buyButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                String accessory = shop.getAccessories().get(position).getItemName();
+                int accessoryQty = sqLiteHelper.getItem(SQLiteHelper.COL_4, "'" + accessory + "'");
+                if (accessoryQty == 0){
+                    int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+
+                    if (coinsCurrrent - (shop.getAccessories().get(position).getItemPrice()) >= 0){
+                        int paid = (coinsCurrrent - (shop.getAccessories().get(position).getItemPrice()));
+                        sqLiteHelper.update(1, "coins", "coins", paid);
+                        int id = sqLiteHelper.getItem(SQLiteHelper.COL_1, "'" + accessory + "'");
+                        sqLiteHelper.update(id, "'" + accessory + "'", "Accessory", 1);
+
+                        dialog.dismiss();
+                        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+                        Toast.makeText(AccessoriesList.this,
+                                shop.getAccessories().get(position).getItemName() + " has been added to your inventory!", Toast.LENGTH_LONG).show();
+
+                    } else{
+                        Toast.makeText(AccessoriesList.this,
+                                "You don't have enough coins to purchase this!", Toast.LENGTH_LONG).show();
+                    }
+                } else{
+                    Toast.makeText(AccessoriesList.this,
+                            "You already have this item in your inventory", Toast.LENGTH_LONG).show();
+                }
+
+
 
 
                 /*if ((DataHolder.getInstance().inventory.getCoins()) - (shop.getAccessories().get(position).getItemPrice()) > 0){
@@ -115,7 +154,9 @@ public class AccessoriesList extends AppCompatActivity {
                 }*/
 
 
-                try {
+
+
+                /*try {
                     Connection conn = DriverManager.getConnection("jdbc:sqlite:infs3634.db");
                     Statement st = conn.createStatement();
 
@@ -142,7 +183,7 @@ public class AccessoriesList extends AppCompatActivity {
 
                 } catch(Exception e) {
                     System.out.println("Could not get coins");
-                }
+                }*/
 
 
 
@@ -155,6 +196,5 @@ public class AccessoriesList extends AppCompatActivity {
 
     }
 
-
-
 }
+
