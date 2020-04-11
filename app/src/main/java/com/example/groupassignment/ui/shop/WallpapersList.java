@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.groupassignment.DatabaseManager;
 import com.example.groupassignment.R;
+import com.example.groupassignment.SQLiteHelper;
 
 import java.util.ArrayList;
 
@@ -51,6 +53,13 @@ public class WallpapersList extends AppCompatActivity {
 
         adapter = new WallpapersAdapter(shop.getWallpapers(), listener);
         recyclerView.setAdapter(adapter);
+
+        TextView coins = (TextView) findViewById(R.id.coins);
+
+
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(WallpapersList.this);
+
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
 
     }
     public void clickResponse (int position){

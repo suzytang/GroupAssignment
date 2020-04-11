@@ -4,10 +4,12 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteTableLockedException;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.groupassignment.ui.learn.LearnFragment;
+import com.example.groupassignment.ui.shop.Shop;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +21,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper dB;
+    SQLiteDatabase sqLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +35,7 @@ public class MainActivity extends AppCompatActivity {
         dB = new DatabaseHelper(this);
         dB.updateData("learn_table","Translation","S''il vous plaît",6);
 
-        try {
-            loadDatabase();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
 
@@ -46,6 +46,30 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
+        sqLiteHelper.update(1, "coins", "coins", 100);
+
+        try{
+            final Shop shop = new Shop();
+            ArrayList<Shop> accessories = new ArrayList<>();
+            for (int i = 0; i < accessories.size(); i++){
+                String name = shop.getAccessories().get(i).getItemName();
+                sqLiteHelper.insert("'"+name+"'", "Accessories", 0);
+                System.out.println("insert success");
+            }
+            ArrayList<Shop> wallpapers = new ArrayList<>();
+            for (int i = 0; i < wallpapers.size(); i++){
+                String name = shop.getWallpapers().get(i).getItemName();
+                sqLiteHelper.insert("'"+name+"'", "Wallpapers", 0);
+                System.out.println("insert success");
+            }
+
+        }catch(Exception e){
+            System.out.println("insert failed");
+        }
+
+        //System.out.println(sqLiteHelper.getTableAsString(sqLiteDatabase, "inventory_table"));
+
     }
 
 //    public Cursor createDatabase() {
@@ -53,10 +77,4 @@ public class MainActivity extends AppCompatActivity {
 //        return dB.getAllData();
 //    }
 
-    private void loadDatabase() throws SQLException {
-        Database.createPetTable();
-        Database.createAccessoriesTable();
-        Database.createWallpapersTable();
-
-    }
 }
