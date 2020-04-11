@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "2.db";
+    public static final String DATABASE_NAME = "3.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NAME";
@@ -82,16 +82,8 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         String data;
         Cursor csr = db.rawQuery("select "+column+" from "+TABLE_NAME+" where " +COL_1+ " = "+i,null);
-
-        if( csr != null && csr.moveToFirst() ){
-            data = csr.getString(csr.getColumnIndex(column));
-            csr.close();
-        }
-
         csr.moveToFirst();
         data = csr.getString(csr.getColumnIndex(column));
-
-
         return data;
     }
 
