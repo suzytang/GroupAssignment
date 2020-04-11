@@ -58,7 +58,7 @@ public class Shop {
         ArrayList<Shop> accessories = new ArrayList<>();
         accessories.add(new Shop("Sunglasses", "Accessories", 20 ,0));
         accessories.add(new Shop("Cap", "Accessories", 20,0));
-        accessories.add(new Shop("Top hat", "Accessories", 20,0));
+        accessories.add(new Shop("Top Hat", "Accessories", 20,0));
         accessories.add(new Shop("Glasses", "Accessories", 20,0));
         accessories.add(new Shop("Pirate Hat", "Accessories", 20,0));
         accessories.add(new Shop("Wig", "Accessories", 20,0));
