@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.learn.Practice"></activity>
+        <activity android:name=".ui.selflearn.Translator"></activity>
+        <activity android:name=".ui.learn.Practice" />
         <activity android:name=".ui.learn.QuizSummary" />
         <activity android:name=".ui.learn.QuizResults" />
         <activity android:name=".ui.learn.QuizTest" />

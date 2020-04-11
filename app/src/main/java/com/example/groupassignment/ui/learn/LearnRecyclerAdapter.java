@@ -79,7 +79,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
         public MyViewHolder(View itemView) {
             super(itemView);
             this.levelText = itemView.findViewById(R.id.category);
-            this.quiz = itemView.findViewById(R.id.quiz);
+            this.quiz = itemView.findViewById(R.id.storeButton);
             this.learn = itemView.findViewById(R.id.learn);
             this.practice = itemView.findViewById(R.id.practice);
         }

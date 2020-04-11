@@ -36,7 +36,7 @@ public class Practice extends AppCompatActivity {
         final TextView selection = findViewById(R.id.selection);
 
         final Button menu = findViewById(R.id.menu);
-        final Button quiz = findViewById(R.id.quiz);
+        final Button quiz = findViewById(R.id.storeButton);
         final Button learn = findViewById(R.id.learn);
 
         Intent intent = getIntent();
@@ -170,6 +170,7 @@ public class Practice extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Practice.this, QuizTest.class);
                 intent.putExtra("level", level);
+                intent.putExtra("table", table);
                 startActivity(intent);
             }
         });
@@ -179,6 +180,7 @@ public class Practice extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Practice.this, LearnFlashcards.class);
                 intent.putExtra("level",level);
+                intent.putExtra("table", table);
                 startActivity(intent);
             }
         });

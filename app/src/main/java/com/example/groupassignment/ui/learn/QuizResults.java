@@ -21,7 +21,13 @@ public class QuizResults extends AppCompatActivity {
 
         Intent intent = getIntent();
         int level = intent.getIntExtra("level", 0);
-        this.setTitle(LearnCategories.getCategories().get(level-1).getCategoryName()+" Quiz Results");
+
+        if (level == 0) {
+            this.setTitle("Self-Learn Quiz Results");
+        } else {
+            this.setTitle(LearnCategories.getCategories().get(level - 1).getCategoryName() + " Quiz Results");
+        }
+
         Bundle args = intent.getBundleExtra("bundle");
         ArrayList<QuizAnswers> quizAnswers = (ArrayList<QuizAnswers>) args.getSerializable("arraylist");
 

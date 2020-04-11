@@ -31,7 +31,13 @@ public class QuizSummary extends AppCompatActivity {
 
         Intent intent1 = getIntent();
         final int level = intent1.getIntExtra("level", 0);
-        this.setTitle(LearnCategories.getCategories().get(level-1).getCategoryName()+" Quiz Results");
+
+        if (level == 0) {
+            this.setTitle("Self-Learn Quiz Results");
+        } else {
+            this.setTitle(LearnCategories.getCategories().get(level - 1).getCategoryName() + " Quiz Results");
+        }
+
         final Bundle args = intent1.getBundleExtra("bundle");
         final ArrayList<QuizAnswers> quizAnswers = (ArrayList<QuizAnswers>) args.getSerializable("arraylist");
 
@@ -40,8 +46,10 @@ public class QuizSummary extends AppCompatActivity {
             total += quizAnswers.get(i).getScore();
         }
 
-        score.setText("You scored "+total+" out of 10");
-        if (total < 5) {
+        score.setText("You scored "+total+" out of "+quizAnswers.size());
+
+        double percentage = total/quizAnswers.size();
+        if (percentage < 0.5) {
             grade.setText("Failed!");
         } else {
             grade.setText("Passed!");

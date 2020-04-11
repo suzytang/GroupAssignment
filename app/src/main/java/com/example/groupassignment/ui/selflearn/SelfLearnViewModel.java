@@ -3,11 +3,11 @@ package com.example.groupassignment.ui.selflearn;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class LeaderboardViewModel extends ViewModel {
+public class SelfLearnViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public LeaderboardViewModel() {
+    public SelfLearnViewModel() {
         /*mText = new MutableLiveData<>();
         mText.setValue("This is leaderboard fragment");*/
     }

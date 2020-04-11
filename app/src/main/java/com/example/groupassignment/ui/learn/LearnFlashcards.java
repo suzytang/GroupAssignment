@@ -21,7 +21,7 @@ import java.util.Locale;
 import static java.util.Locale.FRENCH;
 
 public class LearnFlashcards extends AppCompatActivity {
-    final Locale lang = FRENCH;
+    final public static Locale lang = FRENCH;
     DatabaseHelper myDb = new DatabaseHelper(this);
 
     //EasyFlipView easyFlipView;
@@ -43,20 +43,24 @@ public class LearnFlashcards extends AppCompatActivity {
         final TextView frontText = findViewById(R.id.frontText);
         final TextView backText = findViewById(R.id.backText);
         final Button menu = findViewById(R.id.menu);
-        final Button quiz = findViewById(R.id.quiz);
+        final Button quiz = findViewById(R.id.storeButton);
 
 
 
         translatedSpeech = findViewById(R.id.translatedSpeech);
         englishSpeech = findViewById(R.id.englishSpeech);
+
         int amount = 0;
         Intent intent = getIntent();
         final int level = intent.getIntExtra("level",0);
         final String table = intent.getStringExtra("table");
         if (table.equals("learn_table")) {
             amount = 10;
+            this.setTitle(LearnCategories.getCategories().get(level - 1).getCategoryName() + " Flashcards");
+        } else {
+            amount = myDb.rowsUserData();
+            this.setTitle("Self-Learn Flashcards");
         }
-        this.setTitle(LearnCategories.getCategories().get(level-1).getCategoryName()+" Flash Cards");
 
         question.setText((i)+"/"+amount);
 
@@ -65,6 +69,7 @@ public class LearnFlashcards extends AppCompatActivity {
             public void onClick(View v) {
             Intent intent = new Intent(LearnFlashcards.this, QuizTest.class);
                 intent.putExtra("level", level);
+                intent.putExtra("table", table);
             startActivity(intent);
             }
         });
@@ -73,6 +78,8 @@ public class LearnFlashcards extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LearnFlashcards.this, MainActivity_Learn.class);
+                intent.putExtra("level", level);
+                intent.putExtra("table", table);
                 startActivity(intent);
             }
         });
@@ -131,7 +138,7 @@ public class LearnFlashcards extends AppCompatActivity {
                 frontText.setText(myDb.pullData(table,"Expression",level,i));
                 backText.setText(myDb.pullData(table,"Translation",level,i));
                 question.setText((i)+"/"+ finalAmount1);
-                if (i == finalAmount1) {
+                if (i == 1) {
                     prev.setEnabled(false);
                 }
             }
@@ -182,14 +189,14 @@ public class LearnFlashcards extends AppCompatActivity {
         translatedSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            backText.setText(myDb.pullData(table,"Translation",level,i));
+            speak(translatedTTS,myDb.pullData(table,"Translation",level,i));
             }
         });
 
         englishSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            frontText.setText(myDb.pullData(table,"Expression",level,i));
+            speak(englishTTS,myDb.pullData(table,"Expression",level,i));
             }
         });
     }
