@@ -1,6 +1,5 @@
-package com.example.groupassignment.ui.leaderboard;
+package com.example.groupassignment.ui.selflearn;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

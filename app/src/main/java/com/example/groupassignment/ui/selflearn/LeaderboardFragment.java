@@ -1,9 +1,10 @@
-package com.example.groupassignment.ui.leaderboard;
+package com.example.groupassignment.ui.selflearn;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,38 +39,55 @@ public class LeaderboardFragment extends Fragment {
                 textView.setText(s);
             }
         });*/
+        Button translator = root.findViewById(R.id.translatorButton);
+        Button flashcards = root.findViewById(R.id.flashcardsButton);
 
-        myArray = new ArrayList<String>();
-
-        int i = 1;
-        for (int x = 1; x < 11; x++) {
-            myArray.add(String.valueOf(i));
-            i++;
-        }
-
-        recyclerView = root.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-
-
-
-        /*LearnRecyclerAdapter.RecyclerViewClickListener listener = new LearnRecyclerAdapter.RecyclerViewClickListener() {
+        translator.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view, int position) {
-                clickResponse(position);
+            public void onClick(View v) {
             }
-        };*/
+        });
 
-
-        //adapter = new LearnRecyclerAdapter(myArray, listener);
-        adapter = new LeaderboardRecyclerAdapter(myArray);
-
-        //Attach the adapter to the recyclerView
-        recyclerView.setAdapter(adapter);
-
+        flashcards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         return root;
     }
+
+//
+//        myArray = new ArrayList<String>();
+//
+//        int i = 1;
+//        for (int x = 1; x < 11; x++) {
+//            myArray.add(String.valueOf(i));
+//            i++;
+//        }
+//
+//        recyclerView = root.findViewById(R.id.recyclerView);
+//        recyclerView.setHasFixedSize(true);
+//        layoutManager = new LinearLayoutManager(getActivity());
+//        recyclerView.setLayoutManager(layoutManager);
+//
+//
+//
+//        /*LearnRecyclerAdapter.RecyclerViewClickListener listener = new LearnRecyclerAdapter.RecyclerViewClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                clickResponse(position);
+//            }
+//        };*/
+//
+//
+//        //adapter = new LearnRecyclerAdapter(myArray, listener);
+//        adapter = new LeaderboardRecyclerAdapter(myArray);
+//
+//        //Attach the adapter to the recyclerView
+//        recyclerView.setAdapter(adapter);
+//
+//        return root;
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

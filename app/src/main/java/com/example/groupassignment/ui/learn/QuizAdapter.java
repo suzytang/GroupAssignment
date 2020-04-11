@@ -46,7 +46,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         public QuizViewHolder(View v) {
             super(v);
             card = v.findViewById(R.id.cardView);
-            english = v.findViewById(R.id.english);
+            english = v.findViewById(R.id.englishTF);
             userAnswer = v.findViewById(R.id.userAnswer);
             correctAnswer = v.findViewById(R.id.correctAnswer);
             question = v.findViewById(R.id.question);

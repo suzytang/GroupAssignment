@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.example.groupassignment.ui.learn.LearnFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,11 +21,15 @@ import androidx.navigation.ui.NavigationUI;
 import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
-    DatabaseHelper dB = new DatabaseHelper(this);
+    DatabaseHelper dB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dB = new DatabaseHelper(this);
+        dB.updateData("learn_table","Translation","S''il vous plaît",6);
 
         try {
             loadDatabase();

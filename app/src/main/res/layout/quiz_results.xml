@@ -21,9 +21,9 @@
             android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/correctAnswer"
-            app:layout_constraintEnd_toEndOf="@+id/english"
-            app:layout_constraintStart_toStartOf="@+id/english"
-            app:layout_constraintTop_toBottomOf="@+id/english" />
+            app:layout_constraintEnd_toEndOf="@+id/englishTF"
+            app:layout_constraintStart_toStartOf="@+id/englishTF"
+            app:layout_constraintTop_toBottomOf="@+id/englishTF" />
 
         <TextView
             android:id="@+id/correctAnswer"
@@ -34,12 +34,12 @@
             android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/english"
-            app:layout_constraintStart_toStartOf="@+id/english"
+            app:layout_constraintEnd_toEndOf="@+id/englishTF"
+            app:layout_constraintStart_toStartOf="@+id/englishTF"
             app:layout_constraintTop_toBottomOf="@+id/userAnswer" />
 
         <TextView
-            android:id="@+id/english"
+            android:id="@+id/englishTF"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -61,9 +61,9 @@
             android:letterSpacing=".15"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/english"
-            app:layout_constraintEnd_toEndOf="@+id/english"
-            app:layout_constraintStart_toStartOf="@+id/english"
+            app:layout_constraintBottom_toTopOf="@+id/englishTF"
+            app:layout_constraintEnd_toEndOf="@+id/englishTF"
+            app:layout_constraintStart_toStartOf="@+id/englishTF"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,10 +20,10 @@ public class QuizResults extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_results);
 
         Intent intent = getIntent();
-        String level = intent.getStringExtra("level");
-        this.setTitle(level+" Quiz Results");
-        Bundle args = intent.getBundleExtra("BUNDLE");
-        ArrayList<QuizAnswers> quizAnswers = (ArrayList<QuizAnswers>) args.getSerializable("ARRAYLIST");
+        int level = intent.getIntExtra("level", 0);
+        this.setTitle(LearnCategories.getCategories().get(level-1).getCategoryName()+" Quiz Results");
+        Bundle args = intent.getBundleExtra("bundle");
+        ArrayList<QuizAnswers> quizAnswers = (ArrayList<QuizAnswers>) args.getSerializable("arraylist");
 
         RecyclerView mRecyclerView = findViewById(R.id.rvList);
         mRecyclerView.setHasFixedSize(true);

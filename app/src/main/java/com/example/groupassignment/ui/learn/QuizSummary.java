@@ -25,15 +25,15 @@ public class QuizSummary extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_summary);
 
         grade = findViewById(R.id.grade);
-        score = findViewById(R.id.english);
+        score = findViewById(R.id.englishTF);
         viewResults = findViewById(R.id.viewResults);
         menu = findViewById(R.id.menu);
 
         Intent intent1 = getIntent();
-        final String level = intent1.getStringExtra("level");
-        this.setTitle(level+" Quiz Results");
-        final Bundle args = intent1.getBundleExtra("BUNDLE");
-        final ArrayList<QuizAnswers> quizAnswers = (ArrayList<QuizAnswers>) args.getSerializable("ARRAYLIST");
+        final int level = intent1.getIntExtra("level", 0);
+        this.setTitle(LearnCategories.getCategories().get(level-1).getCategoryName()+" Quiz Results");
+        final Bundle args = intent1.getBundleExtra("bundle");
+        final ArrayList<QuizAnswers> quizAnswers = (ArrayList<QuizAnswers>) args.getSerializable("arraylist");
 
         int total = 0;
         for (int i = 0; i < quizAnswers.size(); i++) {
@@ -59,8 +59,8 @@ public class QuizSummary extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent2 = new Intent(QuizSummary.this, QuizResults.class);;
-                args.putSerializable("ARRAYLIST", quizAnswers);
-                intent2.putExtra("BUNDLE", args);
+                args.putSerializable("arraylist", quizAnswers);
+                intent2.putExtra("bundle", args);
                 intent2.putExtra("level", level);
                 startActivity(intent2);
             }

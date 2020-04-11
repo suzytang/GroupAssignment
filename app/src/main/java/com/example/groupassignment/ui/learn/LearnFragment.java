@@ -27,12 +27,9 @@ import java.util.ArrayList;
 public class LearnFragment extends Fragment {
 
     private LearnViewModel learnViewModel;
-    ArrayList<String> myArray;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
-
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,20 +44,12 @@ public class LearnFragment extends Fragment {
             }
         });*/
 
-        myArray = new ArrayList<String>();
-
-        int i = 1;
-        for (int x = 1; x < 10; x++) {
-            myArray.add(String.valueOf(i));
-            i++;
-        }
-
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-
+        ArrayList<LearnCategories> categories = LearnCategories.getCategories();
 
         /*LearnRecyclerAdapter.RecyclerViewClickListener listener = new LearnRecyclerAdapter.RecyclerViewClickListener() {
             @Override
@@ -69,8 +58,7 @@ public class LearnFragment extends Fragment {
             }
         };*/
 
-
-        adapter = new LearnRecyclerAdapter(this.getContext(), myArray);
+        adapter = new LearnRecyclerAdapter(this.getContext(), categories);
 
         //Attach the adapter to the recyclerView
         recyclerView.setAdapter(adapter);

@@ -11,22 +11,22 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.groupassignment.LearnData;
+import com.example.groupassignment.DatabaseHelper;
 import com.example.groupassignment.MainActivity_Learn;
 import com.example.groupassignment.R;
-import com.example.groupassignment.TranslateRequest;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
 import static java.util.Locale.FRENCH;
 
 public class LearnFlashcards extends AppCompatActivity {
     final Locale lang = FRENCH;
+    DatabaseHelper myDb = new DatabaseHelper(this);
+
     //EasyFlipView easyFlipView;
     TextView levelText;
-    int i = 0;
+    int i = 1;
     private TextToSpeech translatedTTS;
     private TextToSpeech englishTTS;
     private ImageButton translatedSpeech;
@@ -49,13 +49,16 @@ public class LearnFlashcards extends AppCompatActivity {
 
         translatedSpeech = findViewById(R.id.translatedSpeech);
         englishSpeech = findViewById(R.id.englishSpeech);
-
+        int amount = 0;
         Intent intent = getIntent();
-        final String level = intent.getStringExtra("level");
-//        String category = LearnData.getLearnData().get(Integer.parseInt(level)*10 - 1).getCategory();
+        final int level = intent.getIntExtra("level",0);
+        final String table = intent.getStringExtra("table");
+        if (table.equals("learn_table")) {
+            amount = 10;
+        }
+        this.setTitle(LearnCategories.getCategories().get(level-1).getCategoryName()+" Flash Cards");
 
-        question.setText((i+1)+"/10");
-        final int position = Integer.parseInt(level);
+        question.setText((i)+"/"+amount);
 
         quiz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,17 +82,8 @@ public class LearnFlashcards extends AppCompatActivity {
         easyFlipView.setFlipEnabled(true);
         easyFlipView.setAutoFlipBack(false);
 
-        frontText.setText(LearnData.getLearnData().get(10*(position-1)+i).getText());
-        TranslateRequest tR = new TranslateRequest();
-        String result = "";
-        try {
-            result = tR.execute(LearnData.getLearnData().get(10*(position-1)+i).getText()).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        backText.setText(result);
+        frontText.setText(myDb.pullData(table,"Expression",level,i));
+        backText.setText(myDb.pullData(table,"Translation",level,i));
 
         findViewById(R.id.frontCard).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,34 +101,18 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
-        /*easyFlipView.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
-            @Override
-            public void onViewFlipCompleted(EasyFlipView easyFlipView, EasyFlipView.FlipState newCurrentSide) {
-                Toast.makeText(LearnFlashcards.this,
-                        "Flip Completed! New Side is: " + newCurrentSide, Toast.LENGTH_LONG).show();
-            }
-        });*/
-
+        final int finalAmount = amount;
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             i++;
             prev.setEnabled(true);
-            if (i < 10) {
+            if (i <= finalAmount) {
                 next.setEnabled(true);
-                frontText.setText(LearnData.getLearnData().get(10 * (position - 1) + i).getText());
-                TranslateRequest tR = new TranslateRequest();
-                String result = "";
-                try {
-                    result = tR.execute(LearnData.getLearnData().get(10 * (position - 1) + i).getText()).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                backText.setText(result);
-                question.setText((i+1)+"/10");
-                if (i == 9) {
+                frontText.setText(myDb.pullData(table,"Expression",level,i));
+                backText.setText(myDb.pullData(table,"Translation",level,i));
+                question.setText((i)+"/"+ finalAmount);
+                if (i == finalAmount) {
                     next.setEnabled(false);
                 }
             }
@@ -142,26 +120,18 @@ public class LearnFlashcards extends AppCompatActivity {
         });
 
         prev.setEnabled(false);
+        final int finalAmount1 = amount;
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             i--;
             next.setEnabled(true);
-            if (i < 10) {
+            if (i <= finalAmount1) {
                 prev.setEnabled(true);
-                frontText.setText(LearnData.getLearnData().get(10 * (position - 1) + i).getText());
-                TranslateRequest tR = new TranslateRequest();
-                String result = "";
-                try {
-                    result = tR.execute(LearnData.getLearnData().get(10 * (position - 1) + i).getText()).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                backText.setText(result);
-                question.setText((i+1)+"/10");
-                if (i == 0) {
+                frontText.setText(myDb.pullData(table,"Expression",level,i));
+                backText.setText(myDb.pullData(table,"Translation",level,i));
+                question.setText((i)+"/"+ finalAmount1);
+                if (i == finalAmount1) {
                     prev.setEnabled(false);
                 }
             }
@@ -212,28 +182,20 @@ public class LearnFlashcards extends AppCompatActivity {
         translatedSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TranslateRequest tR = new TranslateRequest();
-                String result = "";
-                try {
-                    result = tR.execute(LearnData.getLearnData().get(10 * (position - 1) + i).getText()).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                speak(translatedTTS, result);
+            backText.setText(myDb.pullData(table,"Translation",level,i));
             }
         });
 
         englishSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak(englishTTS, LearnData.getLearnData().get(10 * (position - 1) + i).getText());
+            frontText.setText(myDb.pullData(table,"Expression",level,i));
             }
         });
     }
 
     private void speak(TextToSpeech TTS, String text) {
+        TTS.setSpeechRate((float) 0.75);
         TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
@@ -250,24 +212,6 @@ public class LearnFlashcards extends AppCompatActivity {
 
         super.onDestroy();
     }
-
-//        public void updateText(int number1,int number2) {
-//            frontText.setText(LearnData.getLearnData().get(10 * (number1 - 1) + number2).getText());
-//            TranslateRequest tR1 = new TranslateRequest();
-//            String result1 = "";
-//            try {
-//                result1 = tR1.execute(LearnData.getLearnData().get(10 * (number1 - 1) + number2).getText()).get();
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            backText.setText(result1);
-//            question.setText("Question "+(number2+1));
-//            if (i == 9) {
-//                button.setText("Finish");
-//            }
-//        }
 }
 
 
