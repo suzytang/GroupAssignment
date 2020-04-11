@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "3.db";
+    public static final String DATABASE_NAME = "3229482348257565628726872367657779788979879874292872324382799480293798738.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NAME";
@@ -67,6 +67,11 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         return res;
     }
 
+    public void updateData(String column, int value, int i)  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update "+TABLE_NAME+" set "+column+"='"+value+"' where ID = "+i);
+        db.close();
+    }
 
     public int update(int id, String name, String category,int amount) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -86,6 +91,16 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         data = csr.getString(csr.getColumnIndex(column));
         return data;
     }
+
+    public int getAmount(String column, int position) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int amount;
+        Cursor csr = db.rawQuery("select "+column+" from "+TABLE_NAME+" where ID = "+position,null);
+        csr.moveToFirst();
+        amount = csr.getInt(csr.getColumnIndex(column));
+        return amount;
+    }
+
 
     public int getItem(String column, String name){
         SQLiteDatabase db = this.getWritableDatabase();
