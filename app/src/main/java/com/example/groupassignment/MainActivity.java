@@ -47,26 +47,31 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
+        /*try {
+            sqLiteHelper.reset();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
         sqLiteHelper.update(1, "coins", "coins", 100);
 
-        try{
+        /*try{
             final Shop shop = new Shop();
             ArrayList<Shop> accessories = new ArrayList<>();
             for (int i = 0; i < accessories.size(); i++){
                 String name = shop.getAccessories().get(i).getItemName();
-                sqLiteHelper.insert("'"+name+"'", "Accessories", 0);
+                sqLiteHelper.insert(name, "Accessories", 0);
                 System.out.println("insert success");
             }
             ArrayList<Shop> wallpapers = new ArrayList<>();
             for (int i = 0; i < wallpapers.size(); i++){
                 String name = shop.getWallpapers().get(i).getItemName();
-                sqLiteHelper.insert("'"+name+"'", "Wallpapers", 0);
+                sqLiteHelper.insert(name, "Wallpapers", 0);
                 System.out.println("insert success");
             }
 
         }catch(Exception e){
             System.out.println("insert failed");
-        }
+        }*/
 
         //System.out.println(sqLiteHelper.getTableAsString(sqLiteDatabase, "inventory_table"));
 

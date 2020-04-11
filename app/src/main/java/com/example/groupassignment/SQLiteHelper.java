@@ -7,11 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.groupassignment.ui.shop.Shop;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "Inventory.db";
+    public static final String DATABASE_NAME = "2.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NAME";
@@ -21,8 +22,6 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
-    final Shop shop = new Shop();
-    ArrayList<Shop> accessories = new ArrayList<>();
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -30,7 +29,18 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,CATEGORY TEXT,AMOUNT INTEGER)");
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (1,'Coins','Coins',100)");
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (2,'Food','Food',0)");
-
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (3,'Sunglasses','Accessories',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (4,'Cap','Accessories',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (5,'Top Hat','Accessories',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (6,'Glasses','Accessories',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (7,'Pirate Hat','Accessories',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (8,'Wig','Accessories',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (9,'Striped','Wallpapers',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (10,'Polka Dots','Wallpapers',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (11,'Pink','Wallpapers',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (12,'Black','Wallpapers',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (13,'Red','Wallpapers',0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (14,'Green','Wallpapers',0)");
 
 
     }
@@ -71,24 +81,39 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     public String getData(String column, int i) {
         SQLiteDatabase db = this.getWritableDatabase();
         String data;
-        Cursor csr = db.rawQuery("select "+column+" from "+SQLiteHelper.TABLE_NAME+" where " +SQLiteHelper.COL_1+ " = "+i,null);
+        Cursor csr = db.rawQuery("select "+column+" from "+TABLE_NAME+" where " +COL_1+ " = "+i,null);
+
+        if( csr != null && csr.moveToFirst() ){
+            data = csr.getString(csr.getColumnIndex(column));
+            csr.close();
+        }
+
         csr.moveToFirst();
         data = csr.getString(csr.getColumnIndex(column));
+
+
         return data;
     }
 
     public int getItem(String column, String name){
         SQLiteDatabase db = this.getWritableDatabase();
         int data;
-        Cursor csr = db.rawQuery("select "+column+" from "+SQLiteHelper.TABLE_NAME+" where " +SQLiteHelper.COL_2+ " = "+name,null);
+        Cursor csr = db.rawQuery("select "+column+" from "+TABLE_NAME+" where " +COL_2+ " = "+name, null);
         csr.moveToFirst();
         data = csr.getInt(csr.getColumnIndex(column));
+
         return data;
     }
 
     public Integer deleteData (String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
+    }
+
+    public void reset () throws SQLException {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL ("drop table "+TABLE_NAME);
+        db.close ();
     }
 
     public String getTableAsString(SQLiteDatabase db, String tableName) {
