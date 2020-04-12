@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "3229482348257217361827126565628726872367657779788979879874292872324382799480293798738.db";
+    public static final String DATABASE_NAME = "3229482348257217361827126565628726872367657779788979879874292872324382799480293798758.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NAME";

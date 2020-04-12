@@ -1,5 +1,7 @@
 package com.example.groupassignment.ui.shop;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Activity;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +42,21 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
     private Button foodButton, accessoriesButton, wallpapersButton, cancelButton;
     private Dialog dialog;
 
+    /*@Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                TextView coins = (TextView) getActivity().findViewById(R.id.coins);
+                SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+                coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+                System.out.println("working");
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+    }*/
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,8 +78,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
         accessoriesButton.setOnClickListener(this);
         wallpapersButton.setOnClickListener(this);
 
-
-
+        doBackBtnPressedAction(root);
 
         return root;
     }
@@ -141,7 +156,28 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
 
 
     }
+    public void doBackBtnPressedAction(View view) {
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
 
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
 
+                        TextView coins = (TextView) getActivity().findViewById(R.id.coins);
+                        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+                        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1) + " coins");
+                        System.out.println("working");
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
 
 }

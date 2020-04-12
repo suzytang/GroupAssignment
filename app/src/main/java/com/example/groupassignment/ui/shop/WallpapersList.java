@@ -86,6 +86,8 @@ public class WallpapersList extends AppCompatActivity {
             }
         });
 
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
 
         buyButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -120,8 +122,7 @@ public class WallpapersList extends AppCompatActivity {
             }
         });
 
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
+
 
     }
 
