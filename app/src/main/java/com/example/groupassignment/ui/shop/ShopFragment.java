@@ -1,10 +1,7 @@
 package com.example.groupassignment.ui.shop;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,7 +11,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,18 +19,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.groupassignment.DatabaseManager;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
-import com.example.groupassignment.ui.DataHolder;
-import com.example.groupassignment.ui.Inventory;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ShopFragment extends Fragment implements View.OnClickListener{
 

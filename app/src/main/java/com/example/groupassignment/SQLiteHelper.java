@@ -12,12 +12,20 @@ import java.util.ArrayList;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "3229482348257217361827126565628726872367657779788979879874292872324382799480293798758.db";
+    public static final String DATABASE_NAME = "322948234825721736182712656562872687236765777978899798798742928723243827994802937955758.db";
     public static final String TABLE_NAME = "inventory_table";
+    public static final String TABLE_NAME2 = "pet_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NAME";
     public static final String COL_3 = "CATEGORY";
     public static final String COL_4 = "AMOUNT";
+    public static final String ID = "ID";
+    public static final String STATUS = "STATUS";
+    public static final String MOOD = "MOOD";
+    public static final String EXP = "EXP";
+    public static final String LVL = "LVL";
+
+
 
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -42,6 +50,10 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (13,'Red','Wallpapers',0)");
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (14,'Green','Wallpapers',0)");
 
+
+        db.execSQL("create table " + TABLE_NAME2 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,STATUS TEXT,MOOD TEXT, EXP INTEGER, LVL INTEGER)");
+        db.execSQL("insert into "+TABLE_NAME2 +" ("+ID+", "+STATUS+", "+MOOD+", "+EXP+", "+LVL+") " +
+                "VALUES (1, 'Hungry','Happy', 0, 1)");
 
     }
 
@@ -73,6 +85,12 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void updatePetData(String column, String value, int i)  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update "+TABLE_NAME2+" set "+column+"='"+value+"' where ID = "+i);
+        db.close();
+    }
+
     public int update(int id, String name, String category,int amount) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -92,13 +110,13 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         return data;
     }
 
-    public int getAmount(String column, int position) {
+    public String getPetData(String column) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int amount;
-        Cursor csr = db.rawQuery("select "+column+" from "+TABLE_NAME+" where ID = "+position,null);
+        String data;
+        Cursor csr = db.rawQuery("select "+column+" from "+TABLE_NAME2, null);
         csr.moveToFirst();
-        amount = csr.getInt(csr.getColumnIndex(column));
-        return amount;
+        data = csr.getString(csr.getColumnIndex(column));
+        return data;
     }
 
 

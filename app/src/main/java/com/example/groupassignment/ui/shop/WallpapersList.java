@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.groupassignment.DatabaseManager;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
 

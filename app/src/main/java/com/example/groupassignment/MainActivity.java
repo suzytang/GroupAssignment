@@ -1,27 +1,15 @@
 package com.example.groupassignment;
 
-import android.app.FragmentManager;
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteTableLockedException;
 import android.os.Bundle;
-import android.widget.TextView;
-
-import com.example.groupassignment.ui.learn.LearnFragment;
-import com.example.groupassignment.ui.shop.Shop;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper dB;
@@ -47,11 +35,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
-        /*try {
-            sqLiteHelper.reset();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+
         sqLiteHelper.update(1, "coins", "coins", 100);
 
         /*try{
@@ -76,10 +60,5 @@ public class MainActivity extends AppCompatActivity {
         //System.out.println(sqLiteHelper.getTableAsString(sqLiteDatabase, "inventory_table"));
 
     }
-
-//    public Cursor createDatabase() {
-//        DatabaseHelper dB = new DatabaseHelper(this);
-//        return dB.getAllData();
-//    }
 
 }

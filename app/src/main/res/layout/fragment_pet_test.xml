@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/wallpaper"
+        android:layout_width="415dp"
+        android:layout_height="440dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/separator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wallpaper1" />
+
+    <ImageView
+        android:id="@+id/floor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/floor__1_" />
+
+
+    <ImageView
+        android:id="@+id/separator"
+        android:layout_width="413dp"
+        android:layout_height="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wallpaper"
+        app:srcCompat="@drawable/separator" />
+
+    <ImageView
+        android:id="@+id/shadow"
+        android:layout_width="194dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="244dp"
+        android:alpha="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pet"
+        app:srcCompat="@drawable/shadow" />
+
+    <ImageView
+        android:id="@+id/pet"
+        android:layout_width="192dp"
+        android:layout_height="289dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pet" />
+
+    <ImageView
+        android:id="@+id/shadow2"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
+        android:alpha="0.4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/feedButton"
+        app:srcCompat="@drawable/shadow" />
+
+    <ImageButton
+        android:id="@+id/feedButton"
+        android:layout_width="143dp"
+        android:layout_height="106dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="?android:selectableItemBackground"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/pet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/food_full" />
+
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="17dp"
+        android:layout_height="43dp"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/levelProgress"
+        app:layout_constraintEnd_toEndOf="@+id/levelProgress"
+        app:layout_constraintStart_toStartOf="@+id/levelProgress"
+        app:layout_constraintTop_toTopOf="@+id/levelProgress" />
+
+    <ImageView
+        android:id="@+id/thinkingImage"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/levelProgress"
+        app:layout_constraintStart_toEndOf="@+id/levelProgress"
+        app:srcCompat="@drawable/thinking" />
+
+    <ImageView
+        android:id="@+id/coinImage"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toEndOf="@+id/levelProgress"
+        app:layout_constraintTop_toTopOf="@+id/levelProgress"
+        app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/coins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/coinImage"
+        app:layout_constraintStart_toEndOf="@+id/coinImage"
+        app:layout_constraintTop_toTopOf="@+id/coinImage"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/thinkingImage"
+        app:layout_constraintStart_toEndOf="@+id/thinkingImage"
+        app:layout_constraintTop_toTopOf="@+id/thinkingImage" />
+
+    <ImageButton
+        android:id="@+id/inventoryButton"
+        android:layout_width="64dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:background="?android:selectableItemBackground"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bag" />
+
+    <ProgressBar
+        android:id="@+id/levelProgress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="104dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
