@@ -94,11 +94,6 @@ public class AccessoriesList extends AppCompatActivity {
         shopItem.setText(shop.getAccessories().get(position).getItemName());
         shopPrice.setText(shop.getAccessories().get(position).getItemPrice() + " coins");
 
-
-
-
-
-
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,28 +105,16 @@ public class AccessoriesList extends AppCompatActivity {
         buyButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                int id = position;
-//                int coinCurrent = sqLiteHelper.getAmount("AMOUNT",1);
-//                int qty = sqLiteHelper.getAmount("AMOUNT",position);
-//                int cost = shop.getAccessories().get(position).getItemPrice();
-//                if (qty == 0) {
-//                    sqLiteHelper.updateData("AMOUNT", qty - cost, 1);
-//                    sqLiteHelper.updateData("AMOUNT", 1, id);
-//                } else {
-//                Toast.makeText(AccessoriesList.this,
-//                        "You already have this item in your inventory", Toast.LENGTH_LONG).show();
-//                }
 
-                //
                 String accessory = shop.getAccessories().get(position).getItemName();
-//                int id = position;
                 int accessoryQty = sqLiteHelper.getItem(SQLiteHelper.COL_4, "'"+accessory+"'");
                 if (accessoryQty == 0){
                     int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+                    int itemPrice = shop.getAccessories().get(position).getItemPrice();
 
-                    if (coinsCurrrent - (shop.getAccessories().get(position).getItemPrice()) >= 0){
-                        int paid = (coinsCurrrent - (shop.getAccessories().get(position).getItemPrice()));
-                        sqLiteHelper.update(1, "coins", "coins", paid);
+                    if (coinsCurrrent - itemPrice >= 0){
+                        int paid = (coinsCurrrent - itemPrice);
+                        sqLiteHelper.update(1, "Coins", "Coins", paid);
                         int id = sqLiteHelper.getItem(SQLiteHelper.COL_1, "'"+accessory+"'");
                         sqLiteHelper.updateData("Amount", 1, id);
 
