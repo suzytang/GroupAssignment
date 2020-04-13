@@ -26,30 +26,26 @@ import org.w3c.dom.Text;
 public class PetFragment extends Fragment implements View.OnClickListener{
 
     private PetViewModel petViewModel;
-    //SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         petViewModel =
                 ViewModelProviders.of(this).get(PetViewModel.class);
         View root = inflater.inflate(R.layout.fragment_pet_test, container, false);
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
 
         ImageButton inventoryButton = (ImageButton) root.findViewById(R.id.inventoryButton);
         ImageButton feedButton = (ImageButton) root.findViewById(R.id.feedButton);
 
         ImageView wallpaper = (ImageView) root.findViewById(R.id.wallpaper);
 
-        //TextView petName = (TextView) root.findViewById(R.id.petName);
         TextView coins = (TextView) root.findViewById(R.id.coins);
         TextView level = (TextView) root.findViewById(R.id.level);
         TextView status = (TextView) root.findViewById(R.id.status);
 
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        //petName.setText(sqLiteHelper.getPetData(SQLiteHelper.PETNAME));
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
         level.setText(sqLiteHelper.getPetData(SQLiteHelper.LVL));
         status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
-
 
         feedButton.setOnClickListener(this);
         inventoryButton.setOnClickListener(this);
@@ -63,6 +59,18 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         TextView status = (TextView) getActivity().findViewById(R.id.status);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
+
+        Runnable delayedTask = new Runnable() {
+            @Override
+            public void run() {
+                TextView status = (TextView) getActivity().findViewById(R.id.status);
+                SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+                sqLiteHelper.updatePetData(SQLiteHelper.STATUS, "Hungry",1);
+                status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
+            }
+        };
+        view.postDelayed(delayedTask, 5*60*60*1000);
+
     }
 
     @Override
@@ -75,10 +83,10 @@ public class PetFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.feedButton:
                 int foodQty = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 2));
-
                 if(foodQty > 0){
                     sqLiteHelper.update(2, "'Food'", "'Food'", foodQty-1);
-                    sqLiteHelper.updatePetData(SQLiteHelper.STATUS, "Satisfied", 1);
+                    sqLiteHelper.updatePetData(SQLiteHelper.STATUS, "Satisfied",1);
+
                     onViewCreated(v,null);
                 }else{
                     Toast.makeText(getActivity(),

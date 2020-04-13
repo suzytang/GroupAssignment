@@ -13,7 +13,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper dB;
-    SQLiteDatabase sqLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
 
-        sqLiteHelper.update(1, "coins", "coins", 100);
+        //sqLiteHelper.update(1, "coins", "coins", 100);
 
         /*try{
             final Shop shop = new Shop();

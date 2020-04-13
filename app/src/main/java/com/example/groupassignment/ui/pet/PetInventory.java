@@ -1,29 +1,26 @@
 package com.example.groupassignment.ui.pet;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.groupassignment.R;
-
-import java.util.ArrayList;
+import com.google.android.material.tabs.TabLayout;
 
 public class PetInventory extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pet_inventory);
+        setTitle("Inventory");
 
-
-        TextView coins = (TextView) findViewById(R.id.coins);
-        TextView wallpapers = (TextView) findViewById(R.id.wallpapers);
-        TextView accessories = (TextView) findViewById(R.id.accessories);
-
-
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
 
     }
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "322948234825721736182712656562872687236765777978899798798742928723243827994802937955758.db";
+    public static final String DATABASE_NAME = "322948234825721736182712656798798742928723243827994802937955758.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String TABLE_NAME2 = "pet_table";
     public static final String COL_1 = "ID";
@@ -35,7 +35,7 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,CATEGORY TEXT,AMOUNT INTEGER)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (1,'Coins','Coins',100)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (1,'Coins','Coins',10000)");
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (2,'Food','Food',0)");
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (3,'Sunglasses','Accessories',0)");
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (4,'Cap','Accessories',0)");
@@ -141,21 +141,5 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.close ();
     }
 
-    public String getTableAsString(SQLiteDatabase db, String tableName) {
-        String tableString = String.format("Table %s:\n", tableName);
-        Cursor allRows  = db.rawQuery("SELECT * FROM " + tableName, null);
-        if (allRows.moveToFirst() ){
-            String[] columnNames = allRows.getColumnNames();
-            do {
-                for (String name: columnNames) {
-                    tableString += String.format("%s: %s\n", name,
-                            allRows.getString(allRows.getColumnIndex(name)));
-                }
-                tableString += "\n";
 
-            } while (allRows.moveToNext());
-        }
-
-        return tableString;
-    }
 }
