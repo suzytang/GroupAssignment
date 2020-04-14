@@ -1,5 +1,7 @@
 package com.example.groupassignment.ui.pet;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +12,20 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.groupassignment.R;
+import com.example.groupassignment.SQLiteHelper;
 import com.example.groupassignment.ui.shop.Shop;
 
 import java.util.ArrayList;
 
 public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAdapter.MyViewHolder> {
 
-    final Shop shop = new Shop();
-    ArrayList<Shop> accessories = new ArrayList<>();
+    private Context context;
+    private Cursor cursor;
 
-    public InvAccessoriesAdapter(ArrayList<Shop> accessories) {
-        this.accessories = accessories;
+    public InvAccessoriesAdapter(Context context, Cursor cursor) {
+        this.context = context;
+        this.cursor = cursor;
     }
-
 
     @Override
     public InvAccessoriesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,22 +35,39 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
 
     @Override
     public void onBindViewHolder(InvAccessoriesAdapter.MyViewHolder holder, int position) {
-        holder.itemName.setText(shop.getAccessories().get(position).getItemName());
+        if(!cursor.moveToPosition(position)){
+            return;
+        }
+        String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+        holder.itemName.setText(accessory);
 
     }
 
     @Override
     public int getItemCount() {
-        return shop.getAccessories().size();
+        return cursor.getCount();
+
+    }
+
+    public void swapCursor (Cursor newCursor){
+        if (cursor != null){
+            cursor.close();
+        }
+
+        cursor = newCursor;
+
+        if (newCursor != null){
+            notifyDataSetChanged();
+        }
     }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView itemName;
-        Button apply;
-        ImageView image;
+        public TextView itemName;
+        public Button apply;
+        public ImageView image;
 
-        public MyViewHolder( View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
 
             this.itemName = itemView.findViewById(R.id.itemName);

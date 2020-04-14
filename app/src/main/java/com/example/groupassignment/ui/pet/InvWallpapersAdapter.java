@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdapter.MyViewHolder> {
 
-    final Shop shop = new Shop();
     private Context context;
     private Cursor cursor;
 
@@ -28,44 +27,24 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
         this.cursor = cursor;
     }
 
-
     @Override
     public InvWallpapersAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        /*View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item, parent, false);
-        return new InvWallpapersAdapter.MyViewHolder(v);*/
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.inventory_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item, parent, false);
         return new InvWallpapersAdapter.MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(InvWallpapersAdapter.MyViewHolder holder, int position) {
-        if(!cursor.move(position)){
+        if(!cursor.moveToPosition(position)){
             return;
         }
+        String wallpaper = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+        holder.itemName.setText(wallpaper);
 
-        String wallpaper = shop.getWallpapers().get(position).getItemName();
-        int qty = cursor.getInt(cursor.getColumnIndex(SQLiteHelper.COL_4));
-        if(qty == 1){
-            holder.itemName.setText(wallpaper);
-        }
     }
 
     @Override
     public int getItemCount() {
-        /*int itemCount = 0;
-
-        int tableSize = cursor.getCount();
-        //cursor.moveToNext();
-        cursor.moveToFirst();
-        int qty = cursor.getInt(cursor.getColumnIndex(SQLiteHelper.COL_4));
-        for(int i = 0; i < tableSize; i++){
-            if(qty == 1){
-                itemCount++;
-            }
-        }
-        return itemCount;*/
-
         return cursor.getCount();
 
     }
@@ -84,11 +63,11 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView itemName;
-        Button apply;
-        ImageView image;
+        public TextView itemName;
+        public Button apply;
+        public ImageView image;
 
-        public MyViewHolder( View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
 
             this.itemName = itemView.findViewById(R.id.itemName);

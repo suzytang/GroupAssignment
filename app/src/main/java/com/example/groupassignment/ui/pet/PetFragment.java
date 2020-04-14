@@ -42,13 +42,23 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         TextView coins = (TextView) root.findViewById(R.id.coins);
         TextView level = (TextView) root.findViewById(R.id.level);
         TextView status = (TextView) root.findViewById(R.id.status);
+        TextView foodQty = (TextView) root.findViewById(R.id.foodQty);
 
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
         level.setText(sqLiteHelper.getPetData(SQLiteHelper.LVL));
         status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
+        foodQty.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 2)+ " can(s)");
 
         feedButton.setOnClickListener(this);
         inventoryButton.setOnClickListener(this);
+
+        long time = sqLiteHelper.getPetTime(SQLiteHelper.TIME);
+        long timeElapsed = System.currentTimeMillis() - time;
+
+        if(timeElapsed >= 5*60*60*1000){
+            sqLiteHelper.updatePetData(SQLiteHelper.STATUS, "Hungry",1);
+            status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
+        }
 
         return root;
 
@@ -57,20 +67,13 @@ public class PetFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         TextView status = (TextView) getActivity().findViewById(R.id.status);
+        TextView foodQty = (TextView) getActivity().findViewById(R.id.foodQty);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
+        foodQty.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 2)+ " can(s)");
 
-        Runnable delayedTask = new Runnable() {
-            @Override
-            public void run() {
-                TextView status = (TextView) getActivity().findViewById(R.id.status);
-                SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-                sqLiteHelper.updatePetData(SQLiteHelper.STATUS, "Hungry",1);
-                status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
-            }
-        };
-        view.postDelayed(delayedTask, 5*60*60*1000);
-
+        long time = System.currentTimeMillis();
+        sqLiteHelper.updatePetTime(SQLiteHelper.TIME, time, 1);
     }
 
     @Override

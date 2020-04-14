@@ -99,26 +99,37 @@
         app:layout_constraintTop_toTopOf="@+id/levelProgress" />
 
     <ImageView
-        android:id="@+id/thinkingImage"
+        android:id="@+id/statusImage"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/levelProgress"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="11dp"
         app:layout_constraintStart_toEndOf="@+id/levelProgress"
-        app:srcCompat="@drawable/thinking" />
+        app:layout_constraintTop_toBottomOf="@+id/coinImage"
+        app:srcCompat="@drawable/status" />
 
     <ImageView
         android:id="@+id/coinImage"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         app:layout_constraintStart_toEndOf="@+id/levelProgress"
         app:layout_constraintTop_toTopOf="@+id/levelProgress"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/money" />
+
+    <ImageView
+        android:id="@+id/food"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/levelProgress"
+        app:layout_constraintStart_toEndOf="@+id/levelProgress"
+        app:layout_constraintTop_toBottomOf="@+id/statusImage"
+        app:srcCompat="@drawable/food" />
 
     <TextView
         android:id="@+id/coins"
@@ -150,9 +161,26 @@
         android:shadowRadius="5"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/thinkingImage"
-        app:layout_constraintStart_toEndOf="@+id/thinkingImage"
-        app:layout_constraintTop_toTopOf="@+id/thinkingImage" />
+        app:layout_constraintBottom_toBottomOf="@+id/statusImage"
+        app:layout_constraintStart_toEndOf="@+id/statusImage"
+        app:layout_constraintTop_toTopOf="@+id/statusImage" />
+
+    <TextView
+        android:id="@+id/foodQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/food"
+        app:layout_constraintStart_toEndOf="@+id/food"
+        app:layout_constraintTop_toTopOf="@+id/food" />
+
 
     <ImageButton
         android:id="@+id/inventoryButton"

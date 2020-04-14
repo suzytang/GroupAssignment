@@ -1,18 +1,16 @@
 package com.example.groupassignment;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.groupassignment.ui.shop.Shop;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "322948234825721736182712656798798742928723243827994802937955758.db";
+    public static final String DATABASE_NAME = "3229482348257217361827126427994802937955758.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String TABLE_NAME2 = "pet_table";
     public static final String COL_1 = "ID";
@@ -24,6 +22,7 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     public static final String MOOD = "MOOD";
     public static final String EXP = "EXP";
     public static final String LVL = "LVL";
+    public static final String TIME = "TIME";
 
 
 
@@ -51,9 +50,9 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+") VALUES (14,'Green','Wallpapers',0)");
 
 
-        db.execSQL("create table " + TABLE_NAME2 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,STATUS TEXT,MOOD TEXT, EXP INTEGER, LVL INTEGER)");
-        db.execSQL("insert into "+TABLE_NAME2 +" ("+ID+", "+STATUS+", "+MOOD+", "+EXP+", "+LVL+") " +
-                "VALUES (1, 'Hungry','Happy', 0, 1)");
+        db.execSQL("create table " + TABLE_NAME2 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,STATUS TEXT,MOOD TEXT, EXP INTEGER, LVL INTEGER, TIME INTEGER)");
+        db.execSQL("insert into "+TABLE_NAME2 +" ("+ID+", "+STATUS+", "+MOOD+", "+EXP+", "+LVL+", "+TIME+") " +
+                "VALUES (1, 'Hungry','Happy', 0, 1, 0)");
 
     }
 
@@ -91,6 +90,12 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void updatePetTime(String column, long value, int i)  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update "+TABLE_NAME2+" set "+column+"='"+value+"' where ID = "+i);
+        db.close();
+    }
+
     public int update(int id, String name, String category,int amount) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -118,6 +123,16 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         data = csr.getString(csr.getColumnIndex(column));
         return data;
     }
+
+    public long getPetTime(String column) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long data;
+        Cursor csr = db.rawQuery("select "+column+" from "+TABLE_NAME2, null);
+        csr.moveToFirst();
+        data = csr.getLong(csr.getColumnIndex(column));
+        return data;
+    }
+
 
 
     public int getItem(String column, String name){

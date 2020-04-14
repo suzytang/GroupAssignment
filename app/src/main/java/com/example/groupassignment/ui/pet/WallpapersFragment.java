@@ -2,6 +2,7 @@ package com.example.groupassignment.ui.pet;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteTableLockedException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +25,10 @@ import java.util.ArrayList;
 
 public class WallpapersFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerView.Adapter adapter;
-    SQLiteDatabase db;
+    public RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private InvWallpapersAdapter adapter;
+    private SQLiteDatabase db;
 
     @Nullable
     @Override
@@ -39,14 +40,14 @@ public class WallpapersFragment extends Fragment {
 
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        final Shop shop = new Shop();
-
-
         adapter = new InvWallpapersAdapter(getActivity(), getAllItems());
 
         recyclerView.setAdapter(adapter);
+
+        adapter.swapCursor(getAllItems());
 
         return root;
     }
@@ -54,8 +55,8 @@ public class WallpapersFragment extends Fragment {
     public Cursor getAllItems() {
         return db.query(
                 SQLiteHelper.TABLE_NAME,
-                null,
-                null,
+                new String[] {SQLiteHelper.COL_2},
+                SQLiteHelper.COL_3 + " = 'Wallpapers' AND " + SQLiteHelper.COL_4 + " = 1",
                 null,
                 null,
                 null,
