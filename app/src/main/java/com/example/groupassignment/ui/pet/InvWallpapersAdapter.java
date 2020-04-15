@@ -21,6 +21,7 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
 
     private Context context;
     private Cursor cursor;
+    private Shop shop = new Shop();
 
     public InvWallpapersAdapter(Context context, Cursor cursor) {
         this.context = context;
@@ -40,6 +41,7 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
         }
         String wallpaper = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
         holder.itemName.setText(wallpaper);
+        holder.image.setImageResource(shop.searchWallpapers(wallpaper).getImage());
 
     }
 

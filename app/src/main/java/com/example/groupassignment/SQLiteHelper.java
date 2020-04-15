@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "3229482348257217361827126427994802937955758.db";
+    public static final String DATABASE_NAME = "32294823482576576543456789827126427994802937955758.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String TABLE_NAME2 = "pet_table";
     public static final String COL_1 = "ID";

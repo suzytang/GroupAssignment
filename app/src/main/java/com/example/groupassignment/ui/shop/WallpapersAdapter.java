@@ -40,6 +40,7 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
     public void onBindViewHolder(WallpapersAdapter.MyViewHolder holder, int position) {
         holder.itemName.setText(shop.getWallpapers().get(position).getItemName());
         holder.itemPrice.setText(shop.getWallpapers().get(position).getItemPrice() + " coins");
+        holder.image.setImageResource(shop.getWallpapers().get(position).getImage());
 
 
     }
