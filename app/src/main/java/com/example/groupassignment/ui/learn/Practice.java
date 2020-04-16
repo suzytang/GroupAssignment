@@ -3,6 +3,7 @@ package com.example.groupassignment.ui.learn;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -75,8 +76,10 @@ public class Practice extends AppCompatActivity {
                 selection.setText("You selected true.");
                 if (tf[0] == 1) {
                     resultTF.setText("Correct!");
+                    resultTF.setTextColor(Color.GREEN);
                 } else {
                     resultTF.setText("Incorrect!");
+                    resultTF.setTextColor(Color.RED);
                 }
                 trueButton.setEnabled(false);
                 falseButton.setEnabled(false);
@@ -91,8 +94,10 @@ public class Practice extends AppCompatActivity {
                 selection.setText("You selected false.");
                 if (tf[0] == 0) {
                     resultTF.setText("Correct!");
+                    resultTF.setTextColor(Color.GREEN);
                 } else {
                     resultTF.setText("Incorrect!");
+                    resultTF.setTextColor(Color.RED);
                 }
                 trueButton.setEnabled(false);
                 falseButton.setEnabled(false);
@@ -133,8 +138,10 @@ public class Practice extends AppCompatActivity {
                         selection.setText("You selected true.");
                         if (tf[0] == 1) {
                             resultTF.setText("Correct!");
+                            resultTF.setTextColor(Color.GREEN);
                         } else {
                             resultTF.setText("Incorrect!");
+                            resultTF.setTextColor(Color.RED);
                         }
                         trueButton.setEnabled(false);
                         falseButton.setEnabled(false);
@@ -149,8 +156,10 @@ public class Practice extends AppCompatActivity {
                         selection.setText("You selected false.");
                         if (tf[0] == 0) {
                             resultTF.setText("Correct!");
+                            resultTF.setTextColor(Color.GREEN);
                         } else {
                             resultTF.setText("Incorrect!");
+                            resultTF.setTextColor(Color.RED);
                         }
                         trueButton.setEnabled(false);
                         falseButton.setEnabled(false);

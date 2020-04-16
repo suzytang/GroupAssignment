@@ -3,6 +3,7 @@ package com.example.groupassignment.ui.learn;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,8 +52,11 @@ public class QuizSummary extends AppCompatActivity {
         double percentage = total/quizAnswers.size();
         if (percentage < 0.5) {
             grade.setText("Failed!");
+            grade.setTextColor(Color.RED);
         } else {
             grade.setText("Passed!");
+            grade.setTextColor(Color.GREEN);
+
         }
 
         menu.setOnClickListener(new View.OnClickListener() {
