@@ -14,6 +14,7 @@ public class FragmentCommunication {
         PetFragment fragment = new PetFragment();
         Bundle bundle = new Bundle();
         bundle.putString("wallpaperName",name);
+
         fragment.setArguments(bundle);
 
         if(bundle != null){

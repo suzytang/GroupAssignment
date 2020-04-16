@@ -1,5 +1,6 @@
 package com.example.groupassignment;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.groupassignment.ui.pet.PetFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         dB = new DatabaseHelper(this);
         dB.updateData("learn_table","Translation","S''il vous plaît",6);
 
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
+
 
         //sqLiteHelper.update(1, "coins", "coins", 100);
 

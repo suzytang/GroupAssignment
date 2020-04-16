@@ -5,27 +5,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
-import com.example.groupassignment.ui.shop.AccessoriesList;
+import com.example.groupassignment.ui.shop.Shop;
 
-import org.w3c.dom.Text;
+import java.sql.SQLInput;
 
 public class PetFragment extends Fragment implements View.OnClickListener{
 
     private PetViewModel petViewModel;
+    private Shop shop = new Shop();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +46,14 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         level.setText(sqLiteHelper.getPetData(SQLiteHelper.LVL));
         status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
         foodQty.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 2)+ " can(s)");
+
+        int wallpaperAmount = sqLiteHelper.getSum("'Wallpapers'");
+        if(wallpaperAmount != 0){
+            String wallpaperName = sqLiteHelper.getInventory(SQLiteHelper.COL_2,"'Wallpapers'");
+            wallpaper.setImageResource(shop.searchWallpapers(wallpaperName).getImage());
+        }
+
+
 
         feedButton.setOnClickListener(this);
         inventoryButton.setOnClickListener(this);

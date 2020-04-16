@@ -107,7 +107,7 @@ public class AccessoriesList extends AppCompatActivity {
             public void onClick(View v) {
 
                 String accessory = shop.getAccessories().get(position).getItemName();
-                int accessoryQty = sqLiteHelper.getItem(SQLiteHelper.COL_4, "'"+accessory+"'");
+                int accessoryQty = sqLiteHelper.getItem(SQLiteHelper.COL_4,SQLiteHelper.COL_2,"'"+accessory+"'");
                 if (accessoryQty == 0){
                     int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
                     int itemPrice = shop.getAccessories().get(position).getItemPrice();
@@ -115,7 +115,7 @@ public class AccessoriesList extends AppCompatActivity {
                     if (coinsCurrrent - itemPrice >= 0){
                         int paid = (coinsCurrrent - itemPrice);
                         sqLiteHelper.update(1, "Coins", "Coins", paid);
-                        int id = sqLiteHelper.getItem(SQLiteHelper.COL_1, "'"+accessory+"'");
+                        int id = sqLiteHelper.getItem(SQLiteHelper.COL_1,SQLiteHelper.COL_2,"'"+accessory+"'");
                         sqLiteHelper.updateData("Amount", 1, id);
 
                         dialog.dismiss();

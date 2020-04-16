@@ -93,7 +93,7 @@ public class WallpapersList extends AppCompatActivity {
             public void onClick(View v) {
 
                 String wallpaper = shop.getWallpapers().get(position).getItemName();
-                int wallpaperQty = sqLiteHelper.getItem(SQLiteHelper.COL_4, "'"+wallpaper+"'");
+                int wallpaperQty = sqLiteHelper.getItem(SQLiteHelper.COL_4, SQLiteHelper.COL_2,"'"+wallpaper+"'");
                 if (wallpaperQty == 0){
                     int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
                     int itemPrice = shop.getWallpapers().get(position).getItemPrice();
@@ -101,7 +101,7 @@ public class WallpapersList extends AppCompatActivity {
                     if (coinsCurrrent - itemPrice >= 0){
                         int paid = (coinsCurrrent - itemPrice);
                         sqLiteHelper.update(1, "Coins", "Coins", paid);
-                        int id = sqLiteHelper.getItem(SQLiteHelper.COL_1, "'"+wallpaper+"'");
+                        int id = sqLiteHelper.getItem(SQLiteHelper.COL_1, SQLiteHelper.COL_2, "'"+wallpaper+"'");
                         sqLiteHelper.updateData("Amount", 1, id);
 
                         dialog.dismiss();
