@@ -81,12 +81,12 @@ public class Shop {
 
     public static ArrayList<Shop> getWallpapers() {
         ArrayList<Shop> wallpapers = new ArrayList<>();
-        wallpapers.add(new Shop("Striped", "Wallpapers", 20,0, R.drawable.ic_home_black_24dp));
-        wallpapers.add(new Shop("Polka Dots", "Wallpapers", 20,0, R.drawable.ic_home_black_24dp));
+        wallpapers.add(new Shop("Striped", "Wallpapers", 20,0, R.drawable.striped_wallpaper));
+        wallpapers.add(new Shop("Polka Dots", "Wallpapers", 20,0, R.drawable.polkadot_wallpaper));
         wallpapers.add(new Shop("Pink", "Wallpapers", 20,0, R.drawable.pink_wallpaper));
-        wallpapers.add(new Shop("Black", "Wallpapers", 20,0, R.drawable.ic_home_black_24dp));
-        wallpapers.add(new Shop("Red", "Wallpapers", 20,0, R.drawable.ic_home_black_24dp));
-        wallpapers.add(new Shop("Green", "Wallpapers", 20,0, R.drawable.ic_home_black_24dp));
+        wallpapers.add(new Shop("Black", "Wallpapers", 20,0, R.drawable.black_wallpaper));
+        wallpapers.add(new Shop("Red", "Wallpapers", 20,0, R.drawable.red_wallpaper));
+        wallpapers.add(new Shop("Green", "Wallpapers", 20,0, R.drawable.green_wallpaper));
 
 
 

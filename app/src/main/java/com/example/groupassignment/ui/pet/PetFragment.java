@@ -49,8 +49,13 @@ public class PetFragment extends Fragment implements View.OnClickListener{
 
         int wallpaperAmount = sqLiteHelper.getSum("'Wallpapers'");
         if(wallpaperAmount != 0){
-            String wallpaperName = sqLiteHelper.getInventory(SQLiteHelper.COL_2,"'Wallpapers'");
-            wallpaper.setImageResource(shop.searchWallpapers(wallpaperName).getImage());
+            try{
+                String wallpaperName = sqLiteHelper.getInventory(SQLiteHelper.COL_2,"'Wallpapers'");
+                wallpaper.setImageResource(shop.searchWallpapers(wallpaperName).getImage());
+            }catch(Exception e){
+                System.out.println("Wallpaper not yet applied");
+            }
+
         }
 
 

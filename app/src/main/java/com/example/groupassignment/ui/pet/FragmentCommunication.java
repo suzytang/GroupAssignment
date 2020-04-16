@@ -9,7 +9,7 @@ public class FragmentCommunication {
     public String name;
 
 
-    public void respond(int position,String name) {
+    public void respond(String name) {
         this.name = name;
         PetFragment fragment = new PetFragment();
         Bundle bundle = new Bundle();
@@ -18,7 +18,7 @@ public class FragmentCommunication {
         fragment.setArguments(bundle);
 
         if(bundle != null){
-            System.out.println(name);
+            System.out.println("communicator "+name);
         }
 
     }
