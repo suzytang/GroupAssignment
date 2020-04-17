@@ -217,7 +217,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/sunglasses"
+        android:layout_width="150dp"
+        android:layout_height="134dp"
+        android:layout_marginBottom="116dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pet"
+        app:layout_constraintEnd_toEndOf="@+id/pet"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toStartOf="@+id/pet"
+        app:srcCompat="@drawable/sunglasses"
+        tools:visibility="invisible" />
 
+    <ImageView
+        android:id="@+id/cap"
+        android:layout_width="146dp"
+        android:layout_height="154dp"
+        android:layout_marginBottom="176dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pet"
+        app:layout_constraintEnd_toEndOf="@+id/pet"
+        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintStart_toStartOf="@+id/pet"
+        app:srcCompat="@drawable/cap"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/tophat"
+        android:layout_width="157dp"
+        android:layout_height="189dp"
+        android:layout_marginBottom="196dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pet"
+        app:layout_constraintEnd_toEndOf="@+id/pet"
+        app:layout_constraintHorizontal_bias="0.914"
+        app:layout_constraintStart_toStartOf="@+id/pet"
+        app:srcCompat="@drawable/top_hat"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/pirateHat"
+        android:layout_width="172dp"
+        android:layout_height="202dp"
+        android:layout_marginBottom="172dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pet"
+        app:layout_constraintEnd_toEndOf="@+id/pet"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/pet"
+        app:srcCompat="@drawable/pirate_hat"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/glasses"
+        android:layout_width="151dp"
+        android:layout_height="143dp"
+        android:layout_marginBottom="116dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pet"
+        app:layout_constraintEnd_toEndOf="@+id/pet"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="@+id/pet"
+        app:srcCompat="@drawable/glasses"
+        tools:visibility="invisible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
