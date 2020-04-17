@@ -13,7 +13,7 @@ public class FragmentCommunication {
         this.name = name;
         PetFragment fragment = new PetFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("wallpaperName",name);
+        bundle.putString("Inventory",name);
 
         fragment.setArguments(bundle);
 

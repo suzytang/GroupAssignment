@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "322948234456789876543948398136976643437637955758.db";
+    public static final String DATABASE_NAME = "32294823445645789936976643437637955758.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String PET_TABLE = "pet_table";
     public static final String COL_1 = "ID";
@@ -109,10 +109,10 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         return data;
     }
 
-    public String getInventory(String column, String category){
+    public String getInventory(String column, String whereColumn, String where){
         SQLiteDatabase db = this.getWritableDatabase();
         String data;
-        Cursor csr = db.rawQuery("select " +column+ " from "+TABLE_NAME+" WHERE CATEGORY = " +category+ " AND APPLIED = "+1, null);
+        Cursor csr = db.rawQuery("select " +column+ " from "+TABLE_NAME+" WHERE " + whereColumn+ " = " +where+ " AND APPLIED = "+1, null);
         csr.moveToFirst();
         data = csr.getString(csr.getColumnIndex(column));
         return data;

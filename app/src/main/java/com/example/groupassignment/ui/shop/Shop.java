@@ -105,4 +105,15 @@ public class Shop {
         return null;
     }
 
+    public static Shop searchAccessories(String search) {
+        ArrayList<Shop> accessories = Shop.getAccessories();
+        int i;
+        for (i = 0; i <  accessories.size(); i++){
+            if (getAccessories().get(i).itemName.contains(search)) {
+                return accessories.get(i);
+            }
+        }
+        return null;
+    }
+
 }

@@ -1,11 +1,13 @@
 package com.example.groupassignment.ui.pet;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.groupassignment.MainActivity;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
 
@@ -28,15 +31,30 @@ public class AccessoriesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.inventory_list, container, false);
 
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+        final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         db = sqLiteHelper.getWritableDatabase();
+
+        final FragmentCommunication communication = new FragmentCommunication();
+        Button button = (Button) root.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = communication.getName();
+                System.out.println(name);
+                sqLiteHelper.applyInventory("'"+name+"'", "'Accessories'");
+                //can apply more than one accessory at a time
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new InvAccessoriesAdapter(getActivity(), getAllItems());
+        adapter = new InvAccessoriesAdapter(getActivity(), getAllItems(), communication);
 
         recyclerView.setAdapter(adapter);
 

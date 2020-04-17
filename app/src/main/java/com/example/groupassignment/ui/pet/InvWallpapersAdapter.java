@@ -50,11 +50,6 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
         holder.itemName.setText(wallpaper);
         holder.image.setImageResource(shop.searchWallpapers(wallpaper).getImage());
 
-        PetFragment fragment = new PetFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("wallpaperName",wallpaper);
-        fragment.setArguments(bundle);
-
     }
 
     @Override
@@ -95,8 +90,14 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
         }
         @Override
         public void onClick(View v) {
-            mCommunicator.respond(shop.getWallpapers().get(getAdapterPosition()).getItemName());
-            //mCommunicator.respond(cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2)));
+            //mCommunicator.respond(shop.getWallpapers().get(getAdapterPosition()).getItemName());
+            if(!cursor.moveToPosition(getAdapterPosition())){
+                return;
+            }
+            final String test = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+            System.out.println("onclick test " +test);
+
+            mCommunicator.respond(cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2)));
             Toast.makeText(context,  "The wallpaper has been applied",
                     Toast.LENGTH_LONG).show();
         }

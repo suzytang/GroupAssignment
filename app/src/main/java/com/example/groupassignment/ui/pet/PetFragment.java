@@ -50,15 +50,69 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         int wallpaperAmount = sqLiteHelper.getSum("'Wallpapers'");
         if(wallpaperAmount != 0){
             try{
-                String wallpaperName = sqLiteHelper.getInventory(SQLiteHelper.COL_2,"'Wallpapers'");
+                String wallpaperName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_3, "'Wallpapers'");
                 wallpaper.setImageResource(shop.searchWallpapers(wallpaperName).getImage());
             }catch(Exception e){
                 System.out.println("Wallpaper not yet applied");
             }
-
         }
 
+        ImageView sunglasses = (ImageView) root.findViewById(R.id.sunglasses);
+        ImageView cap = (ImageView) root.findViewById(R.id.cap);
+        ImageView tophat = (ImageView) root.findViewById(R.id.tophat);
+        ImageView glasses = (ImageView) root.findViewById(R.id.glasses);
+        ImageView pirateHat = (ImageView) root.findViewById(R.id.pirateHat);
+        ImageView wig = (ImageView) root.findViewById(R.id.wig);
 
+        sunglasses.setVisibility(root.INVISIBLE);
+        cap.setVisibility(root.INVISIBLE);
+        tophat.setVisibility(root.INVISIBLE);
+        glasses.setVisibility(root.INVISIBLE);
+        pirateHat.setVisibility(root.INVISIBLE);
+        wig.setVisibility(root.INVISIBLE);
+
+        try{
+           String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_3, "'Accessories'");
+           switch(accessoryName){
+               case "Sunglasses":
+                   try{
+                       String applied = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_2, "'Glasses'");
+                       if(applied == "Glasses"){
+                           glasses.setVisibility(root.INVISIBLE);
+                       }
+                   }catch (Exception e){
+                       System.out.println("Glasses not set");
+                   }
+                   sunglasses.setVisibility(root.VISIBLE);
+                   break;
+               case "Cap":
+                   cap.setVisibility(root.VISIBLE);
+                   break;
+               case "Top Hat":
+                   tophat.setVisibility(root.VISIBLE);
+                   break;
+               case "Glasses":
+                   try{
+                       String applied = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_2, "'Sunglasses'");
+                       if(applied == "Sunglasses"){
+                           sunglasses.setVisibility(root.INVISIBLE);
+                       }
+                   }catch (Exception e){
+                       System.out.println("Sunglasses not set");
+                   }
+                   glasses.setVisibility(root.VISIBLE);
+                   break;
+               case "Pirate Hat":
+                   pirateHat.setVisibility(root.VISIBLE);
+                   break;
+               case "Wig":
+                   wig.setVisibility(root.VISIBLE);
+                   break;
+            }
+
+        }catch(Exception e){
+           System.out.println("Accessory not yet applied");
+        }
 
         feedButton.setOnClickListener(this);
         inventoryButton.setOnClickListener(this);
