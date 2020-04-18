@@ -19,6 +19,7 @@ import com.example.groupassignment.SQLiteHelper;
 import com.example.groupassignment.ui.shop.Shop;
 
 import java.sql.SQLInput;
+import java.util.ArrayList;
 
 public class PetFragment extends Fragment implements View.OnClickListener{
 
@@ -71,49 +72,38 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         pirateHat.setVisibility(root.INVISIBLE);
         wig.setVisibility(root.INVISIBLE);
 
-        try{
-           String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_3, "'Accessories'");
-           switch(accessoryName){
-               case "Sunglasses":
-                   try{
-                       String applied = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_2, "'Glasses'");
-                       if(applied == "Glasses"){
-                           glasses.setVisibility(root.INVISIBLE);
-                       }
-                   }catch (Exception e){
-                       System.out.println("Glasses not set");
-                   }
-                   sunglasses.setVisibility(root.VISIBLE);
-                   break;
-               case "Cap":
-                   cap.setVisibility(root.VISIBLE);
-                   break;
-               case "Top Hat":
-                   tophat.setVisibility(root.VISIBLE);
-                   break;
-               case "Glasses":
-                   try{
-                       String applied = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_2, "'Sunglasses'");
-                       if(applied == "Sunglasses"){
-                           sunglasses.setVisibility(root.INVISIBLE);
-                       }
-                   }catch (Exception e){
-                       System.out.println("Sunglasses not set");
-                   }
-                   glasses.setVisibility(root.VISIBLE);
-                   break;
-               case "Pirate Hat":
-                   pirateHat.setVisibility(root.VISIBLE);
-                   break;
-               case "Wig":
-                   wig.setVisibility(root.VISIBLE);
-                   break;
-            }
+        int accessoryAmount = sqLiteHelper.getSum("'Accessories'");
+        System.out.println("petfragment: " + accessoryAmount);
+        if(accessoryAmount != 0) {
+                try {
+                    String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_3, "'Accessories'");
 
-        }catch(Exception e){
-           System.out.println("Accessory not yet applied");
+                    switch (accessoryName) {
+                        case "Sunglasses":
+                            sunglasses.setVisibility(root.VISIBLE);
+                            break;
+                        case "Cap":
+                            cap.setVisibility(root.VISIBLE);
+                            break;
+                        case "Top Hat":
+                            tophat.setVisibility(root.VISIBLE);
+                            break;
+                        case "Glasses":
+                            glasses.setVisibility(root.VISIBLE);
+                            break;
+                        case "Pirate Hat":
+                            pirateHat.setVisibility(root.VISIBLE);
+                            break;
+                        case "Wig":
+                            wig.setVisibility(root.VISIBLE);
+                            break;
+                    }
+                } catch (Exception e) {
+                    System.out.println("Accessory not yet applied");
+                }
+        }else{
+            System.out.println("if failed");
         }
-
         feedButton.setOnClickListener(this);
         inventoryButton.setOnClickListener(this);
 
@@ -124,9 +114,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
             sqLiteHelper.updatePetData(SQLiteHelper.STATUS, "Hungry",1);
             status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
         }
-
         return root;
-
     }
 
     @Override

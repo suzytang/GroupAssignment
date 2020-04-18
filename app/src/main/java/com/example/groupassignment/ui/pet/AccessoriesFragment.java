@@ -41,6 +41,38 @@ public class AccessoriesFragment extends Fragment {
             public void onClick(View v) {
                 String name = communication.getName();
                 System.out.println(name);
+                /*try{
+                    switch(name){
+                        case "Glasses":
+                            sqLiteHelper.applyGlasses("'Sunglasses'", "'"+name+"'");
+                            System.out.println("glasses switch");
+                            break;
+                        case "Sunglasses":
+                            sqLiteHelper.applyGlasses("'Glasses'", "'"+name+"'");
+                            System.out.println("sunglasses switch");
+                            break;
+                        case "Wig":
+                            sqLiteHelper.applyGlasses("'Wig'", "'"+name+"'");
+                            System.out.println("wig switch");
+                            break;
+                        case "Top Hat":
+                            sqLiteHelper.applyHats("'Pirate Hat'", "'Cap'", "'"+name+"'");
+                            System.out.println("tophat switch");
+                            break;
+                        case "Pirate Hat":
+                            sqLiteHelper.applyHats("'Cap'", "'Top Hat'", "'"+name+"'");
+                            System.out.println("pirate switch");
+                            break;
+                        case "Cap":
+                            sqLiteHelper.applyHats("'Pirate Hat'", "'Top Hat'", "'"+name+"'");
+                            System.out.println("cap switch");
+                            break;
+                    }
+                } catch (Exception e){
+                    System.out.println("not working");
+                }*/
+
+
                 sqLiteHelper.applyInventory("'"+name+"'", "'Accessories'");
                 //can apply more than one accessory at a time
                 Intent intent = new Intent(getActivity(), MainActivity.class);
