@@ -40,7 +40,7 @@ public class AccessoriesList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_list);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        /*recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new GridLayoutManager(this, 2);
@@ -73,13 +73,13 @@ public class AccessoriesList extends AppCompatActivity {
         coins.setText(Integer.toString(cursor.getInt(3))+ " coins");*/
 
 
-        TextView coins = (TextView) findViewById(R.id.coins);
+        /*TextView coins = (TextView) findViewById(R.id.coins);
 
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");*/
 
 
     }
-    public void clickResponse (final int position) throws SQLException {
+    /*public void clickResponse (final int position) throws SQLException {
 
         final Dialog dialog = new Dialog(this);
 
@@ -138,6 +138,6 @@ public class AccessoriesList extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
-    }
+    }*/
 
 }

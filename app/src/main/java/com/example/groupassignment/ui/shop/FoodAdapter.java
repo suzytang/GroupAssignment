@@ -11,17 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.groupassignment.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.MyViewHolder> {
+public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> {
 
     RecyclerViewClickListener listener;
-    final Shop shop = new Shop();
     Dialog dialog;
 
-    public AccessoriesAdapter(RecyclerViewClickListener listener) {
+    public FoodAdapter(RecyclerViewClickListener listener) {
 
         this.listener = listener;
     }
@@ -33,23 +30,23 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     }
 
     @Override
-    public AccessoriesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FoodAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.shop_list_item, parent, false);
-        return new AccessoriesAdapter.MyViewHolder(v, listener);
+        return new FoodAdapter.MyViewHolder(v, listener);
     }
 
     @Override
-    public void onBindViewHolder(AccessoriesAdapter.MyViewHolder holder, int position) {
-        holder.itemName.setText(shop.getAccessories().get(position).getItemName());
-        holder.itemPrice.setText(shop.getAccessories().get(position).getItemPrice() + " coins");
-        holder.image.setImageResource(shop.getAccessories().get(position).getImage());
+    public void onBindViewHolder(FoodAdapter.MyViewHolder holder, int position) {
+        holder.itemName.setText("Food");
+        holder.itemPrice.setText("20 coins");
+        holder.image.setImageResource(R.drawable.food_full);
 
 
     }
 
     @Override
     public int getItemCount() {
-        return shop.getAccessories().size();
+        return 1;
     }
 
 

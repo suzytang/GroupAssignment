@@ -1,5 +1,6 @@
 package com.example.groupassignment.ui.shop;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Dialog;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,28 +23,16 @@ import android.widget.Toast;
 
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
+import com.google.android.material.tabs.TabLayout;
 
-public class ShopFragment extends Fragment implements View.OnClickListener{
+public class ShopFragment extends Fragment{
 
     private ShopViewModel shopViewModel;
     private Button foodButton, accessoriesButton, wallpapersButton, cancelButton;
     private Dialog dialog;
 
-    /*@Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                TextView coins = (TextView) getActivity().findViewById(R.id.coins);
-                SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-                coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
-                System.out.println("working");
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
-    }*/
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,26 +40,32 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
                 ViewModelProviders.of(this).get(ShopViewModel.class);
         View root = inflater.inflate(R.layout.fragment_shop, container, false);
 
-        Button foodButton = (Button) root.findViewById(R.id.foodButton);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
+        ViewPager viewPager = root.findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = root.findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+
+        /*Button foodButton = (Button) root.findViewById(R.id.foodButton);
         Button accessoriesButton = (Button) root.findViewById(R.id.accessoriesButton);
-        Button wallpapersButton = (Button) root.findViewById(R.id.wallpapersButton);
+        Button wallpapersButton = (Button) root.findViewById(R.id.wallpapersButton);*/
 
-        TextView coins = (TextView) root.findViewById(R.id.coins);
+        /*TextView coins = (TextView) root.findViewById(R.id.coins);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");*/
 
-        dialog = new Dialog(getActivity());
+        /*dialog = new Dialog(getActivity());
 
         foodButton.setOnClickListener(this);
         accessoriesButton.setOnClickListener(this);
-        wallpapersButton.setOnClickListener(this);
+        wallpapersButton.setOnClickListener(this);*/
 
-        doBackBtnPressedAction(root);
+        //doBackBtnPressedAction(root);
 
         return root;
     }
 
-    @Override
+    /*@Override
     public void onViewCreated(View view, Bundle savedInstancestate){
         TextView coins = (TextView) getActivity().findViewById(R.id.coins);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
@@ -164,6 +160,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener{
             }
         });
 
-    }
+    }*/
 
 }

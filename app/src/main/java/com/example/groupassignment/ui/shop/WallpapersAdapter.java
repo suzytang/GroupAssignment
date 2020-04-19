@@ -16,10 +16,9 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
 
     WallpapersAdapter.RecyclerViewClickListener listener;
     final Shop shop = new Shop();
-    ArrayList<Shop> wallpapers = new ArrayList<>();
 
-    public WallpapersAdapter(ArrayList<Shop> wallpapers, WallpapersAdapter.RecyclerViewClickListener listener) {
-        this.wallpapers = wallpapers;
+
+    public WallpapersAdapter(WallpapersAdapter.RecyclerViewClickListener listener) {
         this.listener = listener;
 
     }

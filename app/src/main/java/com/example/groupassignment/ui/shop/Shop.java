@@ -71,7 +71,7 @@ public class Shop {
         accessories.add(new Shop("Cap", "Accessories", 20,0, R.drawable.cap));
         accessories.add(new Shop("Top Hat", "Accessories", 20,0, R.drawable.top_hat));
         accessories.add(new Shop("Glasses", "Accessories", 20,0, R.drawable.glasses));
-        accessories.add(new Shop("Pirate Hat", "Accessories", 20,0, R.drawable.hat_and_patch));
+        accessories.add(new Shop("Pirate Hat", "Accessories", 20,0, R.drawable.pirate_hat));
         accessories.add(new Shop("Wig", "Accessories", 20,0, R.drawable.wig));
 
 
