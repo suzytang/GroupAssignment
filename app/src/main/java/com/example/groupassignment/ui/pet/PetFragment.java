@@ -12,24 +12,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
 import com.example.groupassignment.ui.shop.Shop;
 
-import java.sql.SQLInput;
-import java.util.ArrayList;
-
 public class PetFragment extends Fragment implements View.OnClickListener{
 
-    private PetViewModel petViewModel;
     private Shop shop = new Shop();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        petViewModel =
-                ViewModelProviders.of(this).get(PetViewModel.class);
         View root = inflater.inflate(R.layout.fragment_pet_test, container, false);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
 
@@ -75,32 +68,31 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         int accessoryAmount = sqLiteHelper.getSum("'Accessories'");
         System.out.println("petfragment: " + accessoryAmount);
         if(accessoryAmount != 0) {
-                try {
-                    String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_3, "'Accessories'");
-
-                    switch (accessoryName) {
-                        case "Sunglasses":
-                            sunglasses.setVisibility(root.VISIBLE);
-                            break;
-                        case "Cap":
-                            cap.setVisibility(root.VISIBLE);
-                            break;
-                        case "Top Hat":
-                            tophat.setVisibility(root.VISIBLE);
-                            break;
-                        case "Glasses":
-                            glasses.setVisibility(root.VISIBLE);
-                            break;
-                        case "Pirate Hat":
-                            pirateHat.setVisibility(root.VISIBLE);
-                            break;
-                        case "Wig":
-                            wig.setVisibility(root.VISIBLE);
-                            break;
-                    }
-                } catch (Exception e) {
-                    System.out.println("Accessory not yet applied");
+            try {
+                String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_3, "'Accessories'");
+                switch (accessoryName) {
+                    case "Sunglasses":
+                        sunglasses.setVisibility(root.VISIBLE);
+                        break;
+                    case "Cap":
+                        cap.setVisibility(root.VISIBLE);
+                        break;
+                    case "Top Hat":
+                        tophat.setVisibility(root.VISIBLE);
+                        break;
+                    case "Glasses":
+                        glasses.setVisibility(root.VISIBLE);
+                        break;
+                    case "Pirate Hat":
+                        pirateHat.setVisibility(root.VISIBLE);
+                        break;
+                    case "Wig":
+                        wig.setVisibility(root.VISIBLE);
+                        break;
                 }
+            } catch (Exception e) {
+                System.out.println("Accessory not yet applied");
+            }
         }else{
             System.out.println("if failed");
         }
