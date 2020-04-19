@@ -51,16 +51,15 @@ public class LearnFragment extends Fragment {
 
         ArrayList<LearnCategories> categories = LearnCategories.getCategories();
 
-        /*LearnRecyclerAdapter.RecyclerViewClickListener listener = new LearnRecyclerAdapter.RecyclerViewClickListener() {
+        LearnRecyclerAdapter.RecyclerViewClickListener listener = new LearnRecyclerAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
                 clickResponse(position);
             }
-        };*/
+        };
 
-        adapter = new LearnRecyclerAdapter(this.getContext(), categories);
+        adapter = new LearnRecyclerAdapter(this.getContext(), categories, listener);
 
-        //Attach the adapter to the recyclerView
         recyclerView.setAdapter(adapter);
 
         return root;
@@ -69,6 +68,13 @@ public class LearnFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    public void clickResponse(int position){
+        Intent intent = new Intent(getActivity(), Level.class);
+        intent.putExtra("level", position);
+
+        startActivity(intent);
     }
 
 }
