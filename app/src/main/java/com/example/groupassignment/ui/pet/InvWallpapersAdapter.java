@@ -25,18 +25,16 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
     Shop shop = new Shop();
     private Context context;
     private Cursor cursor;
-    private FragmentCommunication mCommunicator;
 
-    public InvWallpapersAdapter(Context context, Cursor cursor, FragmentCommunication mCommunicator) {
+    public InvWallpapersAdapter(Context context, Cursor cursor) {
         this.context = context;
         this.cursor = cursor;
-        this.mCommunicator = mCommunicator;
     }
 
     @Override
     public InvWallpapersAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item, parent, false);
-        return new InvWallpapersAdapter.MyViewHolder(v, mCommunicator);
+        return new InvWallpapersAdapter.MyViewHolder(v);
     }
 
     @Override
@@ -75,29 +73,28 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
         public TextView itemName;
         public Button apply;
         public ImageView image;
-        public FragmentCommunication mCommunicator;
 
-        public MyViewHolder(View itemView, FragmentCommunication mCommunicator) {
+        public MyViewHolder(View itemView) {
             super(itemView);
 
             this.itemName = itemView.findViewById(R.id.itemName);
             this.apply = itemView.findViewById(R.id.apply);
             this.image = itemView.findViewById(R.id.image);
-            this.mCommunicator = mCommunicator;
 
             apply.setOnClickListener(this);
 
         }
         @Override
         public void onClick(View v) {
-            //mCommunicator.respond(shop.getWallpapers().get(getAdapterPosition()).getItemName());
             if(!cursor.moveToPosition(getAdapterPosition())){
                 return;
             }
-            final String test = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
-            System.out.println("onclick test " +test);
+            final String wallpaper = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
 
-            mCommunicator.respond(cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2)));
+            SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
+            sqLiteHelper.applyInventory("'"+wallpaper+"'", "'Wallpapers'");
+            System.out.println("onclick test " +wallpaper);
+
             Toast.makeText(context,  "The wallpaper has been applied",
                     Toast.LENGTH_LONG).show();
         }

@@ -30,8 +30,6 @@
             android:label="@string/app_name" />
         <activity android:name=".ui.learn.LearnFlashcards" />
         <activity android:name=".ui.shop.ShopPopup" />
-        <activity android:name=".ui.shop.AccessoriesList" />
-        <activity android:name=".ui.shop.WallpapersList" />
         <activity android:name=".ui.pet.PetInventory" />
         <activity android:name=".MainActivity_Learn" />
     </application>

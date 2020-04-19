@@ -116,6 +116,7 @@
         android:shadowRadius="5"
         android:textColor="@android:color/white"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/levelProgress"
         app:layout_constraintEnd_toEndOf="@+id/levelProgress"
         app:layout_constraintStart_toStartOf="@+id/levelProgress"
@@ -156,7 +157,7 @@
 
     <TextView
         android:id="@+id/coins"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -167,6 +168,7 @@
         android:shadowRadius="5"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/coinImage"
         app:layout_constraintStart_toEndOf="@+id/coinImage"
         app:layout_constraintTop_toTopOf="@+id/coinImage"
@@ -174,7 +176,7 @@
 
     <TextView
         android:id="@+id/status"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -184,13 +186,14 @@
         android:shadowRadius="5"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/statusImage"
         app:layout_constraintStart_toEndOf="@+id/statusImage"
         app:layout_constraintTop_toTopOf="@+id/statusImage" />
 
     <TextView
         android:id="@+id/foodQty"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -200,6 +203,7 @@
         android:shadowRadius="5"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/food"
         app:layout_constraintStart_toEndOf="@+id/food"
         app:layout_constraintTop_toTopOf="@+id/food" />

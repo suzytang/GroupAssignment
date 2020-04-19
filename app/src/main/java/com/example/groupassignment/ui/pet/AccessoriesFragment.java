@@ -34,13 +34,11 @@ public class AccessoriesFragment extends Fragment {
         final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         db = sqLiteHelper.getWritableDatabase();
 
-        final FragmentCommunication communication = new FragmentCommunication();
         Button button = (Button) root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = communication.getName();
-                System.out.println(name);
+
                 /*try{
                     switch(name){
                         case "Glasses":
@@ -73,7 +71,6 @@ public class AccessoriesFragment extends Fragment {
                 }*/
 
 
-                sqLiteHelper.applyInventory("'"+name+"'", "'Accessories'");
                 //can apply more than one accessory at a time
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
@@ -86,7 +83,7 @@ public class AccessoriesFragment extends Fragment {
 
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new InvAccessoriesAdapter(getActivity(), getAllItems(), communication);
+        adapter = new InvAccessoriesAdapter(getActivity(), getAllItems());
 
         recyclerView.setAdapter(adapter);
 

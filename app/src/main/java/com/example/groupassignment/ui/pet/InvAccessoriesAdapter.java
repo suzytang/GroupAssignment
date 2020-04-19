@@ -21,18 +21,16 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
     Shop shop = new Shop();
     private Context context;
     private Cursor cursor;
-    private FragmentCommunication mCommunicator;
 
-    public InvAccessoriesAdapter(Context context, Cursor cursor, FragmentCommunication mCommunicator) {
+    public InvAccessoriesAdapter(Context context, Cursor cursor) {
         this.context = context;
         this.cursor = cursor;
-        this.mCommunicator = mCommunicator;
     }
 
     @Override
     public InvAccessoriesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventory_item, parent, false);
-        return new InvAccessoriesAdapter.MyViewHolder(v, mCommunicator);
+        return new InvAccessoriesAdapter.MyViewHolder(v);
     }
 
     @Override
@@ -71,15 +69,13 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
         public TextView itemName;
         public Button apply;
         public ImageView image;
-        public FragmentCommunication mCommunicator;
 
-        public MyViewHolder(View itemView, FragmentCommunication mCommunicator) {
+        public MyViewHolder(View itemView) {
             super(itemView);
 
             this.itemName = itemView.findViewById(R.id.itemName);
             this.apply = itemView.findViewById(R.id.apply);
             this.image = itemView.findViewById(R.id.image);
-            this.mCommunicator = mCommunicator;
 
             apply.setOnClickListener(this);
 
@@ -90,10 +86,12 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
                 return;
             }
             String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+            SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
+
+            sqLiteHelper.applyInventory("'"+accessory+"'", "'Accessories'");
+
             System.out.println("adapter "+accessory);
 
-
-            mCommunicator.respond(cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2)));
             Toast.makeText(context,  "The accessory has been applied",
                     Toast.LENGTH_LONG).show();
         }

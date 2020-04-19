@@ -42,15 +42,16 @@ public class WallpapersFragment extends Fragment {
         final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         db = sqLiteHelper.getWritableDatabase();
 
-        final FragmentCommunication communication = new FragmentCommunication();
+
         Button button = (Button) root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = communication.getName();
+                /*String name = communication.getName();
                 System.out.println(name);
-                //implement method to set the other applied values to 0
-                sqLiteHelper.applyInventory("'"+name+"'", "'Wallpapers'");
+                if(name != null){
+                    sqLiteHelper.applyInventory("'"+name+"'", "'Wallpapers'");
+                }*/
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
@@ -62,7 +63,7 @@ public class WallpapersFragment extends Fragment {
 
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new InvWallpapersAdapter(getActivity(), getAllItems(), communication);
+        adapter = new InvWallpapersAdapter(getActivity(), getAllItems());
 
         recyclerView.setAdapter(adapter);
 
