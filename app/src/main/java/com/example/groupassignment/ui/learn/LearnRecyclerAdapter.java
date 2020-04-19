@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,8 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.levelText.setText(categories.get(position).getCategoryName());
+        holder.categoryImage.setImageResource(categories.get(position).getImage());
+
         holder.learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +78,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
         Button quiz;
         Button learn;
         Button practice;
+        ImageView categoryImage;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -82,6 +86,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
             this.quiz = itemView.findViewById(R.id.storeButton);
             this.learn = itemView.findViewById(R.id.learn);
             this.practice = itemView.findViewById(R.id.practice);
+            this.categoryImage = itemView.findViewById(R.id.categoryImage);
         }
 
     }
