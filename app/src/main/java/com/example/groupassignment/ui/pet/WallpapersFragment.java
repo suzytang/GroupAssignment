@@ -3,8 +3,6 @@ package com.example.groupassignment.ui.pet;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteTableLockedException;
-import android.icu.util.BuddhistCalendar;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.groupassignment.MainActivity;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
-import com.example.groupassignment.ui.learn.LearnCategories;
-import com.example.groupassignment.ui.learn.LearnRecyclerAdapter;
-import com.example.groupassignment.ui.shop.Shop;
-
-import java.util.ArrayList;
 
 public class WallpapersFragment extends Fragment {
 
@@ -43,7 +35,7 @@ public class WallpapersFragment extends Fragment {
         db = sqLiteHelper.getWritableDatabase();
 
 
-        Button button = (Button) root.findViewById(R.id.button);
+        Button button = (Button) root.findViewById(R.id.menu);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

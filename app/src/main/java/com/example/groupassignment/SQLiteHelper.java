@@ -86,6 +86,12 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void clearAccessories(String category)  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = " +0+ " where CATEGORY = "+category);
+        db.close();
+    }
+
     public void updatePetData(String column, String value, int i)  {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("update "+PET_TABLE+" set "+column+"='"+value+"' where ID = "+i);
