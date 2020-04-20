@@ -41,8 +41,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, LearnFlashcards.class);
-                intent.putExtra("level",categories.get(position).getLevel());
-                intent.putExtra("table","learn_table");
+                intent.putExtra("category",categories.get(position).getLevel());
                 mContext.startActivity(intent);
             }
         });
@@ -50,8 +49,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, Practice.class);
-                intent.putExtra("level",categories.get(position).getLevel());
-                intent.putExtra("table","learn_table");
+                intent.putExtra("category",categories.get(position).getLevel());
                 mContext.startActivity(intent);
             }
         });
@@ -60,8 +58,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, QuizTest.class);
-                intent.putExtra("level", categories.get(position).getLevel());
-                intent.putExtra("table","learn_table");
+                intent.putExtra("category", categories.get(position).getLevel());
                 mContext.startActivity(intent);
             }
         });

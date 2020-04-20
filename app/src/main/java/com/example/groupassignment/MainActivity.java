@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         dB = new DatabaseHelper(this);
-        dB.updateData("learn_table","Translation","S''il vous plaît",6);
+//        dB.updateData("Translation","S''il vous plaît",6);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);

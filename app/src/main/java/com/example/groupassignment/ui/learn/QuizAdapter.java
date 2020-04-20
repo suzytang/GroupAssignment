@@ -56,7 +56,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     //Inflate restaurant_list_row and return view
     @Override
     public QuizAdapter.QuizViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.quiz_results, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.quiz_results_list, parent, false);
         return new QuizViewHolder(v);
     }
 
@@ -72,7 +72,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         holder.userAnswer.setText("Your translation: "+result.getAnswer());
         holder.correctAnswer.setText("Correct translation: "+result.getTranslation());
 
-        if (result.getScore() == 1) {
+        if (result.getScore() > 0) {
             holder.card.setCardBackgroundColor(ColorStateList.valueOf(0xffdeffe6));
         } else {
             holder.card.setCardBackgroundColor(ColorStateList.valueOf(0xffffdede));
