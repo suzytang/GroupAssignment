@@ -41,8 +41,8 @@ public class Practice extends AppCompatActivity {
         final Button learn = findViewById(R.id.learn);
 
         Intent intent = getIntent();
-        final int level = intent.getIntExtra("level",0);
-        this.setTitle(LearnCategories.getCategories().get(level-1).getCategoryName()+" True / False Practice");
+        final int category = intent.getIntExtra("category",0);
+        this.setTitle(LearnCategories.getCategories().get(category-1).getCategoryName()+" True / False Practice");
 
         final Random random = new Random();
 
@@ -59,9 +59,9 @@ public class Practice extends AppCompatActivity {
         }
         refresh.setEnabled(false);
 
-        englishTF.setText(myDb.pullData( "Expression",level, randomEnglish[0]));
+        englishTF.setText(myDb.pullData( "Expression",category, randomEnglish[0]));
         if (tf[0] == 1) {
-            translatedTF.setText(myDb.pullData("Translation", level, randomEnglish[0]));
+            translatedTF.setText(myDb.pullData("Translation", category, randomEnglish[0]));
         } else {
             while (randomEnglish[0] == randomTranslate[0]) {
                 randomTranslate[0] = random.nextInt(9) + 1;
@@ -83,7 +83,7 @@ public class Practice extends AppCompatActivity {
                 trueButton.setEnabled(false);
                 falseButton.setEnabled(false);
                 refresh.setEnabled(true);
-                correctTF.setText("The translation of \""+myDb.pullData( "Expression",level, randomEnglish[0])+"\" is \""+myDb.pullData( "Translation", level, randomEnglish[0])+"\".");
+                correctTF.setText("The translation of \""+myDb.pullData( "Expression",category, randomEnglish[0])+"\" is \""+myDb.pullData( "Translation", category, randomEnglish[0])+"\".");
             }
         });
 
@@ -101,7 +101,7 @@ public class Practice extends AppCompatActivity {
                 trueButton.setEnabled(false);
                 falseButton.setEnabled(false);
                 refresh.setEnabled(true);
-                correctTF.setText("The translation of \""+myDb.pullData("Expression",level, randomEnglish[0])+"\" is \""+myDb.pullData( "Translation", level, randomEnglish[0])+"\".");
+                correctTF.setText("The translation of \""+myDb.pullData("Expression",category, randomEnglish[0])+"\" is \""+myDb.pullData( "Translation", category, randomEnglish[0])+"\".");
             }
         });
 
@@ -118,9 +118,9 @@ public class Practice extends AppCompatActivity {
                 }
                 refresh.setEnabled(false);
 
-                englishTF.setText(myDb.pullData("Expression",level, randomEnglish[0]));
+                englishTF.setText(myDb.pullData("Expression",category, randomEnglish[0]));
                 if (tf[0] == 1) {
-                    translatedTF.setText(myDb.pullData( "Translation", level, randomEnglish[0]));
+                    translatedTF.setText(myDb.pullData( "Translation", category, randomEnglish[0]));
                 } else {
                     while (randomEnglish[0] == randomTranslate[0]) {
                         randomTranslate[0] = random.nextInt(9) + 1;
@@ -145,7 +145,7 @@ public class Practice extends AppCompatActivity {
                         trueButton.setEnabled(false);
                         falseButton.setEnabled(false);
                         refresh.setEnabled(true);
-                        correctTF.setText("The translation of \""+myDb.pullData( "Expression",level, randomEnglish[0])+"\" is \""+myDb.pullData( "Translation", level, randomEnglish[0])+"\".");
+                        correctTF.setText("The translation of \""+myDb.pullData( "Expression",category, randomEnglish[0])+"\" is \""+myDb.pullData( "Translation", category, randomEnglish[0])+"\".");
                     }
                 });
 
@@ -163,7 +163,7 @@ public class Practice extends AppCompatActivity {
                         trueButton.setEnabled(false);
                         falseButton.setEnabled(false);
                         refresh.setEnabled(true);
-                        correctTF.setText("The translation of \""+myDb.pullData( "Expression",level, randomEnglish[0])+"\" is \""+myDb.pullData( "Translation", level, randomEnglish[0])+"\".");
+                        correctTF.setText("The translation of \""+myDb.pullData( "Expression",category, randomEnglish[0])+"\" is \""+myDb.pullData( "Translation", category, randomEnglish[0])+"\".");
                     }
                 });
 
@@ -177,7 +177,7 @@ public class Practice extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Practice.this, QuizTest.class);
-                intent.putExtra("level", level);
+                intent.putExtra("category", category);
                 startActivity(intent);
             }
         });
@@ -186,7 +186,7 @@ public class Practice extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Practice.this, LearnFlashcards.class);
-                intent.putExtra("level",level);
+                intent.putExtra("category",category);
                 startActivity(intent);
             }
         });
