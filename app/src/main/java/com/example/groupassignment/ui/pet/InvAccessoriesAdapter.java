@@ -88,7 +88,22 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
             String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
             SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
 
-            sqLiteHelper.applyInventory("'"+accessory+"'", "'Accessories'");
+            switch(accessory){
+                case "Glasses":
+                case "Sunglasses":
+                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Glasses'");
+                    break;
+                case "Wig":
+                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Wig'");
+                    break;
+                case "Pirate Hat":
+                case "Cap":
+                case "Top Hat":
+                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Hat'");
+                    break;
+            }
+
+            //sqLiteHelper.applyInventory("'"+accessory+"'", "'Accessories'");
 
             System.out.println("adapter "+accessory);
 

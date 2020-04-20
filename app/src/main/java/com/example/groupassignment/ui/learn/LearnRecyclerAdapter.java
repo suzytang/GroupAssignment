@@ -21,12 +21,10 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     private Context mContext;
 
     ArrayList<LearnCategories> categories;
-    LearnRecyclerAdapter.RecyclerViewClickListener listener;
 
-    public LearnRecyclerAdapter(Context context,ArrayList<LearnCategories> categories, LearnRecyclerAdapter.RecyclerViewClickListener listener) {
+    public LearnRecyclerAdapter(Context context,ArrayList<LearnCategories> categories) {
         this.categories = categories;
         this.mContext = context;
-        this.listener = listener;
     }
 
     public interface RecyclerViewClickListener {
@@ -36,7 +34,7 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     @Override
     public MyViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.learn_levels, parent, false);
-        return new MyViewHolder(v, listener);
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -77,21 +75,17 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView levelText;
         Button quiz;
         Button learn;
         Button practice;
         ImageView categoryImage;
 
-        LearnRecyclerAdapter.RecyclerViewClickListener listener;
 
-        public MyViewHolder(View itemView, LearnRecyclerAdapter.RecyclerViewClickListener listener) {
+        public MyViewHolder(View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(this);
-
-            this.listener = listener;
             this.levelText = itemView.findViewById(R.id.category);
             this.quiz = itemView.findViewById(R.id.storeButton);
             this.learn = itemView.findViewById(R.id.learn);
@@ -99,11 +93,5 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
             this.categoryImage = itemView.findViewById(R.id.categoryImage);
         }
 
-        @Override
-        public void onClick(View v) {
-
-            listener.onClick(v,getAdapterPosition());
-
-        }
     }
 }

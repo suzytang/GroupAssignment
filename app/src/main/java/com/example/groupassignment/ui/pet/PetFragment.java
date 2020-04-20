@@ -69,28 +69,42 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         System.out.println("petfragment: " + accessoryAmount);
         if(accessoryAmount != 0) {
             try {
-                String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_3, "'Accessories'");
+                String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.SUBCATEGORY, "'Glasses'");
                 switch (accessoryName) {
                     case "Sunglasses":
                         sunglasses.setVisibility(root.VISIBLE);
                         break;
+                    case "Glasses":
+                        glasses.setVisibility(root.VISIBLE);
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Accessory not yet applied");
+            }
+            try {
+                String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.SUBCATEGORY, "'Hat'");
+                switch (accessoryName) {
                     case "Cap":
                         cap.setVisibility(root.VISIBLE);
                         break;
                     case "Top Hat":
                         tophat.setVisibility(root.VISIBLE);
                         break;
-                    case "Glasses":
-                        glasses.setVisibility(root.VISIBLE);
-                        break;
                     case "Pirate Hat":
                         pirateHat.setVisibility(root.VISIBLE);
                         break;
+                }
+            }catch (Exception e) {
+                System.out.println("Accessory not yet applied");
+            }
+            try {
+                String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.SUBCATEGORY, "'Wig'");
+                switch (accessoryName) {
                     case "Wig":
                         wig.setVisibility(root.VISIBLE);
                         break;
                 }
-            } catch (Exception e) {
+            }catch (Exception e) {
                 System.out.println("Accessory not yet applied");
             }
         }else{

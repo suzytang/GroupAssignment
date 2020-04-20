@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "322943498721230909837637955758.db";
+    public static final String DATABASE_NAME = "32294349872147902837637955758.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String PET_TABLE = "pet_table";
     public static final String COL_1 = "ID";
@@ -24,6 +24,7 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     public static final String LVL = "LVL";
     public static final String TIME = "TIME";
     public static final String APPLIED = "APPLIED";
+    public static final String SUBCATEGORY = "SUBCATEGORY";
 
 
 
@@ -34,21 +35,21 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,CATEGORY TEXT,AMOUNT INTEGER,APPLIED INTEGER)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (1,'Coins','Coins',10000, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (2,'Food','Food',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (3,'Sunglasses','Accessories',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (4,'Cap','Accessories',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (5,'Top Hat','Accessories',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (6,'Glasses','Accessories',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (7,'Pirate Hat','Accessories',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (8,'Wig','Accessories',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (9,'Striped','Wallpapers',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (10,'Polka Dots','Wallpapers',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (11,'Pink','Wallpapers',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (12,'Black','Wallpapers',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (13,'Red','Wallpapers',0, 0)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+APPLIED+") VALUES (14,'Green','Wallpapers',0, 0)");
+        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,CATEGORY TEXT, SUBCATEGORY TEXT, AMOUNT INTEGER,APPLIED INTEGER)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (1,'Coins','Coins','Coins', 10000, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (2,'Food','Food','Food',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (3,'Sunglasses','Accessories','Glasses',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (4,'Cap','Accessories','Hat',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (5,'Top Hat','Accessories','Hat',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (6,'Glasses','Accessories','Glasses',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (7,'Pirate Hat','Accessories','Hat',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (8,'Wig','Accessories','Wig',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (9,'Striped','Wallpapers','Wallpaper',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (10,'Polka Dots','Wallpapers','Wallpaper',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (11,'Pink','Wallpapers','Wallpaper',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (12,'Black','Wallpapers','Wallpaper',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (13,'Red','Wallpapers','Wallpaper',0, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (14,'Green','Wallpapers','Wallpaper',0, 0)");
 
 
         db.execSQL("create table " + PET_TABLE +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,STATUS TEXT,MOOD TEXT, " +
@@ -75,6 +76,13 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = " +0+ " where CATEGORY = "+category);
         db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = " +1+ " where NAME = "+name+ " AND CATEGORY = "+category);
+        db.close();
+    }
+
+    public void applyAccessories(String name, String subcategory)  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = " +0+ " where SUBCATEGORY = "+subcategory);
+        db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = " +1+ " where NAME = "+name+ " AND SUBCATEGORY = "+subcategory);
         db.close();
     }
 
