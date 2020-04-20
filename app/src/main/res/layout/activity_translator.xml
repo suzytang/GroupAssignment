@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
     <TextView
@@ -12,13 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
+        android:layout_marginBottom="16dp"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/translate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterWord" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/enterWord"
@@ -26,41 +27,38 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="Enter Word"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/translatedText"
+        app:layout_constraintEnd_toStartOf="@+id/clearText"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/translate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/colorAccent"
         android:text="Translate"
         android:textColor="@android:color/background_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/translatedText" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/translatedSpeech"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/storeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:backgroundTint="@color/colorAccent"
         android:text="STORE"
         android:textColor="@android:color/background_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/translate" />
+        app:layout_constraintBottom_toBottomOf="@+id/translate"
+        app:layout_constraintEnd_toStartOf="@+id/translate" />
 
     <ImageButton
         android:id="@+id/englishSpeech"
@@ -89,13 +87,17 @@
         app:layout_constraintTop_toTopOf="@+id/translatedText"
         app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
 
-    <TextView
-        android:id="@+id/storeResponse"
+    <ImageButton
+        android:id="@+id/clearText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/storeButton"
-        app:layout_constraintEnd_toEndOf="@+id/storeButton"
-        app:layout_constraintStart_toStartOf="@+id/storeButton"
-        app:layout_constraintTop_toTopOf="@+id/storeButton" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@null"
+        android:tint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/englishSpeech"
+        app:layout_constraintEnd_toStartOf="@+id/englishSpeech"
+        app:layout_constraintStart_toEndOf="@+id/enterWord"
+        app:srcCompat="@android:drawable/ic_input_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

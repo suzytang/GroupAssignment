@@ -30,7 +30,7 @@ public class LearnFlashcards extends AppCompatActivity {
     private TextToSpeech translatedTTS, englishTTS;
     private ImageButton translatedSpeech, englishSpeech, next, prev;
     private TextView question, frontText, backText;
-    private Button menu, quiz;
+//    private Button menu, quiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,8 @@ public class LearnFlashcards extends AppCompatActivity {
         question = findViewById(R.id.progress);
         frontText = findViewById(R.id.frontText);
         backText = findViewById(R.id.backText);
-        menu = findViewById(R.id.menu);
-        quiz = findViewById(R.id.storeButton);
+//        menu = findViewById(R.id.menu);
+//        quiz = findViewById(R.id.quiz);
         translatedSpeech = findViewById(R.id.translatedSpeech);
         englishSpeech = findViewById(R.id.englishSpeech);
 
@@ -60,23 +60,23 @@ public class LearnFlashcards extends AppCompatActivity {
 
         question.setText((i)+"/"+amount);
 
-        quiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Intent intent = new Intent(LearnFlashcards.this, QuizTest.class);
-                intent.putExtra("category", category);
-            startActivity(intent);
-            }
-        });
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LearnFlashcards.this, MainActivity_Learn.class);
-                intent.putExtra("category", category);
-                startActivity(intent);
-            }
-        });
+//        quiz.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            Intent intent = new Intent(LearnFlashcards.this, QuizTest.class);
+//            intent.putExtra("category", category);
+//            startActivity(intent);
+//            }
+//        });
+//
+//        menu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(LearnFlashcards.this, MainActivity_Learn.class);
+//                intent.putExtra("category", category);
+//                startActivity(intent);
+//            }
+//        });
 
         final EasyFlipView easyFlipView = (EasyFlipView) findViewById(R.id.easyFlipView);
         easyFlipView.setFlipDuration(500);

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.groupassignment.DatabaseHelper;
 import com.example.groupassignment.MainActivity_Learn;
+import com.example.groupassignment.MainActivity_Self_Learn;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
 
@@ -25,13 +26,16 @@ public class Practice extends AppCompatActivity {
 
     DatabaseHelper myDb = new DatabaseHelper(this);
     Random random = new Random();
-    int strikes, randomEnglish, randomTranslate, amount, category;
-    boolean correctAnswer, userAnswer;
+    private int strikes, randomEnglish, randomTranslate, amount, category;
+    private boolean correctAnswer, userAnswer;
+    private String englishText, translatedText;
     int correct;
     private ImageView strike1, strike2, strike3;
     private Button refresh, menu, quiz, learn;
     private TextView englishTF, translatedTF, resultTF, correctTF, selection;
     private ImageButton trueButton, falseButton;
+    private Dialog dialog;
+    private Dialog exitDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +45,6 @@ public class Practice extends AppCompatActivity {
         strike1 = findViewById(R.id.strike1);
         strike2 = findViewById(R.id.strike2);
         strike3 = findViewById(R.id.strike3);
-
-        strike1.setVisibility(View.INVISIBLE);
-        strike2.setVisibility(View.INVISIBLE);
-        strike3.setVisibility(View.INVISIBLE);
-
-        strikes = 0;
 
         refresh = findViewById(R.id.refresh);
         trueButton = findViewById(R.id.trueButton);
@@ -59,9 +57,9 @@ public class Practice extends AppCompatActivity {
         correctTF = findViewById(R.id.correctTF);
         selection = findViewById(R.id.selection);
 
-        menu = findViewById(R.id.menu);
-        quiz = findViewById(R.id.storeButton);
-        learn = findViewById(R.id.learn);
+//        menu = findViewById(R.id.menu);
+//        quiz = findViewById(R.id.storeButton);
+//        learn = findViewById(R.id.learn);
 
         Intent intent = getIntent();
         category = intent.getIntExtra("category",0);
@@ -74,6 +72,7 @@ public class Practice extends AppCompatActivity {
             this.setTitle("Self-Learn True or False Practice");
         }
 
+        resetUI();
         updateUI();
 
         refresh.setOnClickListener(new View.OnClickListener() {
@@ -83,31 +82,36 @@ public class Practice extends AppCompatActivity {
             }
         });
 
-        quiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Practice.this, QuizTest.class);
-                intent.putExtra("category", category);
-                startActivity(intent);
-            }
-        });
-
-        learn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Practice.this, LearnFlashcards.class);
-                intent.putExtra("category",category);
-                startActivity(intent);
-            }
-        });
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Practice.this, MainActivity_Learn.class);
-                startActivity(intent);
-            }
-        });
+//        quiz.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Practice.this, QuizTest.class);
+//                intent.putExtra("category", category);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        learn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Practice.this, LearnFlashcards.class);
+//                intent.putExtra("category",category);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        menu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (category != 0) {
+//                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Learn.class);
+//                    startActivity(intent1);
+//                } else {
+//                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Self_Learn.class);
+//                    startActivity(intent1);
+//                }
+//            }
+//        });
     }
 
     private void updateUI() {
@@ -121,17 +125,38 @@ public class Practice extends AppCompatActivity {
             correctAnswer = false;
         }
         refresh.setEnabled(false);
+        refresh.setAlpha((float) 0.1);
 
-        englishTF.setText(myDb.pullData("Expression",category, randomEnglish));
+        englishText = myDb.pullData("Expression",category, randomEnglish);
+        englishTF.setText(englishText);
+
+        boolean questionMark;
+        boolean ellipses;
+
+        questionMark = englishText.contains("?");
+        ellipses = englishText.contains("...");
+
         if (correctAnswer) {
-            translatedTF.setText(myDb.pullData("Translation", category, randomEnglish));
+            translatedText = myDb.pullData("Translation", category, randomEnglish);
+            translatedTF.setText(translatedText);
         } else {
-            while (randomEnglish == randomTranslate) {
-                randomTranslate = random.nextInt(myDb.countData()-1) + 1;
+            translatedText = myDb.pullRandom("Translation", randomTranslate);
+            if (category != 0) {
+                while (translatedText.contains("?") != questionMark || translatedText.contains("...") != ellipses
+                        || randomEnglish == randomTranslate) {
+                    randomTranslate = random.nextInt(myDb.countData()-1) + 1;
+                    translatedText = myDb.pullRandom("Translation", randomTranslate);
+                }
+            } else {
+                while (randomEnglish == randomTranslate) {
+                    randomTranslate = random.nextInt(myDb.countData()-1) + 1;
+                    translatedText = myDb.pullRandom("Translation", randomTranslate);
+                }
             }
             translatedTF.setText(myDb.pullRandom("Translation", randomTranslate));
         }
-        resultTF.setText(String.valueOf(correct));
+
+        resultTF.setText("");
         correctTF.setText("");
         selection.setText("");
 
@@ -156,8 +181,11 @@ public class Practice extends AppCompatActivity {
         });
 
         refresh.setEnabled(false);
+        refresh.setAlpha((float) 0.1);
         trueButton.setEnabled(true);
         falseButton.setEnabled(true);
+        trueButton.setAlpha((float) 1);
+        falseButton.setAlpha((float) 1);
     }
 
     private void updateStrikes(int strikes) {
@@ -170,19 +198,17 @@ public class Practice extends AppCompatActivity {
                 break;
             case 3:
                 strike3.setVisibility(View.VISIBLE);
+                practiceOver();
                 break;
         }
-    }
-
-    private void practiceGameOver() {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.practice_game_over);
     }
 
     private boolean showResult(boolean userAnswer, boolean correctAnswer) {
         selection.setText("You selected "+userAnswer+".");
         trueButton.setEnabled(false);
+        trueButton.setAlpha((float) 0.1);
         falseButton.setEnabled(false);
+        falseButton.setAlpha((float) 0.1);
         refresh.setEnabled(true);
         correctTF.setText("The translation of \""+myDb.pullData("Expression",category, randomEnglish)+"\" is \""+myDb.pullData( "Translation", category, randomEnglish)+"\".");
         if (userAnswer == correctAnswer) {
@@ -197,4 +223,128 @@ public class Practice extends AppCompatActivity {
             return false;
         }
     }
+
+    private void resetUI() {
+        correct = 0;
+        strikes = 0;
+        strike1.setVisibility(View.INVISIBLE);
+        strike2.setVisibility(View.INVISIBLE);
+        strike3.setVisibility(View.INVISIBLE);
+        resultTF.setText("");
+        correctTF.setText("");
+        selection.setText("");
+    }
+
+    private void practiceOver() {
+        dialog = new Dialog(this);
+
+        dialog.setContentView(R.layout.practice_game_over);
+        TextView grade = dialog.findViewById(R.id.grade1);
+        TextView score = dialog.findViewById(R.id.score1);
+        TextView coinsIncrease = dialog.findViewById(R.id.coinsIncrease1);
+        ImageView reaction = dialog.findViewById(R.id.reaction1);
+        Button tryQuiz = dialog.findViewById(R.id.tryQuiz);
+        Button menu = dialog.findViewById(R.id.menu1);
+        Button retry = dialog.findViewById(R.id.retry1);
+
+        final SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
+        myDb = new DatabaseHelper(this);
+
+        int coinsEarned = 0;
+        int coinsPerQuestion = (int) (Math.floor(correct/5)+1);
+        coinsEarned = correct * coinsPerQuestion;
+        int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+
+        sqLiteHelper.update(1, "Coins", "Coins", coinsCurrrent + coinsEarned);
+
+        if (correct == 0) {
+            grade.setText("Unlucky!");
+            reaction.setImageResource(R.drawable.sad);
+            coinsIncrease.setText("No coins earned.");
+            score.setText("You didn't get any correct.");
+        } else {
+            reaction.setImageResource(R.drawable.happy1);
+            score.setText("You got " + correct + " correct.");
+            if (correct == 1) {
+                grade.setText("Good Try!");
+                coinsIncrease.setText("+" + coinsEarned + " coin");
+            } else {
+                grade.setText("Congratulations!");
+                coinsIncrease.setText("+" + coinsEarned + " coins");
+            }
+        }
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (category != 0) {
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Learn.class);
+                    startActivity(intent1);
+                } else {
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Self_Learn.class);
+                    startActivity(intent1);
+                }
+            }
+        });
+
+        tryQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(getApplicationContext(), QuizTest.class);
+                intent2.putExtra("category", category);
+                startActivity(intent2);
+            }
+        });
+
+        retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetUI();
+                updateUI();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+    }
+
+    public void onBackPressed() {
+        exitDialog = new Dialog(this);
+
+        exitDialog.setContentView(R.layout.exit_dialog);
+        Button yes = exitDialog.findViewById(R.id.yes);
+        Button no = exitDialog.findViewById(R.id.no);
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (category != 0) {
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Learn.class);
+                    startActivity(intent1);
+                } else {
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Self_Learn.class);
+                    startActivity(intent1);
+                }
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exitDialog.dismiss();
+            }
+        });
+
+        exitDialog.show();
+
+        exitDialog.setCanceledOnTouchOutside(false);
+        exitDialog.setCancelable(false);
+    }
+
+//    @Override
+//    protected void onDestroy() {
+//        dialog.dismiss();
+//        exitDialog.dismiss();
+//        super.onDestroy();
+//    }
 }

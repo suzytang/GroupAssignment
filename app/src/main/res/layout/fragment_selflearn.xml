@@ -5,41 +5,239 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/translatorButton"
+    <ImageView
+        android:id="@+id/line11"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="translate"
-        android:textColor="@android:color/background_light"
-        android:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/learn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/learn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:text="learn"
-        android:textColor="@android:color/background_light"
-        android:backgroundTint="@color/colorAccent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/storedWords"
+        app:srcCompat="@color/colorAccent" />
 
-    <Button
-        android:id="@+id/quiz"
+    <ImageView
+        android:id="@+id/line9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storedWords"
+        app:srcCompat="@color/colorAccent" />
+
+    <ImageButton
+        android:id="@+id/function1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="48dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/line9"
+        app:layout_constraintEnd_toStartOf="@+id/line11"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/line11"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/translate" />
+
+    <ImageButton
+        android:id="@+id/function2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="48dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/line9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/line11"
+        app:layout_constraintTop_toTopOf="@+id/line11"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/brain" />
+
+    <ImageButton
+        android:id="@+id/function3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="48dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/line11"
+        app:layout_constraintTop_toBottomOf="@+id/line9"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/truefalse" />
+
+    <ImageButton
+        android:id="@+id/function4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="48dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/line11"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line9"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/quiz" />
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:text="Take Quiz"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/function4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/function4"
+        app:layout_constraintTop_toBottomOf="@+id/function4" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Translate and Store"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/function4"
+        app:layout_constraintEnd_toEndOf="@+id/function1"
+        app:layout_constraintStart_toStartOf="@+id/function1"
+        app:layout_constraintTop_toBottomOf="@+id/function1" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Learn with Flashcards"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/function3"
+        app:layout_constraintEnd_toEndOf="@+id/function2"
+        app:layout_constraintStart_toStartOf="@+id/function2"
+        app:layout_constraintTop_toBottomOf="@+id/function2" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Play\nTrue or False"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/function3"
+        app:layout_constraintStart_toStartOf="@+id/function3"
+        app:layout_constraintTop_toBottomOf="@+id/function3" />
+
+    <TextView
+        android:id="@+id/storedWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="quiz"
-        android:textColor="@android:color/background_light"
-        android:backgroundTint="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/learn" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/lock2"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/function2"
+        app:layout_constraintEnd_toEndOf="@+id/function2"
+        app:layout_constraintStart_toStartOf="@+id/function2"
+        app:layout_constraintTop_toTopOf="@+id/function2"
+        app:srcCompat="@drawable/lock" />
+
+    <ImageView
+        android:id="@+id/lock3"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/function3"
+        app:layout_constraintEnd_toEndOf="@+id/function2"
+        app:layout_constraintStart_toStartOf="@+id/function2"
+        app:layout_constraintTop_toTopOf="@+id/function3"
+        app:srcCompat="@drawable/lock" />
+
+    <ImageView
+        android:id="@+id/lock4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/function3"
+        app:layout_constraintEnd_toEndOf="@+id/function4"
+        app:layout_constraintStart_toStartOf="@+id/function4"
+        app:layout_constraintTop_toTopOf="@+id/function3"
+        app:layout_constraintVertical_bias="0.558"
+        app:srcCompat="@drawable/lock" />
+
+    <TextView
+        android:id="@+id/lockText3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Unlock by storing 10 words"
+        app:layout_constraintEnd_toEndOf="@+id/function2"
+        app:layout_constraintStart_toStartOf="@+id/function2"
+        app:layout_constraintTop_toBottomOf="@+id/lock3" />
+
+    <TextView
+        android:id="@+id/lockText4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Unlock by storing 5 words"
+        app:layout_constraintEnd_toEndOf="@+id/function4"
+        app:layout_constraintStart_toStartOf="@+id/function4"
+        app:layout_constraintTop_toBottomOf="@+id/lock3" />
+
+    <TextView
+        android:id="@+id/lockText2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="Unlock by storing 3 words"
+        app:layout_constraintEnd_toEndOf="@+id/function2"
+        app:layout_constraintStart_toStartOf="@+id/function2"
+        app:layout_constraintTop_toBottomOf="@+id/lock2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

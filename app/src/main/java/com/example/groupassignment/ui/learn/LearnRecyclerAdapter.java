@@ -16,7 +16,6 @@ import com.example.groupassignment.R;
 import java.util.ArrayList;
 
 public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdapter.MyViewHolder> {
-    private static final String TAG = "LearnAdapter";
     private Context mContext;
 
     ArrayList<LearnCategories> categories;
@@ -85,6 +84,5 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
             this.practice = itemView.findViewById(R.id.practice);
             this.categoryImage = itemView.findViewById(R.id.categoryImage);
         }
-
     }
 }

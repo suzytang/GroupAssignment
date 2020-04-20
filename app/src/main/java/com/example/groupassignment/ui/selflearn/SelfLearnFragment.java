@@ -1,32 +1,33 @@
 package com.example.groupassignment.ui.selflearn;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.groupassignment.DatabaseHelper;
 import com.example.groupassignment.R;
 import com.example.groupassignment.ui.learn.LearnFlashcards;
+import com.example.groupassignment.ui.learn.Practice;
 import com.example.groupassignment.ui.learn.QuizTest;
-
-import java.util.ArrayList;
 
 public class SelfLearnFragment extends Fragment {
 
     private SelfLearnViewModel selfLearnViewModel;
-
-    DatabaseHelper myDb;
+    private DatabaseHelper myDb;
+    private ImageView lock2, lock3, lock4;
+    private ImageButton translator, learn, practice, quiz;
+    private TextView storedWords, text2, text3, text4, lockText2, lockText3, lockText4;
+//    DatabaseHelper myDb;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,9 +45,26 @@ public class SelfLearnFragment extends Fragment {
 
         myDb = new DatabaseHelper(getActivity());
 
-        Button translator = root.findViewById(R.id.translatorButton);
-        Button learn = root.findViewById(R.id.learn);
-        final Button quiz = root.findViewById(R.id.quiz);
+        translator = root.findViewById(R.id.function1);
+        learn = root.findViewById(R.id.function2);
+        practice = root.findViewById(R.id.function3);
+        quiz = root.findViewById(R.id.function4);
+        storedWords = root.findViewById(R.id.storedWords);
+        lockText2 = root.findViewById(R.id.lockText2);
+        lockText3 = root.findViewById(R.id.lockText3);
+        lockText4 = root.findViewById(R.id.lockText4);
+        lock2 = root.findViewById(R.id.lock2);
+        lock3 = root.findViewById(R.id.lock3);
+        lock4 = root.findViewById(R.id.lock4);
+        text2 = root.findViewById(R.id.text2);
+        text3 = root.findViewById(R.id.text3);
+        text4 = root.findViewById(R.id.text4);
+
+        lock();
+        unlock();
+
+        final int words = myDb.countUserData();
+        storedWords.setText("Stored words: "+words);
 
         translator.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,28 +77,33 @@ public class SelfLearnFragment extends Fragment {
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myDb.countUserData()==0) {
-                    Toast.makeText(getActivity(), "Error: need to store at least one expression using the translator first", Toast.LENGTH_LONG).show();
-                } else {
                     Intent intent = new Intent(getActivity(), LearnFlashcards.class);
                     intent.putExtra("category", 0);
                     startActivity(intent);
-                }
+
+            }
+        });
+
+        practice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), Practice.class);
+                    intent.putExtra("category", 0);
+                    startActivity(intent);
+
             }
         });
 
         quiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myDb.countUserData()==0) {
-                    Toast.makeText(getActivity(), "Error: need to store at least one expression using the translator first", Toast.LENGTH_LONG).show();
-                } else {
                     Intent intent = new Intent(getActivity(), QuizTest.class);
                     intent.putExtra("category", 0);
                     startActivity(intent);
-                }
+
             }
         });
+
         return root;
     }
 
@@ -89,18 +112,39 @@ public class SelfLearnFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-//    public boolean empty(DatabaseHelper dB) {
-//        try {
-//            int i  = dB.rowsUserData();
-//            if (i > 0) {
-//                return false;
-//            } else {
-//                return true;
-//            }
-//        }
-//        catch(Exception e) {
-//            return true;
-//        }
-//    }
+    private void lock() {
+        learn.setAlpha((float) 0.1);
+        learn.setEnabled(false);
+        text2.setAlpha((float) 0.1);
+        practice.setAlpha((float) 0.1);
+        practice.setEnabled(false);
+        text3.setAlpha((float) 0.1);
+        quiz.setAlpha((float) 0.1);
+        quiz.setEnabled(false);
+        text4.setAlpha((float) 0.1);
+    }
 
+    private void unlock() {
+        if (myDb.countUserData() >= 3) {
+            learn.setAlpha((float) 1);
+            learn.setEnabled(true);
+            text2.setAlpha((float) 1);
+            lockText2.setVisibility(View.GONE);
+            lock2.setVisibility(View.GONE);
+        }
+        if (myDb.countUserData() >= 10) {
+            practice.setAlpha((float) 1);
+            practice.setEnabled(true);
+            text3.setAlpha((float) 1);
+            lockText3.setVisibility(View.GONE);
+            lock3.setVisibility(View.GONE);
+        }
+        if (myDb.countUserData() >= 5) {
+            quiz.setAlpha((float) 1);
+            quiz.setEnabled(true);
+            text4.setAlpha((float) 1);
+            lockText4.setVisibility(View.GONE);
+            lock4.setVisibility(View.GONE);
+        }
+    }
 }

@@ -2,15 +2,21 @@ package com.example.groupassignment.ui.learn;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.groupassignment.DatabaseHelper;
+import com.example.groupassignment.MainActivity_Learn;
+import com.example.groupassignment.MainActivity_Self_Learn;
 import com.example.groupassignment.R;
+import com.example.groupassignment.SQLiteHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,19 +27,21 @@ public class QuizTest extends AppCompatActivity {
     TextView progress;
     TextView question;
     EditText input;
-
+    int category;
     DatabaseHelper myDb = new DatabaseHelper(this);
-
-    int i = 1;
-    int score = 0;
+    ArrayList<QuizAnswers> quizAnswers;
+    int i;
+    int score;
+    int amount;
+    private Dialog dialog;
+    private Dialog exitDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_test);
-
         Intent intent = getIntent();
-        final int category = intent.getIntExtra("category", 0);
+        category = intent.getIntExtra("category", 0);
         if (category != 0) {
             this.setTitle(LearnCategories.getCategories().get(category - 1).getCategoryName() + " Quiz");
         } else {
@@ -46,8 +54,15 @@ public class QuizTest extends AppCompatActivity {
         question = findViewById(R.id.question);
         input = findViewById(R.id.input);
 
-        final ArrayList<QuizAnswers> quizAnswers = new ArrayList<QuizAnswers>();
-        int amount = 0;
+        startQuiz();
+    }
+
+    private void startQuiz() {
+        quizAnswers = new ArrayList<QuizAnswers>();
+        amount = 0;
+        i = 1;
+        score = 0;
+
         if (category != 0) {
             amount = 10;
         } else {
@@ -62,61 +77,181 @@ public class QuizTest extends AppCompatActivity {
         progress.setText(i + "/"+amount);
         question.setText(myDb.pullData("Expression",category,shuffle.get(i-1)));
 
-        final int finalAmount = amount;
-        final int finalAmount1 = amount;
-        final int finalAmount2 = amount;
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if (i < finalAmount +1) {
-                String expression = myDb.pullData("Expression",category,shuffle.get(i-1));
-                String translation = myDb.pullData("Translation",category,shuffle.get(i-1));
-                String userText = input.getText().toString().toLowerCase().replace("’", "'");
-                String matchTranslation = translation.toLowerCase().replace("’", "'");
+                if (i < amount+1) {
+                    String expression = myDb.pullData("Expression",category,shuffle.get(i-1));
+                    String translation = myDb.pullData("Translation",category,shuffle.get(i-1));
+                    String userText = input.getText().toString().toLowerCase().replace("’", "'");
+                    String matchTranslation = translation.toLowerCase().replace("’", "'");
 
-                if (userText.equals(matchTranslation)) {
-                    if (myDb.answered(category,shuffle.get(i-1))) {
-                        score = 1;
+                    if (userText.equals(matchTranslation)) {
+                        if (myDb.answered(category,shuffle.get(i-1))) {
+                            score = 1;
+                        } else {
+                            score = 2;
+                            myDb.setAnswered(category,shuffle.get(i-1));
+                        }
                     } else {
-                        score = 2;
-                        myDb.setAnswered(category,shuffle.get(i-1));
+                        score = 0;
                     }
-                } else {
-                    score = 0;
-                }
 
-                QuizAnswers answer = new QuizAnswers(i, expression, score, input.getText().toString(), translation);
-                quizAnswers.add(answer);
+                    QuizAnswers answer = new QuizAnswers(i, expression, score, input.getText().toString(), translation);
+                    quizAnswers.add(answer);
 
-                i++;
-                if (i == finalAmount1) {
-                    submit.setText("Complete");
+                    i++;
+                    if (i == amount) {
+                        submit.setText("Complete");
+                    }
+                    if (i < amount+1) {
+                        question.setText(myDb.pullData("Expression",category,shuffle.get(i-1)));
+                        progress.setText((i) + "/"+ amount);
+                        input.getText().clear();
+                    } else {
+                        quizOver();
+                        input.getText().clear();
+                    }
                 }
-                if (i < finalAmount1+1) {
-                    question.setText(myDb.pullData("Expression",category,shuffle.get(i-1)));
-                    progress.setText((i) + "/"+ finalAmount2);
-                    input.getText().clear();
-                } else {
-                    Intent intent = new Intent(QuizTest.this, QuizSummary.class);
-                    Bundle args = new Bundle();
-                    args.putSerializable("arraylist", quizAnswers);
-                    intent.putExtra("bundle", args);
-                    intent.putExtra("category", category);
-                    startActivity(intent);
-                }
-            }
-//            String s = "";
-//            for (int i = 0; i < quizAnswers.size(); i++) {
-//                s += quizAnswers.get(i).getQuestion() + " ,";
-//                s += quizAnswers.get(i).getEnglish() + " ,";
-//                s += quizAnswers.get(i).getScore() + " ,";
-//                s += quizAnswers.get(i).getAnswer() + " ,";
-//                s += quizAnswers.get(i).getTranslation() + " ,";
-//                s += "\n";
-//            }
-//            check.setText(s);
             }
         });
     }
+    private void quizOver() {
+        dialog = new Dialog(this);
+
+        dialog.setContentView(R.layout.quiz_game_over);
+        TextView grade = dialog.findViewById(R.id.grade);
+        TextView score = dialog.findViewById(R.id.score);
+        TextView coinsIncrease = dialog.findViewById(R.id.coinsIncrease);
+        TextView levelUp = dialog.findViewById(R.id.levelUp);
+        ImageView reaction = dialog.findViewById(R.id.reaction);
+        Button viewResults = dialog.findViewById(R.id.viewResults);
+        Button menu = dialog.findViewById(R.id.menu);
+        Button retry = dialog.findViewById(R.id.retry);
+
+        final SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
+        myDb = new DatabaseHelper(this);
+
+        int total = 0;
+        int coinsEarned = 0;
+        int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+
+        for (int i = 0; i < quizAnswers.size(); i++) {
+            if (quizAnswers.get(i).getScore() > 0) {
+                total++;
+                if (quizAnswers.get(i).getScore() == 2) {
+                    coinsEarned += 20;
+                } else {
+                    coinsEarned += 5;
+                }
+            }
+        }
+
+        sqLiteHelper.update(1, "Coins", "Coins", coinsCurrrent + coinsEarned);
+        if (coinsEarned == 0) {
+            coinsIncrease.setText("No coins earned.");
+        } else {
+            coinsIncrease.setText("+" + coinsEarned + " coins");
+        }
+        score.setText("You scored "+total+" out of "+quizAnswers.size()+".");
+
+        double percentage = Double.valueOf(total)/Double.valueOf(quizAnswers.size());
+
+        if (percentage < 0.5) {
+            grade.setText("Failed!");
+            grade.setTextColor(Color.RED);
+            reaction.setImageResource(R.drawable.sad);
+        } else if (percentage == 1) {
+            if (category != 0) {
+                if (myDb.completed(category)) {
+                    grade.setText("Perfect Again!");
+                    reaction.setImageResource(R.drawable.happy);
+                } else {
+                    grade.setText("Level Up!");
+                    int currentLevel = (int) sqLiteHelper.getPetTime("LVL");
+                    String newLevel = String.valueOf(currentLevel + 1);
+                    sqLiteHelper.updatePetData("LVL", newLevel, 1);
+                    levelUp.setText(newLevel);
+                    myDb.setCompleted(category);
+                    reaction.setImageResource(R.drawable.trophy);
+                }
+            } else {
+                grade.setText("Perfect!");
+                reaction.setImageResource(R.drawable.happy);
+            }
+        } else {
+            grade.setText("Passed!");
+            grade.setTextColor(Color.GREEN);
+            reaction.setImageResource(R.drawable.happy);
+        }
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (category != 0) {
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Learn.class);
+                    startActivity(intent1);
+                } else {
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Self_Learn.class);
+                    startActivity(intent1);
+                }
+            }
+        });
+
+        viewResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(getApplicationContext(), QuizResults.class);
+                Bundle args = new Bundle();
+                args.putSerializable("arraylist", quizAnswers);
+                intent2.putExtra("bundle", args);
+                intent2.putExtra("category", category);
+                startActivity(intent2);
+            }
+        });
+
+        retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startQuiz();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+    }
+
+    public void onBackPressed() {
+        exitDialog = new Dialog(this);
+
+        exitDialog.setContentView(R.layout.exit_dialog);
+        Button yes = exitDialog.findViewById(R.id.yes);
+        Button no = exitDialog.findViewById(R.id.no);
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (category != 0) {
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Learn.class);
+                    startActivity(intent1);
+                } else {
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity_Self_Learn.class);
+                    startActivity(intent1);
+                }
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exitDialog.dismiss();
+            }
+        });
+
+        exitDialog.show();
+
+        exitDialog.setCanceledOnTouchOutside(false);
+        exitDialog.setCancelable(false);
+    }
+
 }

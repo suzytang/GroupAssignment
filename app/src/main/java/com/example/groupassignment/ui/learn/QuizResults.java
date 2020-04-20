@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.groupassignment.MainActivity_Learn;
 import com.example.groupassignment.R;
 
 import java.util.ArrayList;
@@ -20,12 +21,12 @@ public class QuizResults extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_results);
 
         Intent intent = getIntent();
-        int level = intent.getIntExtra("level", 0);
+        int category = intent.getIntExtra("category", 0);
 
-        if (level == 0) {
+        if (category == 0) {
             this.setTitle("Self-Learn Quiz Results");
         } else {
-            this.setTitle(LearnCategories.getCategories().get(level - 1).getCategoryName() + " Quiz Results");
+            this.setTitle(LearnCategories.getCategories().get(category - 1).getCategoryName() + " Quiz Results");
         }
 
         Bundle args = intent.getBundleExtra("bundle");
@@ -43,5 +44,11 @@ public class QuizResults extends AppCompatActivity {
 
         //Attach adapter to recyclerView
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity_Learn.class);
+        startActivity(intent);
     }
 }
