@@ -59,12 +59,11 @@ public class SelfLearnFragment extends Fragment {
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myDb.rowsUserData()==0) {
+                if (myDb.countUserData()==0) {
                     Toast.makeText(getActivity(), "Error: need to store at least one expression using the translator first", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(getActivity(), LearnFlashcards.class);
-                    intent.putExtra("level", 0);
-                    intent.putExtra("table", "user_table");
+                    intent.putExtra("category", 0);
                     startActivity(intent);
                 }
             }
@@ -73,12 +72,11 @@ public class SelfLearnFragment extends Fragment {
         quiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myDb.rowsUserData()==0) {
+                if (myDb.countUserData()==0) {
                     Toast.makeText(getActivity(), "Error: need to store at least one expression using the translator first", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(getActivity(), QuizTest.class);
-                    intent.putExtra("level", 0);
-                    intent.putExtra("table", "user_table");
+                    intent.putExtra("category", 0);
                     startActivity(intent);
                 }
             }
