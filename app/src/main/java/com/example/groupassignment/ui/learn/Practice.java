@@ -155,9 +155,6 @@ public class Practice extends AppCompatActivity {
             }
         });
 
-        if (correct == 3) {
-            practiceGameOver();
-        }
         refresh.setEnabled(false);
         trueButton.setEnabled(true);
         falseButton.setEnabled(true);
