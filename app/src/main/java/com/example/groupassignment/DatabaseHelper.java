@@ -255,6 +255,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rows;
     }
 
+    public int countData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor csr = db.rawQuery("select * from learn_table", null);
+        int rows = csr.getCount();
+        return rows;
+    }
+
     public boolean dataExists(String check) {
         SQLiteDatabase db = this.getWritableDatabase();
         boolean exists = false;

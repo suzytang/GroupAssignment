@@ -26,32 +26,30 @@ public class LearnFlashcards extends AppCompatActivity {
 
     //EasyFlipView easyFlipView;
     int i = 1;
-    private TextToSpeech translatedTTS;
-    private TextToSpeech englishTTS;
-    private ImageButton translatedSpeech;
-    private ImageButton englishSpeech;
+    int amount, category;
+    private TextToSpeech translatedTTS, englishTTS;
+    private ImageButton translatedSpeech, englishSpeech, next, prev;
+    private TextView question, frontText, backText;
+    private Button menu, quiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.study_flashcards);
 
-        final ImageButton next = findViewById(R.id.next);
-        final ImageButton prev = findViewById(R.id.prev);
-        final TextView question = findViewById(R.id.progress);
-        final TextView frontText = findViewById(R.id.frontText);
-        final TextView backText = findViewById(R.id.backText);
-        final Button menu = findViewById(R.id.menu);
-        final Button quiz = findViewById(R.id.storeButton);
-
-
-
+        next = findViewById(R.id.next);
+        prev = findViewById(R.id.prev);
+        question = findViewById(R.id.progress);
+        frontText = findViewById(R.id.frontText);
+        backText = findViewById(R.id.backText);
+        menu = findViewById(R.id.menu);
+        quiz = findViewById(R.id.storeButton);
         translatedSpeech = findViewById(R.id.translatedSpeech);
         englishSpeech = findViewById(R.id.englishSpeech);
 
-        int amount = 0;
+        amount = 0;
         Intent intent = getIntent();
-        final int category = intent.getIntExtra("category",0);
+        category = intent.getIntExtra("category",0);
         if (category != 0) {
             amount = 10;
             this.setTitle(LearnCategories.getCategories().get(category - 1).getCategoryName() + " Flashcards");
@@ -104,18 +102,15 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
-        final int finalAmount = amount;
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             i++;
             prev.setEnabled(true);
-            if (i <= finalAmount) {
+            if (i <= amount) {
                 next.setEnabled(true);
-                frontText.setText(myDb.pullData("Expression",category,i));
-                backText.setText(myDb.pullData("Translation",category,i));
-                question.setText((i)+"/"+ finalAmount);
-                if (i == finalAmount) {
+                updateFlashCards(i);
+                if (i == amount) {
                     next.setEnabled(false);
                 }
             }
@@ -123,17 +118,14 @@ public class LearnFlashcards extends AppCompatActivity {
         });
 
         prev.setEnabled(false);
-        final int finalAmount1 = amount;
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             i--;
             next.setEnabled(true);
-            if (i <= finalAmount1) {
+            if (i <= amount) {
                 prev.setEnabled(true);
-                frontText.setText(myDb.pullData("Expression",category,i));
-                backText.setText(myDb.pullData("Translation",category,i));
-                question.setText((i)+"/"+ finalAmount1);
+                updateFlashCards(i);
                 if (i == 1) {
                     prev.setEnabled(false);
                 }
@@ -197,6 +189,12 @@ public class LearnFlashcards extends AppCompatActivity {
         });
     }
 
+    public void updateFlashCards(int j) {
+        frontText.setText(myDb.pullData("Expression",category,j));
+        backText.setText(myDb.pullData("Translation",category,j));
+        question.setText((i)+"/"+ amount);
+    }
+
     private void speak(TextToSpeech TTS, String text) {
         TTS.setSpeechRate((float) 0.75);
         TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
@@ -212,7 +210,6 @@ public class LearnFlashcards extends AppCompatActivity {
             englishTTS.stop();
             englishTTS.shutdown();
         }
-
         super.onDestroy();
     }
 }
