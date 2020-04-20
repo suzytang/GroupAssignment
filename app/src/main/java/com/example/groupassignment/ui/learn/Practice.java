@@ -2,18 +2,22 @@ package com.example.groupassignment.ui.learn;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.groupassignment.DatabaseHelper;
 import com.example.groupassignment.MainActivity_Learn;
 import com.example.groupassignment.R;
+import com.example.groupassignment.SQLiteHelper;
 
 import java.util.Random;
 
@@ -151,6 +155,9 @@ public class Practice extends AppCompatActivity {
             }
         });
 
+        if (correct == 3) {
+            practiceGameOver();
+        }
         refresh.setEnabled(false);
         trueButton.setEnabled(true);
         falseButton.setEnabled(true);
@@ -168,6 +175,11 @@ public class Practice extends AppCompatActivity {
                 strike3.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+
+    private void practiceGameOver() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.practice_game_over);
     }
 
     private boolean showResult(boolean userAnswer, boolean correctAnswer) {

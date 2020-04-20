@@ -62,6 +62,7 @@ public class WallpapersFrag extends Fragment {
         return root;
 
     }
+
     public void clickResponse (final int position){
 
         final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
