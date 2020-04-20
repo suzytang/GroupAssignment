@@ -51,16 +51,8 @@ public class LearnFragment extends Fragment {
 
         ArrayList<LearnCategories> categories = LearnCategories.getCategories();
 
-        /*LearnRecyclerAdapter.RecyclerViewClickListener listener = new LearnRecyclerAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                clickResponse(position);
-            }
-        };*/
-
         adapter = new LearnRecyclerAdapter(this.getContext(), categories);
 
-        //Attach the adapter to the recyclerView
         recyclerView.setAdapter(adapter);
 
         return root;

@@ -2,6 +2,7 @@ package com.example.groupassignment.ui.learn;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,10 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     public LearnRecyclerAdapter(Context context,ArrayList<LearnCategories> categories) {
         this.categories = categories;
         this.mContext = context;
+    }
+
+    public interface RecyclerViewClickListener {
+        void onClick(View view, int position);
     }
 
     @Override
@@ -69,15 +74,17 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView levelText;
         Button quiz;
         Button learn;
         Button practice;
         ImageView categoryImage;
 
+
         public MyViewHolder(View itemView) {
             super(itemView);
+
             this.levelText = itemView.findViewById(R.id.category);
             this.quiz = itemView.findViewById(R.id.storeButton);
             this.learn = itemView.findViewById(R.id.learn);

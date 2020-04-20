@@ -9,7 +9,7 @@
         android:id="@+id/navigation_pet"
         android:name="com.example.groupassignment.ui.pet.PetFragment"
         android:label="@string/title_pet"
-        tools:layout="@layout/fragment_pet" />
+        tools:layout="@layout/fragment_pet_test" />
 
     <fragment
         android:id="@+id/navigation_learn"

@@ -31,13 +31,15 @@ public class FoodFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.shop_list, container, false);
+        View root = inflater.inflate(R.layout.fragment_food, container, false);
 
         TextView coins = (TextView) root.findViewById(R.id.coins);
+        Button buyFood = (Button) root.findViewById(R.id.buyFood);
+
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
 
-        recyclerView = root.findViewById(R.id.recyclerView);
+        /*recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new GridLayoutManager(getActivity(), 2);
@@ -52,63 +54,66 @@ public class FoodFrag extends Fragment {
         };
 
         adapter = new FoodAdapter(listener);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);*/
+
+        buyFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+                dialog = new Dialog(getActivity());
+
+                dialog.setContentView(R.layout.shop_popup);
+
+                TextView itemName = (TextView) dialog.findViewById(R.id.shopItem);
+                TextView itemPrice = (TextView) dialog.findViewById(R.id.shopPrice);
+
+                itemName.setText("Food");
+                itemPrice.setText("20 coins");
+
+
+                Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+                Button buyButton = (Button) dialog.findViewById(R.id.buyButton);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                buyButton.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+
+                        int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+                        int itemPrice = 20;
+
+                        if (coinsCurrrent - itemPrice >= 0){
+                            int paid = (coinsCurrrent - itemPrice);
+                            sqLiteHelper.update(1, "'Coins'", "'Coins'", paid);
+                            int foodQty = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4,2));
+                            sqLiteHelper.update(2, "'Food'", "'Food'", foodQty + 1);
+
+                            onViewCreated(v,null);
+                            dialog.dismiss();
+                            Toast.makeText(getContext(), "Food has been added to your inventory!", Toast.LENGTH_LONG).show();
+
+                        } else{
+                            Toast.makeText(getContext(),"You don't have enough coins to purchase this!", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
 
         return root;
 
-    }
-
-
-    public void clickResponse (final int position){
-        final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        dialog = new Dialog(getActivity());
-
-        dialog.setContentView(R.layout.shop_popup);
-
-        TextView itemName = (TextView) dialog.findViewById(R.id.shopItem);
-        TextView itemPrice = (TextView) dialog.findViewById(R.id.shopPrice);
-
-        itemName.setText("Food");
-        itemPrice.setText("20 coins");
-
-
-        Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
-        Button buyButton = (Button) dialog.findViewById(R.id.buyButton);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        buyButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
-                int itemPrice = 20;
-
-                if (coinsCurrrent - itemPrice >= 0){
-                    int paid = (coinsCurrrent - itemPrice);
-                    sqLiteHelper.update(1, "'Coins'", "'Coins'", paid);
-                    int foodQty = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4,2));
-                    sqLiteHelper.update(2, "'Food'", "'Food'", foodQty + 1);
-
-                    onViewCreated(v,null);
-                    dialog.dismiss();
-                    Toast.makeText(getContext(), "Food has been added to your inventory!", Toast.LENGTH_LONG).show();
-
-                } else{
-                    Toast.makeText(getContext(),"You don't have enough coins to purchase this!", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
     }
 
     @Override

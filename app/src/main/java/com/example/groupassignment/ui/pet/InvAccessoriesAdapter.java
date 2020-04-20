@@ -82,18 +82,32 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
         }
         @Override
         public void onClick(View v) {
-            if(!cursor.moveToPosition(getAdapterPosition())){
+            if(!cursor.moveToPosition(getAdapterPosition())) {
                 return;
             }
-            String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
             SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
-
-            sqLiteHelper.applyInventory("'"+accessory+"'", "'Accessories'");
+            String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+            switch(accessory){
+                case "Glasses":
+                case "Sunglasses":
+                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Glasses'");
+                    break;
+                case "Wig":
+                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Wig'");
+                    break;
+                case "Pirate Hat":
+                case "Cap":
+                case "Top Hat":
+                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Hat'");
+                    break;
+            }
 
             System.out.println("adapter "+accessory);
 
             Toast.makeText(context,  "The accessory has been applied",
                     Toast.LENGTH_LONG).show();
+
+
         }
 
     }

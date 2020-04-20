@@ -7,5 +7,8 @@
     <string name="tab_text_1">Accessories</string>
     <string name="tab_text_2">Wallpapers</string>
     <string name="tab_text_3">Food</string>
+    <string name="tab_text_4">Learn</string>
+    <string name="tab_text_5">Practise</string>
+    <string name="tab_text_6">Quiz</string>
 
 </resources>
