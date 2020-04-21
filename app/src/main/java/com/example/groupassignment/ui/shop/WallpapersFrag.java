@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,11 +73,13 @@ public class WallpapersFrag extends Fragment {
         dialog.setContentView(R.layout.shop_popup);
         Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
         Button buyButton = (Button) dialog.findViewById(R.id.buyButton);
+        ImageView image = (ImageView) dialog.findViewById(R.id.image);
         TextView shopItem = (TextView) dialog.findViewById(R.id.shopItem);
         TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
 
         shopItem.setText(shop.getWallpapers().get(position).getItemName());
         shopPrice.setText(shop.getWallpapers().get(position).getItemPrice() + " coins");
+        image.setImageResource(shop.getAccessories().get(position).getImage());
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {

@@ -19,14 +19,6 @@ public class ShopPopup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_popup);
 
-        Button cancelButton = (Button) findViewById(R.id.cancelButton);
-        Button buyButton = (Button) findViewById(R.id.buyButton);
-
-
-
-        Intent intent = getIntent();
-        final String shop = intent.getStringExtra("shop");
-
     }
 
 }
