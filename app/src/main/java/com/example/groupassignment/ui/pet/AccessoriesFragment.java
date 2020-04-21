@@ -35,18 +35,9 @@ public class AccessoriesFragment extends Fragment {
         final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         db = sqLiteHelper.getWritableDatabase();
 
-        Button menu = (Button) root.findViewById(R.id.menu);
         Button clear = (Button) root.findViewById(R.id.clear);
 
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        // Clear button clears all accessories applied by setting APPLIED = 0
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,10 +56,17 @@ public class AccessoriesFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        // getAllItems() parsed into the adapter
         adapter.swapCursor(getAllItems());
 
         return root;
     }
+
+    // The following code is modified from: Coding in Flow (2017)
+    // 'SQLite + RecyclerView - Part 2 - CURSOR AND RECYCLERVIEW ADAPTER - Android Studio Tutorial'
+    // https://www.youtube.com/watch?v=_m-Ve-BAYe0&t=
+    // getAllItems displays NAME column from inventory_table from SQLiteHelper where CATEGORY = 'Accessories' AND AMOUNT = 1
+    // translation: getAllItems gets the names of all accessories which have been bought so they can be displayed in inventory
 
     public Cursor getAllItems() {
         return db.query(

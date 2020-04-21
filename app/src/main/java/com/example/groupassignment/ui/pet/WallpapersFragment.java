@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,21 +35,17 @@ public class WallpapersFragment extends Fragment {
         final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         db = sqLiteHelper.getWritableDatabase();
 
+        Button clear = (Button) root.findViewById(R.id.clear);
 
-        Button button = (Button) root.findViewById(R.id.menu);
-        button.setOnClickListener(new View.OnClickListener() {
+        // Clear button clears the wallpaper applied by setting APPLIED = 0
+        clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*String name = communication.getName();
-                System.out.println(name);
-                if(name != null){
-                    sqLiteHelper.applyInventory("'"+name+"'", "'Wallpapers'");
-                }*/
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                sqLiteHelper.clearAccessories("'Wallpapers'");
+                Toast.makeText(getActivity(), "Wallpaper has been cleared",
+                        Toast.LENGTH_LONG).show();
             }
         });
-
 
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -59,11 +56,17 @@ public class WallpapersFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        // getAllItems() parsed into the adapter
         adapter.swapCursor(getAllItems());
 
         return root;
     }
 
+    // The following code is modified from: Coding in Flow (2017)
+    // 'SQLite + RecyclerView - Part 2 - CURSOR AND RECYCLERVIEW ADAPTER - Android Studio Tutorial'
+    // https://www.youtube.com/watch?v=_m-Ve-BAYe0&t=
+    // getAllItems displays NAME column from inventory_table from SQLiteHelper where CATEGORY = 'Wallpapers' AND AMOUNT = 1
+    // translation: getAllItems gets the names of all wallpapers which have been bought so they can be displayed in inventory
     public Cursor getAllItems() {
         return db.query(
                 SQLiteHelper.TABLE_NAME,

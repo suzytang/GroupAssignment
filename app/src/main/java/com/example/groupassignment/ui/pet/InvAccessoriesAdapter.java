@@ -22,6 +22,9 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
     private Context context;
     private Cursor cursor;
 
+    // The following code is modified from: Coding in Flow (2017)
+    // 'SQLite + RecyclerView - Part 2 - CURSOR AND RECYCLERVIEW ADAPTER - Android Studio Tutorial'
+    // https://www.youtube.com/watch?v=_m-Ve-BAYe0&t=
     public InvAccessoriesAdapter(Context context, Cursor cursor) {
         this.context = context;
         this.cursor = cursor;
@@ -38,32 +41,34 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
         if(!cursor.moveToPosition(position)){
             return;
         }
+        // Cursor gets the name of the accessory
         final String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
 
-
+        // Set text and image for accessory in recyclerview
         holder.itemName.setText(accessory);
         holder.image.setImageResource(shop.searchAccessories(accessory).getImage());
 
     }
 
+    // Returns the number of rows in the database based on getAllItems in AccessoriesFragment
     @Override
     public int getItemCount() {
         return cursor.getCount();
-
     }
 
+    // Creates a new cursor for every time the database needs to be updated
     public void swapCursor (Cursor newCursor){
+        // Deletes the cursor if it isn't null
         if (cursor != null){
             cursor.close();
         }
-
+        // Assigns newCursor to cursor
         cursor = newCursor;
 
         if (newCursor != null){
             notifyDataSetChanged();
         }
     }
-
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView itemName;
@@ -85,8 +90,15 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
             if(!cursor.moveToPosition(getAdapterPosition())) {
                 return;
             }
+
             SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
+
+            // Get NAME based on the item selected
             String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+
+            // Switch statement to apply based on grouping of accessories by SUBCATEGORY
+            // User can only apply 1 of each of the following subcategories at a time: Glasses, Wig, Hat
+            // If user attempts to apply another item of the same SUBCATEGORY, current item is removed and replaced
             switch(accessory){
                 case "Glasses":
                 case "Sunglasses":
@@ -101,9 +113,7 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
                     sqLiteHelper.applyAccessories("'"+accessory+"'","'Hat'");
                     break;
             }
-
-            System.out.println("adapter "+accessory);
-
+            // Toast feedback to user to inform them that the accessory has been applied
             Toast.makeText(context,  "The accessory has been applied",
                     Toast.LENGTH_LONG).show();
 

@@ -41,16 +41,22 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
         foodQty.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 2)+ " can(s)");
 
+        // Gets the sum of AMOUNT column where CATEGORY = 'Wallpapers'
         int wallpaperAmount = sqLiteHelper.getSum("'Wallpapers'");
+        // if statement checks if any wallpapers have been purchased before running try-catch
         if(wallpaperAmount != 0){
+            // try statement to get the name of the wallpaper that has been applied
             try{
                 String wallpaperName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.COL_3, "'Wallpapers'");
                 wallpaper.setImageResource(shop.searchWallpapers(wallpaperName).getImage());
-            }catch(Exception e){
+            }
+            // Catches the exception where a wallpaper hasn't been applied yet even if 1 or more have been purchased
+            catch(Exception e){
                 System.out.println("Wallpaper not yet applied");
             }
         }
 
+        // Initialises all accessory ImageViews
         ImageView sunglasses = (ImageView) root.findViewById(R.id.sunglasses);
         ImageView cap = (ImageView) root.findViewById(R.id.cap);
         ImageView tophat = (ImageView) root.findViewById(R.id.tophat);
@@ -58,6 +64,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         ImageView pirateHat = (ImageView) root.findViewById(R.id.pirateHat);
         ImageView wig = (ImageView) root.findViewById(R.id.wig);
 
+        // Sets all accessories to invisible
         sunglasses.setVisibility(root.INVISIBLE);
         cap.setVisibility(root.INVISIBLE);
         tophat.setVisibility(root.INVISIBLE);
@@ -65,9 +72,12 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         pirateHat.setVisibility(root.INVISIBLE);
         wig.setVisibility(root.INVISIBLE);
 
+        // Gets the sum of AMOUNT column where CATEGORY = 'Accessories'
         int accessoryAmount = sqLiteHelper.getSum("'Accessories'");
-        System.out.println("petfragment: " + accessoryAmount);
+        // if statement checks if any accessories have been purchased before running try-catch
         if(accessoryAmount != 0) {
+            // try-catch for Glasses subcategory
+            // accessoryName gets the name of the item in the Glasses subcategory which has been applied
             try {
                 String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.SUBCATEGORY, "'Glasses'");
                 switch (accessoryName) {
@@ -81,6 +91,8 @@ public class PetFragment extends Fragment implements View.OnClickListener{
             } catch (Exception e) {
                 System.out.println("Accessory not yet applied");
             }
+            // try-catch for Hat subcategory
+            // accessoryName gets the name of the item in the Hat subcategory which has been applied
             try {
                 String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.SUBCATEGORY, "'Hat'");
                 switch (accessoryName) {
@@ -97,6 +109,8 @@ public class PetFragment extends Fragment implements View.OnClickListener{
             }catch (Exception e) {
                 System.out.println("Accessory not yet applied");
             }
+            // try-catch for Wig subcategory
+            // accessoryName gets the name of the item in the Wig subcategory which has been applied
             try {
                 String accessoryName = sqLiteHelper.getInventory(SQLiteHelper.COL_2, SQLiteHelper.SUBCATEGORY, "'Wig'");
                 switch (accessoryName) {
@@ -113,24 +127,32 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         feedButton.setOnClickListener(this);
         inventoryButton.setOnClickListener(this);
 
+        // Gets System time last assigned from the database
         long time = sqLiteHelper.getPetTime(SQLiteHelper.TIME);
+        // Variable timeElapsed is calculated by subtracting current time from time assigned in the database
         long timeElapsed = System.currentTimeMillis() - time;
 
+        // if statement checks if timeElapsed is greater than 5 hours
+        // As the default time value is 0, timeElapsed wil never be greater than 5 hours before updateUI is called
         if(timeElapsed >= 5*60*60*1000){
+            // if timeElapsed is greater than 5 hours, status will be changed to 'Hungry' in the database and UI
             sqLiteHelper.updatePetData(SQLiteHelper.STATUS, "Hungry",1);
             status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
         }
         return root;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void updateUI(){
         TextView status = (TextView) getActivity().findViewById(R.id.status);
         TextView foodQty = (TextView) getActivity().findViewById(R.id.foodQty);
+
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+        // Sets status once pet has been fed to 'Satisfied'
         status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
+        // Decreases FoodQty text once pet has been fed
         foodQty.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 2)+ " can(s)");
 
+        // Assigns current time of system to database to be used to calculate when the status will be changed to hungry
         long time = System.currentTimeMillis();
         sqLiteHelper.updatePetTime(SQLiteHelper.TIME, time, 1);
     }
@@ -139,17 +161,21 @@ public class PetFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v){
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         switch(v.getId()){
+            // If inventoryButton is pressed it will take the user to PetInventory
             case R.id.inventoryButton:
                 Intent intent = new Intent(getContext(), PetInventory.class);
                 startActivity(intent);
                 break;
             case R.id.feedButton:
                 int foodQty = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 2));
+                // if statement checks that food quantity isn't 0
                 if(foodQty > 0){
+                    // If the user has enough food to feed the pet, then status is updated to 'Satisfied' and 1 food unit is subtracted
                     sqLiteHelper.update(2, "'Food'", "'Food'", foodQty-1);
                     sqLiteHelper.updatePetData(SQLiteHelper.STATUS, "Satisfied",1);
 
-                    onViewCreated(v,null);
+                    // updateUi method is called
+                    updateUI();
                 }else{
                     Toast.makeText(getActivity(),
                             "You don't have any food left!", Toast.LENGTH_LONG).show();

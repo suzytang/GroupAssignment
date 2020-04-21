@@ -26,6 +26,9 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
     private Context context;
     private Cursor cursor;
 
+    // The following code is modified from: Coding in Flow (2017)
+    // 'SQLite + RecyclerView - Part 2 - CURSOR AND RECYCLERVIEW ADAPTER - Android Studio Tutorial'
+    // https://www.youtube.com/watch?v=_m-Ve-BAYe0&t=
     public InvWallpapersAdapter(Context context, Cursor cursor) {
         this.context = context;
         this.cursor = cursor;
@@ -42,25 +45,29 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
         if(!cursor.moveToPosition(position)){
             return;
         }
+        // Cursor gets the name of the wallpaper
         final String wallpaper = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
-        System.out.println("adapter "+wallpaper);
 
+        // Set text and image for wallpaper in recyclerview
         holder.itemName.setText(wallpaper);
         holder.image.setImageResource(shop.searchWallpapers(wallpaper).getImage());
 
     }
 
+    // Returns the number of rows in the database based on getAllItems in WallpapersFragment
     @Override
     public int getItemCount() {
         return cursor.getCount();
 
     }
 
+    // Creates a new cursor for every time the database needs to be updated
     public void swapCursor (Cursor newCursor){
+        // Deletes the cursor if it isn't null
         if (cursor != null){
             cursor.close();
         }
-
+        // Assigns newCursor to cursor
         cursor = newCursor;
 
         if (newCursor != null){
@@ -89,12 +96,16 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
             if(!cursor.moveToPosition(getAdapterPosition())){
                 return;
             }
+            // Get NAME based on the item selected
             final String wallpaper = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
 
             SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
+            // applyInventory clears APPLIED column (where 1 = applied, and 0 = not applied) of all
+            // rows where CATEGORY = 'Wallpapers' then sets APPLIED = 1 where NAME = wallpaper
+            // This makes sure only 1 wallpaper can be applied at one time
             sqLiteHelper.applyInventory("'"+wallpaper+"'", "'Wallpapers'");
-            System.out.println("onclick test " +wallpaper);
 
+            // Toast feedback to user to inform them that the accessory has been applied
             Toast.makeText(context,  "The wallpaper has been applied",
                     Toast.LENGTH_LONG).show();
         }

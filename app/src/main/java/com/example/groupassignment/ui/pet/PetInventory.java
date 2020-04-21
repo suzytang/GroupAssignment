@@ -18,6 +18,7 @@ public class PetInventory extends AppCompatActivity {
         setContentView(R.layout.pet_inventory);
         setTitle("Inventory");
 
+        // Initialising and setting tab menu
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -25,6 +26,7 @@ public class PetInventory extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
     }
 
+    // Sets back button to call MainActivity onCreate() so that any accessories/wallpapers applied are visible
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
