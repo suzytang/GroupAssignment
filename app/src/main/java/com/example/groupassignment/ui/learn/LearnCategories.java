@@ -4,6 +4,7 @@ import com.example.groupassignment.R;
 
 import java.util.ArrayList;
 
+// LearnCategories class for RecyclerView
 public class LearnCategories {
     private int level;
     private String categoryName;

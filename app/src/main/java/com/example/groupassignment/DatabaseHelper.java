@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "46347894384723843892387925390339238.db";
+    public static final String DATABASE_NAME = "463478943847238424874239783892387925390339238.db";
     private static final int DATABASE_VERSION = 1;
     public static final String COL_1 = "Level";
     public static final String COL_2 = "Position";
@@ -123,17 +123,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for (int i = 1; i < 10; i++) {
             for (int j = 1; j < 11; j++) {
                 String word = getEnglish(db, i, j);
-                db.execSQL("update learn_table set " + COL_4 + " = '" + word + "' where "+COL_1+" = "+i+" AND "+COL_2+" = "+j);
-//                TranslateRequest tR = new TranslateRequest();
-//                try {
-//                    result = tR.execute(getEnglish(db, i, j)).get();
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                String resultFormatted = result.replace("'", "''");
-//                db.execSQL("update learn_table set " + COL_4 + " = '" + resultFormatted + "' where "+COL_1+" = "+i+" AND "+COL_2+" = "+j);
+                TranslateRequest tR = new TranslateRequest();
+                try {
+                    result = tR.execute(getEnglish(db, i, j)).get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                String resultFormatted = result.replace("'", "''");
+                db.execSQL("update learn_table set " + COL_4 + " = '" + resultFormatted + "' where "+COL_1+" = "+i+" AND "+COL_2+" = "+j);
             }
         }
     }
@@ -143,36 +142,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS learn_table");
         onCreate(db);
     }
-//    //
-//    public Cursor getAllData(String table) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor csr = db.rawQuery("select * from "+table,null);
-//        if (csr != null) {
-//            csr.moveToFirst();
-//        }
-//        return csr;
-//    }
-
-//    public boolean empty() {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String count = "SELECT count(*) FROM user_table";
-//        Cursor csr = db.rawQuery(count, null);
-//        csr.moveToFirst();
-//        int i = csr.getInt(0);
-//        if (i > 0) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-//
-//    public String getData(SQLiteDatabase db, String table, String column, int i) {
-//        String word;
-//        Cursor csr = db.rawQuery("select "+column+" from "+table+" where ID = "+i,null);
-//        csr.moveToFirst();
-//        word = csr.getString(csr.getColumnIndex(column));
-//        return word;
-//    }
 
     public String getEnglish(SQLiteDatabase db, int level, int position) {
         String word;
@@ -233,12 +202,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         word = csr.getString(csr.getColumnIndex(column));
         return word;
     }
-
-//    public void updateData(String column, String value, int i)  {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.execSQL("update learn_table set "+column+"='"+value+"' where ID = "+i);
-//        db.close();
-//    }
 
     public void storeUserData(String english, String translation) {
         SQLiteDatabase db = this.getWritableDatabase();

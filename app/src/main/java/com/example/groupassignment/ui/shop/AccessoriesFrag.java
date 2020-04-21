@@ -28,7 +28,7 @@ public class AccessoriesFrag extends Fragment {
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     Dialog dialog;
-
+    SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
     final Shop shop = new Shop();
 
     @Nullable

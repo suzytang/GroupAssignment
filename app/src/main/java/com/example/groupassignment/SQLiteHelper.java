@@ -65,7 +65,6 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-
     public void updateData(String column, int value, int i)  {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("update "+TABLE_NAME+" set "+column+"='"+value+"' where ID = "+i);
@@ -168,6 +167,19 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         data = csr.getInt(csr.getColumnIndex(column));
 
         return data;
+    }
+
+    public boolean isBought(String itemName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int bought;
+        Cursor csr = db.rawQuery("select " +COL_4+ " from "+TABLE_NAME+" WHERE " +COL_2+ " = " +itemName, null);
+        csr.moveToFirst();
+        bought = csr.getInt(csr.getColumnIndex(COL_4));
+        if (bought == 0) {
+            return false;
+        } else {
+            return  true;
+        }
     }
 
 
