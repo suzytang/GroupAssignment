@@ -8,6 +8,18 @@
     tools:context=".ui.learn.QuizTest">
 
     <TextView
+        android:id="@+id/yandexCredit4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/yandex"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/progress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

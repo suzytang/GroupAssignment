@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -41,11 +42,11 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     //Create Viewholder class for restaurant_list_row
     public static class QuizViewHolder extends RecyclerView.ViewHolder  {
         public TextView english, question, userAnswer,correctAnswer;
-        public CardView card;
+        public ImageView correctImage;
 
         public QuizViewHolder(View v) {
             super(v);
-            card = v.findViewById(R.id.cardView);
+            correctImage = v.findViewById(R.id.correctImage);
             english = v.findViewById(R.id.englishTF);
             userAnswer = v.findViewById(R.id.userAnswer);
             correctAnswer = v.findViewById(R.id.correctAnswer);
@@ -73,9 +74,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         holder.correctAnswer.setText("Correct translation: "+result.getTranslation());
 
         if (result.getScore() > 0) {
-            holder.card.setCardBackgroundColor(ColorStateList.valueOf(0xffdeffe6));
+            holder.correctImage.setImageResource(R.drawable.correct);
         } else {
-            holder.card.setCardBackgroundColor(ColorStateList.valueOf(0xffffdede));
+            holder.correctImage.setImageResource(R.drawable.incorrect);
         }
         holder.itemView.setTag(result);
 

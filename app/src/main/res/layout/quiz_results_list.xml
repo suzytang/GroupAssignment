@@ -45,11 +45,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/correctImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/question" />
 
@@ -57,14 +57,32 @@
             android:id="@+id/question"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:letterSpacing=".15"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textSize="10sp"
             app:layout_constraintBottom_toTopOf="@+id/englishTF"
-            app:layout_constraintEnd_toEndOf="@+id/englishTF"
-            app:layout_constraintStart_toStartOf="@+id/englishTF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/correctImage"
+            android:layout_width="48dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/correctAnswer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/englishTF"
+            app:layout_constraintTop_toTopOf="@+id/englishTF"
+            app:srcCompat="@drawable/correct" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

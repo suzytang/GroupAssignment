@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,16 +24,12 @@ import java.util.Collections;
 
 public class QuizTest extends AppCompatActivity {
 
-    Button submit;
-    TextView progress;
-    TextView question;
-    EditText input;
-    int category;
+    private Button submit;
+    private TextView progress, question, yandex;
+    private EditText input;
+    int category, i, score, amount;
     DatabaseHelper myDb = new DatabaseHelper(this);
     ArrayList<QuizAnswers> quizAnswers;
-    int i;
-    int score;
-    int amount;
     private Dialog dialog;
     private Dialog exitDialog;
 
@@ -53,6 +50,8 @@ public class QuizTest extends AppCompatActivity {
         progress = findViewById(R.id.progress);
         question = findViewById(R.id.question);
         input = findViewById(R.id.input);
+        yandex = findViewById(R.id.yandexCredit4);
+        yandex.setMovementMethod(LinkMovementMethod.getInstance());
 
         startQuiz();
     }
@@ -62,7 +61,7 @@ public class QuizTest extends AppCompatActivity {
         amount = 0;
         i = 1;
         score = 0;
-
+        submit.setText("Submit");
         if (category != 0) {
             amount = 10;
         } else {

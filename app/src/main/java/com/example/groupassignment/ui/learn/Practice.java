@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -31,8 +32,8 @@ public class Practice extends AppCompatActivity {
     private String englishText, translatedText;
     int correct;
     private ImageView strike1, strike2, strike3;
-    private Button refresh, menu, quiz, learn;
-    private TextView englishTF, translatedTF, resultTF, correctTF, selection;
+    private ImageButton refresh;
+    private TextView englishTF, translatedTF, resultTF, correctTF, selection, yandex;
     private ImageButton trueButton, falseButton;
     private Dialog dialog;
     private Dialog exitDialog;
@@ -56,6 +57,9 @@ public class Practice extends AppCompatActivity {
         resultTF = findViewById(R.id.resultTF);
         correctTF = findViewById(R.id.correctTF);
         selection = findViewById(R.id.selection);
+
+        yandex = findViewById(R.id.yandexCredit2);
+        yandex.setMovementMethod(LinkMovementMethod.getInstance());
 
 //        menu = findViewById(R.id.menu);
 //        quiz = findViewById(R.id.storeButton);
@@ -210,6 +214,7 @@ public class Practice extends AppCompatActivity {
         falseButton.setEnabled(false);
         falseButton.setAlpha((float) 0.1);
         refresh.setEnabled(true);
+        refresh.setAlpha((float) 1);
         correctTF.setText("The translation of \""+myDb.pullData("Expression",category, randomEnglish)+"\" is \""+myDb.pullData( "Translation", category, randomEnglish)+"\".");
         if (userAnswer == correctAnswer) {
             resultTF.setText("Correct!");

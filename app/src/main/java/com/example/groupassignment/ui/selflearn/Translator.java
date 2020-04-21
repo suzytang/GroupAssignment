@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +37,7 @@ public class Translator extends AppCompatActivity {
     private Context context;
     private boolean translated;
     String userInput;
+    TextView yandex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class Translator extends AppCompatActivity {
         translate = findViewById(R.id.translate);
         store = findViewById(R.id.storeButton);
         clearText = findViewById(R.id.clearText);
+        yandex = findViewById(R.id.yandexCredit);
+        yandex.setMovementMethod(LinkMovementMethod.getInstance());
 
         enableStore(false);
         this.setTitle("Translator");

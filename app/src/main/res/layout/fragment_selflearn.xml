@@ -233,7 +233,6 @@
         android:id="@+id/lockText2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
         android:gravity="center"
         android:text="Unlock by storing 3 words"
         app:layout_constraintEnd_toEndOf="@+id/function2"

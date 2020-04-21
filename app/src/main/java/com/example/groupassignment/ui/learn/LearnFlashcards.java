@@ -3,6 +3,7 @@ package com.example.groupassignment.ui.learn;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,7 @@ public class LearnFlashcards extends AppCompatActivity {
     int amount, category;
     private TextToSpeech translatedTTS, englishTTS;
     private ImageButton translatedSpeech, englishSpeech, next, prev;
-    private TextView question, frontText, backText;
+    private TextView question, frontText, backText, yandex;
 //    private Button menu, quiz;
 
     @Override
@@ -46,6 +47,8 @@ public class LearnFlashcards extends AppCompatActivity {
 //        quiz = findViewById(R.id.quiz);
         translatedSpeech = findViewById(R.id.translatedSpeech);
         englishSpeech = findViewById(R.id.englishSpeech);
+        yandex = findViewById(R.id.yandexCredit3);
+        yandex.setMovementMethod(LinkMovementMethod.getInstance());
 
         amount = 0;
         Intent intent = getIntent();

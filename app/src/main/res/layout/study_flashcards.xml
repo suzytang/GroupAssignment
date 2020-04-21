@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     android:layout_gravity="center">
 
+    <TextView
+        android:id="@+id/yandexCredit3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/yandex"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.wajahatkarim3.easyflipview.EasyFlipView
         android:id="@+id/easyFlipView"
         android:layout_width="287dp"

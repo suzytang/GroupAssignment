@@ -1,4 +1,6 @@
 <resources>
+    <string
+        name="yandex"><a href="http://translate.yandex.com/">Powered by Yandex.Translate</a></string>
     <string name="app_name">GroupAssignment</string>
     <string name="title_pet">Pet</string>
     <string name="title_learn">Learn</string>
