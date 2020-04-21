@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "463478943847238424874239783892387925390339238.db";
+    public static final String DATABASE_NAME = "46384298209279797987974928092438239827324728927293847238424874239783892387925390339238.db";
     private static final int DATABASE_VERSION = 1;
     public static final String COL_1 = "Level";
     public static final String COL_2 = "Position";
@@ -118,22 +118,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+COL_5+", "+COL_6+") VALUES (9, 9, 'Can I use your phone?', null, 0, 0)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+COL_5+", "+COL_6+") VALUES (9, 10, 'Leave me alone', null, 0, 0)");
 
-        String result = "";
-
-        for (int i = 1; i < 10; i++) {
-            for (int j = 1; j < 11; j++) {
-                TranslateRequest tR = new TranslateRequest();
-                try {
-                    result = tR.execute(getEnglish(db, i, j)).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                String resultFormatted = result.replace("'", "''");
-                db.execSQL("update learn_table set " + COL_4 + " = '" + resultFormatted + "' where "+COL_1+" = "+i+" AND "+COL_2+" = "+j);
-            }
-        }
+//        String result = "";
+//
+//        for (int i = 1; i < 10; i++) {
+//            for (int j = 1; j < 11; j++) {
+//                TranslateRequest tR = new TranslateRequest();
+//                try {
+//                    result = tR.execute(getEnglish(db, i, j)).get();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                String resultFormatted = result.replace("'", "''");
+//                db.execSQL("update learn_table set " + COL_4 + " = '" + resultFormatted + "' where "+COL_1+" = "+i+" AND "+COL_2+" = "+j);
+//            }
+//        }
     }
 
     @Override
@@ -142,7 +142,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public String getEnglish(SQLiteDatabase db, int level, int position) {
+    public boolean translated() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor csr = db.rawQuery("select "+COL_4+" from learn_table", null);
+        csr.moveToFirst();
+        try {
+            if(csr.getString(csr.getColumnIndex(COL_4)).isEmpty()){
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+//    public String getEnglish(SQLiteDatabase db, int level, int position) {
+//        String word;
+//        Cursor csr = db.rawQuery("select "+COL_3+" from learn_table where "+COL_1+" = "+level+" AND "+COL_2+" = "+position,null);
+//        csr.moveToFirst();
+//        word = csr.getString(csr.getColumnIndex(COL_3));
+//        return word;
+//    }
+    public String getEnglish(int level, int position) {
+        SQLiteDatabase db = this.getWritableDatabase();
         String word;
         Cursor csr = db.rawQuery("select "+COL_3+" from learn_table where "+COL_1+" = "+level+" AND "+COL_2+" = "+position,null);
         csr.moveToFirst();
@@ -164,6 +187,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void setAnswered(int level, int position)  {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("update learn_table set "+COL_5+" = 1 where "+COL_1+" = "+level+" AND "+COL_2+" = "+position);
+        db.close();
+    }
+
+    public void setTranslation(String translation ,int level, int position) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update learn_table set " + COL_4 + " = '" + translation + "' where "+COL_1+" = "+level+" AND "+COL_2+" = "+position);
         db.close();
     }
 
