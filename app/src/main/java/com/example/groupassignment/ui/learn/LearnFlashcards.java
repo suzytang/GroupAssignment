@@ -107,27 +107,34 @@ public class LearnFlashcards extends AppCompatActivity {
             public void onClick(View v) {
             i++;
             prev.setEnabled(true);
+            prev.setAlpha((float) 1);
             if (i <= amount) {
                 next.setEnabled(true);
+                next.setAlpha((float) 1);
                 updateFlashCards(i);
                 if (i == amount) {
                     next.setEnabled(false);
+                    next.setAlpha((float) 0.1);
                 }
             }
             }
         });
 
         prev.setEnabled(false);
+        prev.setAlpha((float) 0.1);
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             i--;
             next.setEnabled(true);
+            next.setAlpha((float) 1);
             if (i <= amount) {
                 prev.setEnabled(true);
+                prev.setAlpha((float) 1);
                 updateFlashCards(i);
                 if (i == 1) {
                     prev.setEnabled(false);
+                    prev.setAlpha((float) 0.1);
                 }
             }
             }
