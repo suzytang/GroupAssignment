@@ -50,7 +50,7 @@ public class AccessoriesFrag extends Fragment {
             }
         };
 
-        adapter = new AccessoriesAdapter(listener);
+        adapter = new AccessoriesAdapter(getActivity(), listener);
         recyclerView.setAdapter(adapter);
 
 

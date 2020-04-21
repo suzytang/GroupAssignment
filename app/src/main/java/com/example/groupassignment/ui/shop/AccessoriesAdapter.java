@@ -26,9 +26,8 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     Context context;
     SQLiteHelper db;
 
-    public AccessoriesAdapter(RecyclerViewClickListener listener) {
+    public AccessoriesAdapter(Context context, RecyclerViewClickListener listener) {
         this.context = context;
-        db = new SQLiteHelper(context);
         this.listener = listener;
     }
 
@@ -48,14 +47,18 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     public void onBindViewHolder(AccessoriesAdapter.MyViewHolder holder, int position) {
 
         String name = (shop.getAccessories().get(position).getItemName());
+
+        db = new SQLiteHelper(context);
+        if (db.isBought("'"+name+"'")) {
+            holder.itemName.setAlpha((float) 0.1);
+            holder.itemPrice.setAlpha((float) 0.1);
+            holder.image.setAlpha((float) 0.1);
+        }
+
         holder.itemName.setText(name);
         holder.itemPrice.setText(shop.getAccessories().get(position).getItemPrice() + " coins");
         holder.image.setImageResource(shop.getAccessories().get(position).getImage());
-//        if (db.isBought(name)) {
-//            holder.itemName.setAlpha((float) 0.1);
-//            holder.itemPrice.setAlpha((float) 0.1);
-//            holder.image.setAlpha((float) 0.1);
-//        }
+
     }
 
     @Override

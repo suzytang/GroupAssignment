@@ -1,5 +1,6 @@
 package com.example.groupassignment.ui.shop;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.groupassignment.R;
+import com.example.groupassignment.SQLiteHelper;
 
 import java.util.ArrayList;
 
@@ -16,9 +18,12 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
 
     WallpapersAdapter.RecyclerViewClickListener listener;
     final Shop shop = new Shop();
+    Context context;
+    SQLiteHelper db;
 
 
-    public WallpapersAdapter(WallpapersAdapter.RecyclerViewClickListener listener) {
+    public WallpapersAdapter(Context context, WallpapersAdapter.RecyclerViewClickListener listener) {
+        this.context = context;
         this.listener = listener;
 
     }
@@ -37,7 +42,17 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
 
     @Override
     public void onBindViewHolder(WallpapersAdapter.MyViewHolder holder, int position) {
-        holder.itemName.setText(shop.getWallpapers().get(position).getItemName());
+
+        String name = shop.getWallpapers().get(position).getItemName();
+
+        db = new SQLiteHelper(context);
+        if (db.isBought("'"+name+"'")) {
+            holder.itemName.setAlpha((float) 0.1);
+            holder.itemPrice.setAlpha((float) 0.1);
+            holder.image.setAlpha((float) 0.1);
+        }
+
+        holder.itemName.setText(name);
         holder.itemPrice.setText(shop.getWallpapers().get(position).getItemPrice() + " coins");
         holder.image.setImageResource(shop.getWallpapers().get(position).getImage());
 

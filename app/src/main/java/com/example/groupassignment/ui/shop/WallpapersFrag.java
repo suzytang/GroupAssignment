@@ -54,7 +54,7 @@ public class WallpapersFrag extends Fragment {
             }
         };
 
-        adapter = new WallpapersAdapter(listener);
+        adapter = new WallpapersAdapter(getActivity(),listener);
         recyclerView.setAdapter(adapter);
 
         TextView coins = (TextView) root.findViewById(R.id.coins);
@@ -79,7 +79,7 @@ public class WallpapersFrag extends Fragment {
 
         shopItem.setText(shop.getWallpapers().get(position).getItemName());
         shopPrice.setText(shop.getWallpapers().get(position).getItemPrice() + " coins");
-        image.setImageResource(shop.getAccessories().get(position).getImage());
+        image.setImageResource(shop.getWallpapers().get(position).getImage());
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
