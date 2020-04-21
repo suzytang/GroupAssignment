@@ -200,7 +200,7 @@ public class LearnFlashcards extends AppCompatActivity {
         });
     }
 
-    // Set speak rate to slower since users are learning
+    // Set speak rate to slower since users are learning and create method to start audio
     private void speak(TextToSpeech TTS, String text) {
         TTS.setSpeechRate((float) 0.75);
         TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);

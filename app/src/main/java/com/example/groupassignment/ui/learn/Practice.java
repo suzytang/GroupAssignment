@@ -24,11 +24,11 @@ import com.example.groupassignment.SQLiteHelper;
 import java.util.Random;
 
 public class Practice extends AppCompatActivity {
+
     // DatabaseHelper for queries
     DatabaseHelper myDb = new DatabaseHelper(this);
     // Random to retrieve random number
     Random random = new Random();
-
     // Declare variables
     private int strikes, randomEnglish, randomTranslate, amount, category;
     private boolean correctAnswer, userAnswer;
@@ -401,6 +401,7 @@ public class Practice extends AppCompatActivity {
             }
         });
 
+        // Show dialog
         exitDialog.show();
 
         // Prevent users to cancel by touching outside or pressing back again

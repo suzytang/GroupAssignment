@@ -22,6 +22,7 @@ import com.example.groupassignment.ui.learn.QuizTest;
 
 public class SelfLearnFragment extends Fragment {
 
+    // Declare variables
     private DatabaseHelper myDb;
     private ImageView lock2, lock3, lock4;
     private ImageButton translator, learn, practice, quiz;
@@ -32,8 +33,10 @@ public class SelfLearnFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.fragment_selflearn, container, false);
 
+        // Initialise database
         myDb = new DatabaseHelper(getActivity());
 
+        // Link to XML
         translator = root.findViewById(R.id.function1);
         learn = root.findViewById(R.id.function2);
         practice = root.findViewById(R.id.function3);
@@ -49,12 +52,17 @@ public class SelfLearnFragment extends Fragment {
         text3 = root.findViewById(R.id.text3);
         text4 = root.findViewById(R.id.text4);
 
+        // Lock learn, practice and quiz function
         lock();
+
+        // Unlock learn, practice and quiz function based on number of stored words
         unlock();
 
+        // Show number of stored words
         final int words = myDb.countUserData();
         storedWords.setText("Stored words: "+words);
 
+        // Button to go to translator
         translator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +71,7 @@ public class SelfLearnFragment extends Fragment {
             }
         });
 
+        // Button to go to learn
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +82,7 @@ public class SelfLearnFragment extends Fragment {
             }
         });
 
+        // Button to go to practice
         practice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +93,7 @@ public class SelfLearnFragment extends Fragment {
             }
         });
 
+        // Button to go to quiz
         quiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +112,8 @@ public class SelfLearnFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    // Lock learn, practice and quiz
+    // Show lock image and text and disable image button for all functionalities
     private void lock() {
         learn.setAlpha((float) 0.1);
         learn.setEnabled(false);
@@ -113,7 +126,10 @@ public class SelfLearnFragment extends Fragment {
         text4.setAlpha((float) 0.1);
     }
 
+    // Unlock learn, practice or quiz based on number of stored words
+    // Remove lock image and text and enable image button for respective functionality
     private void unlock() {
+        // Unlock learn
         if (myDb.countUserData() >= 3) {
             learn.setAlpha((float) 1);
             learn.setEnabled(true);
@@ -121,6 +137,7 @@ public class SelfLearnFragment extends Fragment {
             lockText2.setVisibility(View.GONE);
             lock2.setVisibility(View.GONE);
         }
+        // Unlock practice
         if (myDb.countUserData() >= 10) {
             practice.setAlpha((float) 1);
             practice.setEnabled(true);
@@ -128,6 +145,7 @@ public class SelfLearnFragment extends Fragment {
             lockText3.setVisibility(View.GONE);
             lock3.setVisibility(View.GONE);
         }
+        // Unlock quiz
         if (myDb.countUserData() >= 5) {
             quiz.setAlpha((float) 1);
             quiz.setEnabled(true);
