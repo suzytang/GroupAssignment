@@ -22,9 +22,13 @@ import java.util.Locale;
 import static java.util.Locale.FRENCH;
 
 public class LearnFlashcards extends AppCompatActivity {
+    // Locale for translated Text to Speech
     final public static Locale lang = FRENCH;
+
+    // DatabaseHelper for queries
     DatabaseHelper myDb = new DatabaseHelper(this);
 
+    // Declare variables
     int i = 1;
     int amount, category;
     private TextToSpeech translatedTTS, englishTTS;
@@ -37,6 +41,7 @@ public class LearnFlashcards extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.study_flashcards);
 
+        // Link with XML
         next = findViewById(R.id.next);
         prev = findViewById(R.id.prev);
         question = findViewById(R.id.progress);
@@ -44,14 +49,17 @@ public class LearnFlashcards extends AppCompatActivity {
         backText = findViewById(R.id.backText);
         translatedSpeech = findViewById(R.id.translatedSpeech);
         englishSpeech = findViewById(R.id.englishSpeech);
+        // Credit yandex API
         yandex = findViewById(R.id.yandexCredit3);
         yandex.setMovementMethod(LinkMovementMethod.getInstance());
 
         amount = 0;
+
+        // Get category
         Intent intent = getIntent();
         category = intent.getIntExtra("category",0);
 
-        // Get number of words - if from
+        // Get number of expressions for flashcards
         if (category != 0) {
             amount = 10;
             this.setTitle(LearnCategories.getCategories().get(category - 1).getCategoryName() + " Flashcards");
@@ -60,16 +68,14 @@ public class LearnFlashcards extends AppCompatActivity {
             this.setTitle("Self-Learn Flashcards");
         }
 
-        question.setText((i)+"/"+amount);
 
+        // @Suzy pls do source code
         easyFlipView = findViewById(R.id.easyFlipView);
         easyFlipView.setFlipDuration(500);
         easyFlipView.setFlipEnabled(true);
         easyFlipView.setAutoFlipBack(false);
 
-        frontText.setText(myDb.pullData("Expression",category,i));
-        backText.setText(myDb.pullData("Translation",category,i));
-
+        // Flip view on click
         findViewById(R.id.frontCard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,16 +90,25 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
+
+        // Set first flashcard
+        question.setText((i)+"/"+amount);
+        frontText.setText(myDb.pullData("Expression",category,i));
+        backText.setText(myDb.pullData("Translation",category,i));
+
+        // Move to next card
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             i++;
+            // Enable previous since moving to next
             prev.setEnabled(true);
             prev.setAlpha((float) 1);
             if (i <= amount) {
                 next.setEnabled(true);
                 next.setAlpha((float) 1);
-                updateFlashCards(i);
+                updateFlashCards();
+                // Disable next button if last flashcard
                 if (i == amount) {
                     next.setEnabled(false);
                     next.setAlpha((float) 0.1);
@@ -102,18 +117,22 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
+        // Move to previous card
+        // Starts at disabled because onCreate, it is the first flashcard
         prev.setEnabled(false);
         prev.setAlpha((float) 0.1);
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             i--;
+            // Enable next since moving to previous
             next.setEnabled(true);
             next.setAlpha((float) 1);
             if (i <= amount) {
                 prev.setEnabled(true);
                 prev.setAlpha((float) 1);
-                updateFlashCards(i);
+                updateFlashCards();
+                // Disable prev button if first flashcard
                 if (i == 1) {
                     prev.setEnabled(false);
                     prev.setAlpha((float) 0.1);
@@ -122,12 +141,11 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
-        final EasyFlipView easyFlipView2 = findViewById(R.id.easyFlipView);
-        easyFlipView2.setFlipDuration(500);
-        easyFlipView2.setToHorizontalType();
-        easyFlipView2.setFlipTypeFromLeft();
+        // The following code is modified from: Coding in Flow (2017)
+        // 'Text to Speech - Android Studio Tutorial'
+        // https://www.youtube.com/watch?v=DoYnz0GYN1w
 
-        //
+        // Create Text to Speech for translated language
         translatedTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -146,6 +164,7 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
+        // Create English Text to Speech
         englishTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -164,6 +183,7 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
+        // Text to Speech audio for translation on click
         translatedSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,6 +191,7 @@ public class LearnFlashcards extends AppCompatActivity {
             }
         });
 
+        // Text to Speech audio for english expression on click
         englishSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,17 +200,13 @@ public class LearnFlashcards extends AppCompatActivity {
         });
     }
 
-    private void updateFlashCards(int j) {
-        frontText.setText(myDb.pullData("Expression",category,j));
-        backText.setText(myDb.pullData("Translation",category,j));
-        question.setText((i)+"/"+ amount);
-    }
-
+    // Set speak rate to slower since users are learning
     private void speak(TextToSpeech TTS, String text) {
         TTS.setSpeechRate((float) 0.75);
         TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
 
+    // Stop and shut down Text to Speech
     @Override
     protected void onDestroy() {
         if (translatedTTS != null) {
@@ -201,6 +218,14 @@ public class LearnFlashcards extends AppCompatActivity {
             englishTTS.shutdown();
         }
         super.onDestroy();
+    }
+    // Modified code stops here
+
+    // Update flashcards by setting the question, front text and back text
+    private void updateFlashCards() {
+        frontText.setText(myDb.pullData("Expression",category,i));
+        backText.setText(myDb.pullData("Translation",category,i));
+        question.setText((i)+"/"+ amount);
     }
 }
 

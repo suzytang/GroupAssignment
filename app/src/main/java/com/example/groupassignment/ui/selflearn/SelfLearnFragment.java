@@ -22,26 +22,15 @@ import com.example.groupassignment.ui.learn.QuizTest;
 
 public class SelfLearnFragment extends Fragment {
 
-    private SelfLearnViewModel selfLearnViewModel;
     private DatabaseHelper myDb;
     private ImageView lock2, lock3, lock4;
     private ImageButton translator, learn, practice, quiz;
     private TextView storedWords, text2, text3, text4, lockText2, lockText3, lockText4;
-//    DatabaseHelper myDb;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        selfLearnViewModel =
-                ViewModelProviders.of(this).get(SelfLearnViewModel.class);
+
         final View root = inflater.inflate(R.layout.fragment_selflearn, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_learn);
-        learnViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
 
         myDb = new DatabaseHelper(getActivity());
 

@@ -19,27 +19,13 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     private Context mContext;
     private ArrayList<QuizAnswers> mQuiz;
 
-    //Creates listener which links to respective restaurant Id
-//    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Quiz restaurant = (Quiz) v.getTag();
-//
-//            Context context = v.getContext();
-//            Intent intent = new Intent(context, DetailActivity.class);
-//            intent.putExtra(DetailFragment.ARG_ITEM_ID, restaurant.getId());
-//            context.startActivity(intent);
-//
-//        }
-//    };
-
-    //    Constructor
+    // Constructor
     public QuizAdapter(Context context, ArrayList<QuizAnswers> quizAnswers) {
         mContext = context;
         mQuiz = quizAnswers;
     }
 
-    //Create Viewholder class for restaurant_list_row
+    // Create Viewholder for quiz_results_list
     public static class QuizViewHolder extends RecyclerView.ViewHolder  {
         public TextView english, question, userAnswer,correctAnswer;
         public ImageView correctImage;
@@ -54,20 +40,18 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         }
     }
 
-    //Inflate restaurant_list_row and return view
+    // Inflate quiz_results_list and return view
     @Override
     public QuizAdapter.QuizViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.quiz_results_list, parent, false);
         return new QuizViewHolder(v);
     }
 
-    //Replace contents of a view with respective data
+    // Replace contents of the view with data
     @Override
     public void onBindViewHolder(QuizViewHolder holder, int position) {
         final QuizAnswers result = mQuiz.get(position);
-//
-//        //Sets listener
-//        holder.itemView.setOnClickListener(mOnClickListener);
+
         holder.question.setText("QUESTION "+result.getQuestion());
         holder.english.setText(result.getEnglish());
         holder.userAnswer.setText("Your translation: "+result.getAnswer());
@@ -82,7 +66,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
     }
 
-    //Return the size of dataset
+    // Return size of dataset
     @Override
     public int getItemCount() {
         return mQuiz.size();

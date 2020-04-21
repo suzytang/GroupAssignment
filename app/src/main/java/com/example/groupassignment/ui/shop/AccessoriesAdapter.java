@@ -49,10 +49,11 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         String name = (shop.getAccessories().get(position).getItemName());
 
         db = new SQLiteHelper(context);
-        if (db.isBought("'"+name+"'")) {
+        if (db.isBought(name)) {
             holder.itemName.setAlpha((float) 0.1);
             holder.itemPrice.setAlpha((float) 0.1);
             holder.image.setAlpha((float) 0.1);
+            holder.owned.setVisibility(View.VISIBLE);
         }
 
         holder.itemName.setText(name);
@@ -71,7 +72,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         TextView itemName;
         TextView itemPrice;
         ImageView image;
-        CardView card;
+        TextView owned;
         RecyclerViewClickListener listener;
 
         public MyViewHolder( View itemView, RecyclerViewClickListener listener) {
@@ -83,7 +84,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             this.itemName = itemView.findViewById(R.id.itemName);
             this.itemPrice = itemView.findViewById(R.id.itemPrice);
             this.image = itemView.findViewById(R.id.image);
-            this.card = itemView.findViewById(R.id.shop_list_item_id);
+            this.owned = itemView.findViewById(R.id.owned);
         }
 
         @Override

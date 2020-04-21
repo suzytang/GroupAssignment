@@ -122,7 +122,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         for (int i = 1; i < 10; i++) {
             for (int j = 1; j < 11; j++) {
-                String word = getEnglish(db, i, j);
                 TranslateRequest tR = new TranslateRequest();
                 try {
                     result = tR.execute(getEnglish(db, i, j)).get();

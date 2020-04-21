@@ -2,6 +2,7 @@ package com.example.groupassignment.ui.learn;
 
 import java.io.Serializable;
 
+// QuizAnswers class to store quiz answers to be passed onto result
 public class QuizAnswers implements Serializable {
     private int question;
     private String english;

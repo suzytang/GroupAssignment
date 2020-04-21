@@ -46,10 +46,11 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
         String name = shop.getWallpapers().get(position).getItemName();
 
         db = new SQLiteHelper(context);
-        if (db.isBought("'"+name+"'")) {
+        if (db.isBought(name)) {
             holder.itemName.setAlpha((float) 0.1);
             holder.itemPrice.setAlpha((float) 0.1);
             holder.image.setAlpha((float) 0.1);
+            holder.owned.setVisibility(View.VISIBLE);
         }
 
         holder.itemName.setText(name);
@@ -68,6 +69,7 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView itemName, itemPrice;
         ImageView image;
+        TextView owned;
         WallpapersAdapter.RecyclerViewClickListener listener;
 
         public MyViewHolder( View itemView, WallpapersAdapter.RecyclerViewClickListener listener) {
@@ -79,6 +81,7 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
             this.itemName = itemView.findViewById(R.id.itemName);
             this.itemPrice = itemView.findViewById(R.id.itemPrice);
             this.image = itemView.findViewById(R.id.image);
+            this.owned = itemView.findViewById(R.id.owned);
         }
 
         @Override

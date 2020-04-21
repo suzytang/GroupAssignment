@@ -26,33 +26,31 @@ import java.util.ArrayList;
 
 public class LearnFragment extends Fragment {
 
-    private LearnViewModel learnViewModel;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerView.Adapter adapter;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        learnViewModel =
-                ViewModelProviders.of(this).get(LearnViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_learn, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_learn);
-        learnViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
 
+        // Inflate view with learn fragment
+        View root = inflater.inflate(R.layout.fragment_learn, container, false);
+
+        // Initialise recyclerView
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+
+        // Initialise layoutManager for recyclerView
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
+        // Get categories from LearnCategories class
         ArrayList<LearnCategories> categories = LearnCategories.getCategories();
 
+        // Create adapter object
         adapter = new LearnRecyclerAdapter(this.getContext(), categories);
 
+        // Attach adapter to recycler
         recyclerView.setAdapter(adapter);
 
         return root;

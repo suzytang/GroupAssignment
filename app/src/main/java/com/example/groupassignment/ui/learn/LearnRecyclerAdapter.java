@@ -18,29 +18,28 @@ import java.util.ArrayList;
 
 public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdapter.MyViewHolder> {
     private Context mContext;
+    private ArrayList<LearnCategories> categories;
 
-    ArrayList<LearnCategories> categories;
-
+    // Constructor
     public LearnRecyclerAdapter(Context context,ArrayList<LearnCategories> categories) {
         this.categories = categories;
         this.mContext = context;
     }
 
-    public interface RecyclerViewClickListener {
-        void onClick(View view, int position);
-    }
-
+    // Inflate learn_levels and return view
     @Override
     public MyViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.learn_levels, parent, false);
         return new MyViewHolder(v);
     }
 
+    // Replace contents of the view with data
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.levelText.setText(categories.get(position).getCategoryName());
         holder.categoryImage.setImageResource(categories.get(position).getImage());
 
+        // On click buttons start respective activities and passes on the category
         holder.learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,12 +67,13 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
         });
     }
 
+    // Return size of dataset
     @Override
     public int getItemCount() {
         return categories.size();
     }
 
-
+    // Create ViewHolder for learn_levels
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView levelText;
         Button quiz;

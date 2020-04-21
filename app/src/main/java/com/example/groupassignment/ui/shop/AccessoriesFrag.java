@@ -29,14 +29,14 @@ public class AccessoriesFrag extends Fragment {
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     Dialog dialog;
-    SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+    SQLiteHelper sqLiteHelper;
     final Shop shop = new Shop();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.shop_list, container, false);
-        final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+        sqLiteHelper = new SQLiteHelper(getActivity());
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
@@ -61,11 +61,22 @@ public class AccessoriesFrag extends Fragment {
         return root;
     }
 
-    public void clickResponse (final int position){
+    public void clickResponse (int position){
+        sqLiteHelper = new SQLiteHelper(getActivity());
+        if (!sqLiteHelper.isBought(shop.getAccessories().get(position).getItemName())) {
+            openDialog(position);
+        }
+    }
 
-        final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        final Dialog dialog = new Dialog(getActivity());
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        TextView coins = (TextView) getActivity().findViewById(R.id.coins);
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+    }
 
+    public void openDialog(final int position) {
+        dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.shop_popup);
         Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
         Button buyButton = (Button) dialog.findViewById(R.id.buyButton);
@@ -110,7 +121,7 @@ public class AccessoriesFrag extends Fragment {
                         onViewCreated(v,null);
                         Toast.makeText(getActivity(),
                                 shop.getAccessories().get(position).getItemName() + " has been added to your inventory!", Toast.LENGTH_LONG).show();
-
+                        adapter.notifyDataSetChanged();
                     } else{
                         Toast.makeText(getActivity(),
                                 "You don't have enough coins to purchase this!", Toast.LENGTH_LONG).show();
@@ -122,15 +133,6 @@ public class AccessoriesFrag extends Fragment {
 
             }
         });
-
-
-
-    }
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        TextView coins = (TextView) getActivity().findViewById(R.id.coins);
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
     }
 
 }
