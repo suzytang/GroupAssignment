@@ -12,9 +12,9 @@
         android:title="@string/title_learn" />
 
     <item
-        android:id="@+id/navigation_leaderboard"
-        android:icon="@drawable/leaderboard_selector"
-        android:title="@string/title_leaderboard" />
+        android:id="@+id/navigation_selflearn"
+        android:icon="@drawable/selflearn_selector"
+        android:title="@string/title_selflearn" />
 
     <item
         android:id="@+id/navigation_shop"

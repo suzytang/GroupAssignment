@@ -18,10 +18,11 @@
         tools:layout="@layout/fragment_learn" />
 
     <fragment
-        android:id="@+id/navigation_leaderboard"
+        android:id="@+id/navigation_selflearn"
         android:name="com.example.groupassignment.ui.selflearn.SelfLearnFragment"
-        android:label="@string/title_leaderboard"
+        android:label="@string/title_selflearn"
         tools:layout="@layout/fragment_selflearn" />
+
 
     <fragment
         android:id="@+id/navigation_shop"
