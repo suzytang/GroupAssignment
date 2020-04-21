@@ -25,13 +25,12 @@ public class LearnFlashcards extends AppCompatActivity {
     final public static Locale lang = FRENCH;
     DatabaseHelper myDb = new DatabaseHelper(this);
 
-    //EasyFlipView easyFlipView;
     int i = 1;
     int amount, category;
     private TextToSpeech translatedTTS, englishTTS;
     private ImageButton translatedSpeech, englishSpeech, next, prev;
     private TextView question, frontText, backText, yandex;
-//    private Button menu, quiz;
+    private EasyFlipView easyFlipView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +42,6 @@ public class LearnFlashcards extends AppCompatActivity {
         question = findViewById(R.id.progress);
         frontText = findViewById(R.id.frontText);
         backText = findViewById(R.id.backText);
-//        menu = findViewById(R.id.menu);
-//        quiz = findViewById(R.id.quiz);
         translatedSpeech = findViewById(R.id.translatedSpeech);
         englishSpeech = findViewById(R.id.englishSpeech);
         yandex = findViewById(R.id.yandexCredit3);
@@ -53,6 +50,8 @@ public class LearnFlashcards extends AppCompatActivity {
         amount = 0;
         Intent intent = getIntent();
         category = intent.getIntExtra("category",0);
+
+        // Get number of words - if from
         if (category != 0) {
             amount = 10;
             this.setTitle(LearnCategories.getCategories().get(category - 1).getCategoryName() + " Flashcards");
@@ -63,25 +62,7 @@ public class LearnFlashcards extends AppCompatActivity {
 
         question.setText((i)+"/"+amount);
 
-//        quiz.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            Intent intent = new Intent(LearnFlashcards.this, QuizTest.class);
-//            intent.putExtra("category", category);
-//            startActivity(intent);
-//            }
-//        });
-//
-//        menu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(LearnFlashcards.this, MainActivity_Learn.class);
-//                intent.putExtra("category", category);
-//                startActivity(intent);
-//            }
-//        });
-
-        final EasyFlipView easyFlipView = (EasyFlipView) findViewById(R.id.easyFlipView);
+        easyFlipView = findViewById(R.id.easyFlipView);
         easyFlipView.setFlipDuration(500);
         easyFlipView.setFlipEnabled(true);
         easyFlipView.setAutoFlipBack(false);
@@ -92,7 +73,6 @@ public class LearnFlashcards extends AppCompatActivity {
         findViewById(R.id.frontCard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(LearnFlashcards.this, "Front Card", Toast.LENGTH_SHORT).show();
                 easyFlipView.flipTheView();
             }
         });
@@ -100,7 +80,6 @@ public class LearnFlashcards extends AppCompatActivity {
         findViewById(R.id.backCard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(LearnFlashcards.this, "Back Card", Toast.LENGTH_SHORT).show();
                 easyFlipView.flipTheView();
             }
         });
@@ -148,6 +127,7 @@ public class LearnFlashcards extends AppCompatActivity {
         easyFlipView2.setToHorizontalType();
         easyFlipView2.setFlipTypeFromLeft();
 
+        //
         translatedTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -199,7 +179,7 @@ public class LearnFlashcards extends AppCompatActivity {
         });
     }
 
-    public void updateFlashCards(int j) {
+    private void updateFlashCards(int j) {
         frontText.setText(myDb.pullData("Expression",category,j));
         backText.setText(myDb.pullData("Translation",category,j));
         question.setText((i)+"/"+ amount);

@@ -1,15 +1,18 @@
 package com.example.groupassignment.ui.shop;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.groupassignment.R;
+import com.example.groupassignment.SQLiteHelper;
 
 import org.w3c.dom.Text;
 
@@ -20,9 +23,12 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
     RecyclerViewClickListener listener;
     final Shop shop = new Shop();
     Dialog dialog;
+    Context context;
+    SQLiteHelper db;
 
     public AccessoriesAdapter(RecyclerViewClickListener listener) {
-
+        this.context = context;
+        db = new SQLiteHelper(context);
         this.listener = listener;
     }
 
@@ -40,11 +46,16 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
 
     @Override
     public void onBindViewHolder(AccessoriesAdapter.MyViewHolder holder, int position) {
-        holder.itemName.setText(shop.getAccessories().get(position).getItemName());
+
+        String name = (shop.getAccessories().get(position).getItemName());
+        holder.itemName.setText(name);
         holder.itemPrice.setText(shop.getAccessories().get(position).getItemPrice() + " coins");
         holder.image.setImageResource(shop.getAccessories().get(position).getImage());
-
-
+//        if (db.isBought(name)) {
+//            holder.itemName.setAlpha((float) 0.1);
+//            holder.itemPrice.setAlpha((float) 0.1);
+//            holder.image.setAlpha((float) 0.1);
+//        }
     }
 
     @Override
@@ -57,6 +68,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         TextView itemName;
         TextView itemPrice;
         ImageView image;
+        CardView card;
         RecyclerViewClickListener listener;
 
         public MyViewHolder( View itemView, RecyclerViewClickListener listener) {
@@ -68,13 +80,12 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             this.itemName = itemView.findViewById(R.id.itemName);
             this.itemPrice = itemView.findViewById(R.id.itemPrice);
             this.image = itemView.findViewById(R.id.image);
+            this.card = itemView.findViewById(R.id.shop_list_item_id);
         }
 
         @Override
         public void onClick(View v) {
-
             listener.onClick(v,getAdapterPosition());
-
         }
     }
 }
