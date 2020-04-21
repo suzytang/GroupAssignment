@@ -1,10 +1,14 @@
 package com.example.groupassignment.ui.pet;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +24,7 @@ import com.example.groupassignment.ui.shop.Shop;
 public class PetFragment extends Fragment implements View.OnClickListener{
 
     private Shop shop = new Shop();
+    private Dialog dialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -28,6 +33,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
 
         ImageButton inventoryButton = (ImageButton) root.findViewById(R.id.inventoryButton);
         ImageButton feedButton = (ImageButton) root.findViewById(R.id.feedButton);
+        ImageView info = (ImageView) root.findViewById(R.id.info);
 
         ImageView wallpaper = (ImageView) root.findViewById(R.id.wallpaper);
 
@@ -126,6 +132,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         }
         feedButton.setOnClickListener(this);
         inventoryButton.setOnClickListener(this);
+        info.setOnClickListener(this);
 
         // Gets System time last assigned from the database
         long time = sqLiteHelper.getPetTime(SQLiteHelper.TIME);
@@ -180,6 +187,27 @@ public class PetFragment extends Fragment implements View.OnClickListener{
                     Toast.makeText(getActivity(),
                             "You don't have any food left!", Toast.LENGTH_LONG).show();
                 }
+                break;
+            case R.id.info:
+                // Dialog for credits
+                dialog = new Dialog(getActivity());
+
+                dialog.setContentView(R.layout.credits);
+
+                // Decreases the opacity of the background (fragment_pet_test) and displays dialog
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                // Button dismisses dialog when pressed
+                Button closeButton = (Button) dialog.findViewById(R.id.closeButton);
+                closeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                break;
         }
 
     }

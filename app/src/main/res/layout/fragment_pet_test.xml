@@ -110,6 +110,9 @@
         android:id="@+id/level"
         android:layout_width="17dp"
         android:layout_height="43dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="50dp"
         android:shadowColor="#000000"
         android:shadowDx="5"
         android:shadowDy="5"
@@ -117,19 +120,17 @@
         android:textColor="@android:color/white"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/levelProgress"
-        app:layout_constraintEnd_toEndOf="@+id/levelProgress"
-        app:layout_constraintStart_toStartOf="@+id/levelProgress"
-        app:layout_constraintTop_toTopOf="@+id/levelProgress" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/statusImage"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="11dp"
-        app:layout_constraintStart_toEndOf="@+id/levelProgress"
+        app:layout_constraintStart_toEndOf="@+id/level"
         app:layout_constraintTop_toBottomOf="@+id/coinImage"
         app:srcCompat="@drawable/status" />
 
@@ -137,21 +138,21 @@
         android:id="@+id/coinImage"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintStart_toEndOf="@+id/levelProgress"
-        app:layout_constraintTop_toTopOf="@+id/levelProgress"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toEndOf="@+id/level"
+        app:layout_constraintTop_toTopOf="@+id/wallpaper"
         app:srcCompat="@drawable/money" />
 
     <ImageView
         android:id="@+id/food"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="11dp"
-        app:layout_constraintBottom_toBottomOf="@+id/levelProgress"
-        app:layout_constraintStart_toEndOf="@+id/levelProgress"
+        app:layout_constraintStart_toEndOf="@+id/level"
         app:layout_constraintTop_toBottomOf="@+id/statusImage"
         app:srcCompat="@drawable/food" />
 
@@ -213,25 +214,14 @@
         android:id="@+id/inventoryButton"
         android:layout_width="64dp"
         android:layout_height="74dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:background="?android:selectableItemBackground"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info"
         app:srcCompat="@drawable/bag" />
-
-    <ProgressBar
-        android:id="@+id/levelProgress"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="104dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/sunglasses"
@@ -303,6 +293,17 @@
         app:layout_constraintStart_toStartOf="@+id/pet"
         app:srcCompat="@drawable/pirate_hat"
         tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/info"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/information" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
