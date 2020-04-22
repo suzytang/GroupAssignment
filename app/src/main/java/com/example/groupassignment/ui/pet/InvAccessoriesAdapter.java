@@ -42,7 +42,16 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
             return;
         }
         // Cursor gets the name of the accessory
-        final String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+        String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+
+        // Makes textview saying 'Applied' visible if accessory is applied and decreases opacity of recyclerview list item
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
+        if (sqLiteHelper.isApplied(accessory)) {
+            holder.itemName.setAlpha((float) 0.1);
+            holder.image.setAlpha((float) 0.1);
+            holder.apply.setAlpha((float) 0.1);
+            holder.applied.setVisibility(View.VISIBLE);
+        }
 
         // Set text and image for accessory in recyclerview
         holder.itemName.setText(accessory);
@@ -72,6 +81,7 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView itemName;
+        public TextView applied;
         public Button apply;
         public ImageView image;
 
@@ -79,6 +89,7 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
             super(itemView);
 
             this.itemName = itemView.findViewById(R.id.itemName);
+            this.applied = itemView.findViewById(R.id.applied);
             this.apply = itemView.findViewById(R.id.apply);
             this.image = itemView.findViewById(R.id.image);
 
@@ -112,6 +123,14 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
                 case "Top Hat":
                     sqLiteHelper.applyAccessories("'"+accessory+"'","'Hat'");
                     break;
+            }
+
+            // Makes textview saying 'Applied' visible if accessory is applied and decreases opacity of recyclerview list item
+            if (sqLiteHelper.isApplied(accessory)) {
+                itemName.setAlpha((float) 0.1);
+                image.setAlpha((float) 0.1);
+                apply.setAlpha((float) 0.1);
+                applied.setVisibility(View.VISIBLE);
             }
             // Toast feedback to user to inform them that the accessory has been applied
             Toast.makeText(context,  "The accessory has been applied",

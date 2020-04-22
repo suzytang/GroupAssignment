@@ -48,6 +48,16 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
         // Cursor gets the name of the wallpaper
         final String wallpaper = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
 
+
+        // Makes textview saying 'Applied' visible if wallpaper is applied and decreases opacity of recyclerview list item
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
+        if (sqLiteHelper.isApplied(wallpaper)) {
+            holder.itemName.setAlpha((float) 0.1);
+            holder.image.setAlpha((float) 0.1);
+            holder.apply.setAlpha((float) 0.1);
+            holder.applied.setVisibility(View.VISIBLE);
+        }
+
         // Set text and image for wallpaper in recyclerview
         holder.itemName.setText(wallpaper);
         holder.image.setImageResource(shop.searchWallpapers(wallpaper).getImage());
@@ -78,6 +88,7 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView itemName;
+        public TextView applied;
         public Button apply;
         public ImageView image;
 
@@ -85,6 +96,7 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
             super(itemView);
 
             this.itemName = itemView.findViewById(R.id.itemName);
+            this.applied = itemView.findViewById(R.id.applied);
             this.apply = itemView.findViewById(R.id.apply);
             this.image = itemView.findViewById(R.id.image);
 
@@ -104,6 +116,14 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
             // rows where CATEGORY = 'Wallpapers' then sets APPLIED = 1 where NAME = wallpaper
             // This makes sure only 1 wallpaper can be applied at one time
             sqLiteHelper.applyInventory("'"+wallpaper+"'", "'Wallpapers'");
+
+            // Makes textview saying 'Applied' visible if accessory is applied and decreases opacity of recyclerview list item
+            if (sqLiteHelper.isApplied(wallpaper)) {
+                itemName.setAlpha((float) 0.1);
+                image.setAlpha((float) 0.1);
+                apply.setAlpha((float) 0.1);
+                applied.setVisibility(View.VISIBLE);
+            }
 
             // Toast feedback to user to inform them that the accessory has been applied
             Toast.makeText(context,  "The wallpaper has been applied",

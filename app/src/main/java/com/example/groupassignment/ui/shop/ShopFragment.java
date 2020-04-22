@@ -27,17 +27,12 @@ import com.google.android.material.tabs.TabLayout;
 
 public class ShopFragment extends Fragment{
 
-    private Button foodButton, accessoriesButton, wallpapersButton, cancelButton;
-    private Dialog dialog;
-
-
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_shop, container, false);
 
+        // Initialising and setting tab menu
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
         ViewPager viewPager = root.findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);

@@ -55,7 +55,6 @@ public class AccessoriesFrag extends Fragment {
 
 
         TextView coins = (TextView) root.findViewById(R.id.coins);
-
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
 
         return root;
@@ -68,8 +67,7 @@ public class AccessoriesFrag extends Fragment {
         }
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void updateUI(){
         TextView coins = (TextView) getActivity().findViewById(R.id.coins);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
@@ -117,8 +115,8 @@ public class AccessoriesFrag extends Fragment {
                         int id = sqLiteHelper.getItem(SQLiteHelper.COL_1,SQLiteHelper.COL_2,"'"+accessory+"'");
                         sqLiteHelper.updateData("Amount", 1, id);
 
+                        updateUI();
                         dialog.dismiss();
-                        onViewCreated(v,null);
                         Toast.makeText(getActivity(),
                                 shop.getAccessories().get(position).getItemName() + " has been added to your inventory!", Toast.LENGTH_LONG).show();
                         adapter.notifyDataSetChanged();
