@@ -35,18 +35,6 @@ public class WallpapersFragment extends Fragment {
         final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         db = sqLiteHelper.getWritableDatabase();
 
-        Button clear = (Button) root.findViewById(R.id.clear);
-
-        // Clear button clears the wallpaper applied by setting APPLIED = 0
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sqLiteHelper.clearAccessories("'Wallpapers'");
-                Toast.makeText(getActivity(), "Wallpaper has been cleared",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 

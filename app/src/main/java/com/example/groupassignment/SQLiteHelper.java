@@ -85,9 +85,9 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    public void clearAccessories(String category)  {
+    public void removeItem (String name)  {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = " +0+ " where CATEGORY = "+category);
+        db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = 0 where NAME = "+name);
         db.close();
     }
 
@@ -125,11 +125,22 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     public String getInventory(String column, String whereColumn, String where){
         SQLiteDatabase db = this.getWritableDatabase();
         String data;
-        Cursor csr = db.rawQuery("select " +column+ " from "+TABLE_NAME+" WHERE " + whereColumn+ " = " +where+ " AND APPLIED = "+1, null);
+        Cursor csr = db.rawQuery("select " +column+ " from "+TABLE_NAME+" WHERE " + whereColumn+ " = " +where+ " AND APPLIED = 1", null);
         csr.moveToFirst();
         data = csr.getString(csr.getColumnIndex(column));
         return data;
     }
+
+    public String getNotApplied(String column, String whereColumn, String where){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String data;
+        Cursor csr = db.rawQuery("select " +column+ " from "+TABLE_NAME+" WHERE " + whereColumn+ " = " +where+ " AND APPLIED = 0", null);
+        csr.moveToFirst();
+        data = csr.getString(csr.getColumnIndex(column));
+        return data;
+    }
+
+
 
     public int getSum(String category){
         SQLiteDatabase db = this.getWritableDatabase();

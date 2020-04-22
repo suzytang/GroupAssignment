@@ -1,6 +1,5 @@
 package com.example.groupassignment.ui.pet;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.groupassignment.MainActivity;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
 
@@ -29,23 +27,11 @@ public class AccessoriesFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.inventory_list, container, false);
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View root = inflater.inflate(R.layout.inventory_list, container, false);
 
         final SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         db = sqLiteHelper.getWritableDatabase();
-
-        Button clear = (Button) root.findViewById(R.id.clear);
-
-        // Clear button clears all accessories applied by setting APPLIED = 0
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sqLiteHelper.clearAccessories("'Accessories'");
-                Toast.makeText(getActivity(), "Accessories have been cleared",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
 
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -69,6 +55,7 @@ public class AccessoriesFragment extends Fragment {
     // translation: getAllItems gets the names of all accessories which have been bought so they can be displayed in inventory
 
     public Cursor getAllItems() {
+
         return db.query(
                 SQLiteHelper.TABLE_NAME,
                 new String[] {SQLiteHelper.COL_2},
@@ -78,6 +65,8 @@ public class AccessoriesFragment extends Fragment {
                 null,
                 null
         );
+
     }
+
 }
 

@@ -2,6 +2,7 @@ package com.example.groupassignment.ui.pet;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
         if (sqLiteHelper.isApplied(accessory)) {
             holder.itemName.setAlpha((float) 0.1);
             holder.image.setAlpha((float) 0.1);
-            holder.apply.setAlpha((float) 0.1);
+            holder.apply.setText("Remove");
             holder.applied.setVisibility(View.VISIBLE);
         }
 
@@ -98,45 +99,61 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
         }
         @Override
         public void onClick(View v) {
+
             if(!cursor.moveToPosition(getAdapterPosition())) {
                 return;
             }
-
             SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
 
             // Get NAME based on the item selected
             String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
 
-            // Switch statement to apply based on grouping of accessories by SUBCATEGORY
-            // User can only apply 1 of each of the following subcategories at a time: Glasses, Wig, Hat
-            // If user attempts to apply another item of the same SUBCATEGORY, current item is removed and replaced
-            switch(accessory){
-                case "Glasses":
-                case "Sunglasses":
-                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Glasses'");
-                    break;
-                case "Wig":
-                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Wig'");
-                    break;
-                case "Pirate Hat":
-                case "Cap":
-                case "Top Hat":
-                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Hat'");
-                    break;
+            if(apply.getText().equals("Apply")){
+
+                // Switch statement to apply based on grouping of accessories by SUBCATEGORY
+                // User can only apply 1 of each of the following subcategories at a time: Glasses, Wig, Hat
+                // If user attempts to apply another item of the same SUBCATEGORY, current item is removed and replaced
+                switch(accessory){
+                    case "Glasses":
+                    case "Sunglasses":
+                        sqLiteHelper.applyAccessories("'"+accessory+"'","'Glasses'");
+                        break;
+                    case "Wig":
+                        sqLiteHelper.applyAccessories("'"+accessory+"'","'Wig'");
+                        break;
+                    case "Pirate Hat":
+                    case "Cap":
+                    case "Top Hat":
+                        sqLiteHelper.applyAccessories("'"+accessory+"'","'Hat'");
+                        break;
+                }
+
+                // Makes textview saying 'Applied' visible if accessory is applied and decreases opacity of recyclerview list item
+                if (sqLiteHelper.isApplied(accessory)) {
+                    itemName.setAlpha((float) 0.1);
+                    image.setAlpha((float) 0.1);
+                    apply.setText("Remove");
+                    applied.setVisibility(View.VISIBLE);
+                }
+
+                // Toast feedback to user to inform them that the accessory has been applied
+                Toast.makeText(context,  "The accessory has been applied",
+                        Toast.LENGTH_LONG).show();
+            } else {
+
+                sqLiteHelper.removeItem("'"+accessory+"'");
+
+                // Reverts to original view upon pressing Remove
+                if (sqLiteHelper.isApplied(accessory) == false) {
+                    itemName.setAlpha((float) 1);
+                    image.setAlpha((float) 1);
+                    apply.setText("Apply");
+                    applied.setVisibility(View.INVISIBLE);
+                }
+                // Toast feedback to user to inform them that the accessory has been removed
+                Toast.makeText(context,  "The accessory has been removed",
+                        Toast.LENGTH_LONG).show();
             }
-
-            // Makes textview saying 'Applied' visible if accessory is applied and decreases opacity of recyclerview list item
-            if (sqLiteHelper.isApplied(accessory)) {
-                itemName.setAlpha((float) 0.1);
-                image.setAlpha((float) 0.1);
-                apply.setAlpha((float) 0.1);
-                applied.setVisibility(View.VISIBLE);
-            }
-            // Toast feedback to user to inform them that the accessory has been applied
-            Toast.makeText(context,  "The accessory has been applied",
-                    Toast.LENGTH_LONG).show();
-
-
         }
 
     }
