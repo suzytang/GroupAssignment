@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,9 +50,11 @@ public class FoodFrag extends Fragment {
 
                 TextView itemName = (TextView) dialog.findViewById(R.id.shopItem);
                 TextView itemPrice = (TextView) dialog.findViewById(R.id.shopPrice);
+                ImageView image = (ImageView) dialog.findViewById(R.id.image);
 
                 itemName.setText("Food");
                 itemPrice.setText("20 coins");
+                image.setImageResource(R.drawable.food_full);
 
 
                 Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
@@ -102,6 +105,12 @@ public class FoodFrag extends Fragment {
     public void updateUI(){
         TextView coins = (TextView) getActivity().findViewById(R.id.coins);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
     }
 }

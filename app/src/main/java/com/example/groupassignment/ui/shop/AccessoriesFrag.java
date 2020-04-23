@@ -15,8 +15,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
@@ -33,7 +36,7 @@ public class AccessoriesFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.shop_list, container, false);
+        View root = (ViewGroup) inflater.inflate(R.layout.shop_list, container, false);
         sqLiteHelper = new SQLiteHelper(getActivity());
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -52,8 +55,9 @@ public class AccessoriesFrag extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
+        //updateUI();
         TextView coins = (TextView) root.findViewById(R.id.coins);
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " onCreate");
 
         return root;
     }
@@ -64,13 +68,6 @@ public class AccessoriesFrag extends Fragment {
         if (!sqLiteHelper.isBought(shop.getAccessories().get(position).getItemName())) {
             openDialog(position);
         }
-    }
-
-    public void updateUI(){
-        // Updates coins value in UI
-        TextView coins = (TextView) getActivity().findViewById(R.id.coins);
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
     }
 
     public void openDialog(final int position) {
@@ -133,9 +130,24 @@ public class AccessoriesFrag extends Fragment {
                     Toast.makeText(getActivity(),
                             "You already have this item in your inventory", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
     }
+
+    public void updateUI(){
+        // Updates coins value in UI
+        TextView coins = (TextView) getActivity().findViewById(R.id.coins);
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+    }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
+
+    }
+
 
 }

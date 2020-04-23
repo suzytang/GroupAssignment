@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
@@ -31,6 +32,7 @@ public class WallpapersFrag extends Fragment {
 
     final Shop shop = new Shop();
     SQLiteHelper sqLiteHelper;
+
 
     @Nullable
     @Override
@@ -56,7 +58,7 @@ public class WallpapersFrag extends Fragment {
         recyclerView.setAdapter(adapter);
 
         TextView coins = (TextView) root.findViewById(R.id.coins);
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " onCreate");
 
         return root;
 
@@ -97,7 +99,6 @@ public class WallpapersFrag extends Fragment {
         buyButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 String wallpaper = shop.getWallpapers().get(position).getItemName();
                 // Checks database for whether user has purchased the wallpaper before
                 int wallpaperQty = sqLiteHelper.getItem(SQLiteHelper.COL_4, SQLiteHelper.COL_2,"'"+wallpaper+"'");
@@ -119,6 +120,8 @@ public class WallpapersFrag extends Fragment {
                         sqLiteHelper.updateData("Amount", 1, id);
 
                         updateUI();
+
+
                         dialog.dismiss();
                         Toast.makeText(getActivity(),
                                 shop.getWallpapers().get(position).getItemName() + " wallpaper has been added to your inventory!", Toast.LENGTH_LONG).show();
@@ -141,7 +144,15 @@ public class WallpapersFrag extends Fragment {
         // Updates coins value in UI
         TextView coins = (TextView) getActivity().findViewById(R.id.coins);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+
     }
 
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
+
+    }
 }
