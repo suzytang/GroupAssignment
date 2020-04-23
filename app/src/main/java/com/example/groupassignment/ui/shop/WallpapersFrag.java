@@ -21,8 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
 
-import java.util.ArrayList;
-
 public class WallpapersFrag extends Fragment {
 
     RecyclerView recyclerView;
@@ -66,6 +64,7 @@ public class WallpapersFrag extends Fragment {
 
     public void clickResponse (int position){
         sqLiteHelper = new SQLiteHelper(getActivity());
+        // Checks that the item hasn't been bought yet to open dialog to buy. Bought items are not clickable
         if (!sqLiteHelper.isBought(shop.getWallpapers().get(position).getItemName())) {
             openDialog(position);
         }
@@ -100,14 +99,22 @@ public class WallpapersFrag extends Fragment {
             public void onClick(View v) {
 
                 String wallpaper = shop.getWallpapers().get(position).getItemName();
+                // Checks database for whether user has purchased the wallpaper before
                 int wallpaperQty = sqLiteHelper.getItem(SQLiteHelper.COL_4, SQLiteHelper.COL_2,"'"+wallpaper+"'");
+                // if statement checks they have not purchased it before i.e. qty = 0
                 if (wallpaperQty == 0){
+                    // Extracts how many coins the user has from the database
                     int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+                    // Gets item price
                     int itemPrice = shop.getWallpapers().get(position).getItemPrice();
 
+                    // Checks if the user has enough coins to purchase the product
                     if (coinsCurrrent - itemPrice >= 0){
+                        // Subtracts itemPrice from user's coins
                         int paid = (coinsCurrrent - itemPrice);
+                        // Updates database with new coins value
                         sqLiteHelper.update(1, "Coins", "Coins", paid);
+                        // Update amount of wallpaper to 1
                         int id = sqLiteHelper.getItem(SQLiteHelper.COL_1, SQLiteHelper.COL_2, "'"+wallpaper+"'");
                         sqLiteHelper.updateData("Amount", 1, id);
 
@@ -131,6 +138,7 @@ public class WallpapersFrag extends Fragment {
     }
 
     public void updateUI(){
+        // Updates coins value in UI
         TextView coins = (TextView) getActivity().findViewById(R.id.coins);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");

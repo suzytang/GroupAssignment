@@ -21,8 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
 
-import java.sql.SQLException;
-
 public class AccessoriesFrag extends Fragment {
 
     RecyclerView recyclerView;
@@ -61,6 +59,7 @@ public class AccessoriesFrag extends Fragment {
     }
 
     public void clickResponse (int position){
+        // Checks that the item hasn't been bought yet to open dialog to buy. Bought items are not clickable
         sqLiteHelper = new SQLiteHelper(getActivity());
         if (!sqLiteHelper.isBought(shop.getAccessories().get(position).getItemName())) {
             openDialog(position);
@@ -68,6 +67,7 @@ public class AccessoriesFrag extends Fragment {
     }
 
     public void updateUI(){
+        // Updates coins value in UI
         TextView coins = (TextView) getActivity().findViewById(R.id.coins);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
@@ -82,12 +82,9 @@ public class AccessoriesFrag extends Fragment {
         TextView shopItem = (TextView) dialog.findViewById(R.id.shopItem);
         TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
 
-
-
         shopItem.setText(shop.getAccessories().get(position).getItemName());
         shopPrice.setText(shop.getAccessories().get(position).getItemPrice() + " coins");
         image.setImageResource(shop.getAccessories().get(position).getImage());
-
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,14 +101,22 @@ public class AccessoriesFrag extends Fragment {
             public void onClick(View v) {
 
                 String accessory = shop.getAccessories().get(position).getItemName();
+                // Checks database for whether user has purchased the accessory before
                 int accessoryQty = sqLiteHelper.getItem(SQLiteHelper.COL_4,SQLiteHelper.COL_2,"'"+accessory+"'");
+                // if statement checks they have not purchased it before i.e. qty = 0
                 if (accessoryQty == 0){
+                    // Extracts how many coins the user has from the database
                     int coinsCurrrent = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+                    // Gets item price
                     int itemPrice = shop.getAccessories().get(position).getItemPrice();
 
+                    // Checks if the user has enough coins to purchase the product
                     if (coinsCurrrent - itemPrice >= 0){
+                        // Subtracts itemPrice from user's coins
                         int paid = (coinsCurrrent - itemPrice);
+                        // Updates database with new coins value
                         sqLiteHelper.update(1, "Coins", "Coins", paid);
+                        // Update amount of accessory to 1
                         int id = sqLiteHelper.getItem(SQLiteHelper.COL_1,SQLiteHelper.COL_2,"'"+accessory+"'");
                         sqLiteHelper.updateData("Amount", 1, id);
 

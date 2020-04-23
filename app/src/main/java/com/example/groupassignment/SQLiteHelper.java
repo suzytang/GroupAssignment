@@ -131,17 +131,6 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         return data;
     }
 
-    public String getNotApplied(String column, String whereColumn, String where){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String data;
-        Cursor csr = db.rawQuery("select " +column+ " from "+TABLE_NAME+" WHERE " + whereColumn+ " = " +where+ " AND APPLIED = 0", null);
-        csr.moveToFirst();
-        data = csr.getString(csr.getColumnIndex(column));
-        return data;
-    }
-
-
-
     public int getSum(String category){
         SQLiteDatabase db = this.getWritableDatabase();
         int data;

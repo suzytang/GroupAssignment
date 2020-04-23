@@ -25,7 +25,6 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
     public WallpapersAdapter(Context context, WallpapersAdapter.RecyclerViewClickListener listener) {
         this.context = context;
         this.listener = listener;
-
     }
 
     public interface RecyclerViewClickListener {
@@ -44,6 +43,7 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
         String name = shop.getWallpapers().get(position).getItemName();
 
         db = new SQLiteHelper(context);
+        // Decreases opacity of item if it has been bought and makes "Owned" textview visible
         if (db.isBought(name)) {
             holder.itemName.setAlpha((float) 0.1);
             holder.itemPrice.setAlpha((float) 0.1);

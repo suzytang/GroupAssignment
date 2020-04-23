@@ -14,6 +14,12 @@ import com.example.groupassignment.ui.pet.WallpapersFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+
+// The following code is modified from: Coding in Flow (2017)
+// 'Tab Layout with Different Fragments - Android Studio Tutorial'
+// https://www.youtube.com/watch?v=h4HwU_ENXYM&t=
+// This class defines tabs and navigation for PetInventory.class. Inventory displays 2 tabs: Accessories and Wallpapers
+
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_3, R.string.tab_text_1, R.string.tab_text_2};
     private final Context mContext;
