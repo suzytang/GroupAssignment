@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,9 +24,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
-    DatabaseHelper dB;
-    Dialog dialog;
-
+    private DatabaseHelper dB;
+    private Dialog dialog;
+    private ProgressBar progressBar;
+    private TextView textView2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (!dB.translated()) {
             new TranslateRequestDB().execute();
-            loadDatabase();
+//            loadDatabase();
         }
 
 
@@ -64,12 +67,27 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
     public class TranslateRequestDB extends AsyncTask<String, Integer, Void> {
+        private static final String TAG = "MyTask";
+        Dialog dialog = new Dialog(MainActivity.this);
 
         public TranslateRequestDB() {
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            this.dialog.setContentView(R.layout.load_database);
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setCancelable(false);
+            this.dialog.show();
+//            progressBar = this.dialog.findViewById(R.id.progressBar);
+//            progressBar.setMax(100);
+            textView2 = this.dialog.findViewById(R.id.textView2);
+            textView2.setText(String.valueOf("works"));
         }
 
         @Override
         protected Void doInBackground(String... params) {
+            textView2.setText(String.valueOf("works"));
             return null;
         }
 
@@ -91,25 +109,77 @@ public class MainActivity extends AppCompatActivity {
                     dB.setTranslation(resultFormatted, i, j);
                 }
             }
+            TextView textView2 = this.dialog.findViewById(R.id.textView2);
+            textView2.setText(String.valueOf("Database Loaded"));
             dB.setTranslation("S''il vous plaît",1,6);
+            dialog.dismiss();
             super.onPostExecute(x);
         }
     }
 
-    private void loadDatabase() {
-        // Create dialog
-        dialog = new Dialog(this);
-        dialog.setContentView(R.layout.load_database);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(false);
-        dialog.show();
-        Runnable dismissRunner = new Runnable() {
-            public void run() {
-                if (dialog != null)
-                    dialog.dismiss();
-            }
-        };
-        new Handler().postDelayed(dismissRunner, 10000);
-    }
-    
+//    private void loadDatabase() {
+//        // Create dialog
+//        dialog = new Dialog(this);
+//        dialog.setContentView(R.layout.load_database);
+//        dialog.setCanceledOnTouchOutside(false);
+//        dialog.setCancelable(false);
+//        dialog.show();
+//        progressBar = dialog.findViewById(R.id.progressBar);
+//        Runnable dismissRunner = new Runnable() {
+//            public void run() {
+//                if (dialog != null)
+//                    dialog.dismiss();
+//            }
+//        };
+//        new Handler().postDelayed(dismissRunner, 10000);
+//    }
+//
+//    public class MyTask extends AsyncTask<Void,Integer,Integer> {
+//        private static final String TAG = "MyTask";
+//        Dialog dialog = new Dialog(MainActivity.this);
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            this.dialog.setContentView(R.layout.load_database);
+//            this.dialog.setCanceledOnTouchOutside(false);
+//            this.dialog.setCancelable(false);
+//            this.dialog.show();
+//            progressBar = this.dialog.findViewById(R.id.progressBar);
+//            progressBar.setMax(100);
+//        }
+//
+//        @Override
+//        protected Integer doInBackground(Void... voids) {
+//            //Publish progress at every iteration, and then wait for 100 milliseconds
+//            int i = 0;
+//            for(int x = 0; x<100;x++) {
+//                publishProgress(x);
+//                try {
+//                    Thread.sleep(100);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                i++;
+//            }
+//            //i now
+//            return i;
+//        }
+//
+//        @Override
+//        protected void onProgressUpdate(Integer... values) {
+//            super.onProgressUpdate(values);
+//
+//            progressBar.setProgress(values[0]);
+//            Log.d(TAG, "onProgressUpdate: Update number " + values[0]);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Integer integer) {
+//            //Integer is i from doInBackground
+//            Log.d(TAG, "onPostExecute: INTEGER IS  " + integer);
+//            super.onPostExecute(integer);
+//            this.dialog.dismiss();
+//        }
+//    }
 }
