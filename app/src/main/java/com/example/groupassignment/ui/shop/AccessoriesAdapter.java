@@ -53,6 +53,11 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             holder.itemPrice.setAlpha((float) 0.1);
             holder.image.setAlpha((float) 0.1);
             holder.owned.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemName.setAlpha((float) 1);
+            holder.itemPrice.setAlpha((float) 1);
+            holder.image.setAlpha((float) 1);
+            holder.owned.setVisibility(View.INVISIBLE);
         }
 
         holder.itemName.setText(name);
