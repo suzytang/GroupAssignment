@@ -133,31 +133,16 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
                         break;
                 }
 
-                // Makes textview saying 'Applied' visible if accessory is applied and decreases opacity of recyclerview list item
-                if (sqLiteHelper.isApplied(accessory)) {
-                    itemName.setAlpha((float) 0.1);
-                    image.setAlpha((float) 0.1);
-                    apply.setText("Remove");
-                    applied.setVisibility(View.VISIBLE);
-                }
-
                 // Toast feedback to user to inform them that the accessory has been applied
                 Toast.makeText(context,  "The accessory has been applied",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             } else {
 
                 sqLiteHelper.removeItem("'"+accessory+"'");
 
-                // Reverts to original view upon pressing Remove
-                if (sqLiteHelper.isApplied(accessory) == false) {
-                    itemName.setAlpha((float) 1);
-                    image.setAlpha((float) 1);
-                    apply.setText("Apply");
-                    applied.setVisibility(View.INVISIBLE);
-                }
                 // Toast feedback to user to inform them that the accessory has been removed
                 Toast.makeText(context,  "The accessory has been removed",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
             notifyDataSetChanged();
         }
