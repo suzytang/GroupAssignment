@@ -56,6 +56,11 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
             holder.image.setAlpha((float) 0.1);
             holder.apply.setText("Remove");
             holder.applied.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemName.setAlpha((float) 1);
+            holder.image.setAlpha((float) 1);
+            holder.apply.setText("Apply");
+            holder.applied.setVisibility(View.INVISIBLE);
         }
 
         // Set text and image for wallpaper in recyclerview
@@ -144,8 +149,7 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
                 Toast.makeText(context,  "The wallpaper has been removed",
                         Toast.LENGTH_LONG).show();
             }
-
-
+            notifyDataSetChanged();
         }
 
     }

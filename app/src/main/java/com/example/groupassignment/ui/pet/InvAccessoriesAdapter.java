@@ -52,6 +52,11 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
             holder.image.setAlpha((float) 0.1);
             holder.apply.setText("Remove");
             holder.applied.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemName.setAlpha((float) 1);
+            holder.image.setAlpha((float) 1);
+            holder.apply.setText("Apply");
+            holder.applied.setVisibility(View.INVISIBLE);
         }
 
         // Set text and image for accessory in recyclerview
@@ -154,6 +159,7 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
                 Toast.makeText(context,  "The accessory has been removed",
                         Toast.LENGTH_LONG).show();
             }
+            notifyDataSetChanged();
         }
 
     }
