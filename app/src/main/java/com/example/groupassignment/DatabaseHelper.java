@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "234222473293834523423234342323453434523782476267439242376232786276482376897234923724372389478.db";
+    public static final String DATABASE_NAME = "2342324432247232342323344233423234224342343342242423232344323432938345234223243873534345375637234923724372389478.db";
     private static final int DATABASE_VERSION = 1;
     public static final String COL_1 = "Level";
     public static final String COL_2 = "Position";
