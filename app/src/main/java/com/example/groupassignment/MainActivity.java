@@ -1,5 +1,6 @@
 package com.example.groupassignment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,24 +38,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         if (!dB.translated()) {
-            translate();
-        }
-    }
-    private void translate() {
-        String result = "";
-        for (int i = 1; i < 10; i++) {
-            for (int j = 1; j < 11; j++) {
-                TranslateRequest tR = new TranslateRequest();
-                try {
-                    result = tR.execute(dB.getEnglish(i, j)).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                String resultFormatted = result.replace("'", "''");
-                dB.setTranslation(resultFormatted, i, j);
-            }
+            Intent intent = new Intent(this, Splash.class);
+            startActivity(intent);
         }
     }
 }
