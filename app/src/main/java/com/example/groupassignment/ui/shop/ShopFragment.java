@@ -26,7 +26,7 @@ import com.example.groupassignment.SQLiteHelper;
 import com.google.android.material.tabs.TabLayout;
 
 public class ShopFragment extends Fragment{
-
+    ViewPager viewPager;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -34,7 +34,7 @@ public class ShopFragment extends Fragment{
 
         // Initialising and setting tab menu
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getChildFragmentManager());
-        ViewPager viewPager = root.findViewById(R.id.view_pager);
+        viewPager = root.findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = root.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
@@ -47,7 +47,7 @@ public class ShopFragment extends Fragment{
 
             @Override
             public void onPageSelected(int position) {
-                
+                viewPager.getAdapter().notifyDataSetChanged();
             }
 
             @Override

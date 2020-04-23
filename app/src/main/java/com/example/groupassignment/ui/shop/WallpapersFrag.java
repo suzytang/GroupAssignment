@@ -32,14 +32,13 @@ public class WallpapersFrag extends Fragment {
 
     final Shop shop = new Shop();
     SQLiteHelper sqLiteHelper;
-
+    TextView coins;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.shop_list, container, false);
         sqLiteHelper = new SQLiteHelper(getActivity());
-
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
@@ -57,7 +56,7 @@ public class WallpapersFrag extends Fragment {
         adapter = new WallpapersAdapter(getActivity(),listener);
         recyclerView.setAdapter(adapter);
 
-        TextView coins = (TextView) root.findViewById(R.id.coins);
+        coins = root.findViewById(R.id.coins);
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " onCreate");
 
         return root;
@@ -119,8 +118,8 @@ public class WallpapersFrag extends Fragment {
                         int id = sqLiteHelper.getItem(SQLiteHelper.COL_1, SQLiteHelper.COL_2, "'"+wallpaper+"'");
                         sqLiteHelper.updateData("Amount", 1, id);
 
-                        updateUI();
-
+//                        updateUI();
+                        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
 
                         dialog.dismiss();
                         Toast.makeText(getActivity(),
@@ -140,19 +139,19 @@ public class WallpapersFrag extends Fragment {
 
     }
 
-    public void updateUI(){
-        // Updates coins value in UI
-        TextView coins = (TextView) getActivity().findViewById(R.id.coins);
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
-
-    }
+//    public void updateUI(){
+//        // Updates coins value in UI
+////        TextView coins = (TextView) getActivity().findViewById(R.id.coins);
+////        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+//        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+//
+//    }
 
 
     @Override
     public void onResume(){
         super.onResume();
-        updateUI();
-
+//        updateUI();
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
     }
 }

@@ -7,12 +7,13 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.groupassignment.R;
 import com.example.groupassignment.ui.pet.AccessoriesFragment;
 import com.example.groupassignment.ui.pet.WallpapersFragment;
 
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
 
 // The following code is modified from: Coding in Flow (2017)
@@ -56,4 +57,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return 3;
     }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
 }

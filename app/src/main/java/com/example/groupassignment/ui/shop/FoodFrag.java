@@ -27,17 +27,17 @@ public class FoodFrag extends Fragment {
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     private Dialog dialog;
-
-
+    TextView coins;
+    SQLiteHelper sqLiteHelper;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_food, container, false);
 
-        TextView coins = (TextView) root.findViewById(R.id.coins);
+        coins = root.findViewById(R.id.coins);
         Button buyFood = (Button) root.findViewById(R.id.buyFood);
 
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+        sqLiteHelper = new SQLiteHelper(getActivity());
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
 
         buyFood.setOnClickListener(new View.OnClickListener() {
@@ -82,10 +82,11 @@ public class FoodFrag extends Fragment {
                             int foodQty = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4,2));
                             sqLiteHelper.update(2, "'Food'", "'Food'", foodQty + 1);
 
-                            updateUI();
+//                            updateUI();
+
+                            coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
                             dialog.dismiss();
                             Toast.makeText(getContext(), "Food has been added to your inventory!", Toast.LENGTH_LONG).show();
-
                         } else{
                             Toast.makeText(getContext(),"You don't have enough coins to purchase this!", Toast.LENGTH_LONG).show();
                         }
@@ -102,15 +103,16 @@ public class FoodFrag extends Fragment {
 
     }
 
-    public void updateUI(){
-        TextView coins = (TextView) getActivity().findViewById(R.id.coins);
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
-    }
+//    public void updateUI(){
+//        TextView coins = (TextView) getActivity().findViewById(R.id.coins);
+//        SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
+//        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+//    }
 
     @Override
     public void onResume(){
         super.onResume();
-        updateUI();
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
+//        updateUI();
     }
 }
