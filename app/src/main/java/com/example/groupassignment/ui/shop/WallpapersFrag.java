@@ -111,8 +111,8 @@ public class WallpapersFrag extends Fragment {
                         int id = sqLiteHelper.getItem(SQLiteHelper.COL_1, SQLiteHelper.COL_2, "'"+wallpaper+"'");
                         sqLiteHelper.updateData("Amount", 1, id);
 
+                        updateUI();
                         dialog.dismiss();
-                        onViewCreated(v,null);
                         Toast.makeText(getActivity(),
                                 shop.getWallpapers().get(position).getItemName() + " wallpaper has been added to your inventory!", Toast.LENGTH_LONG).show();
                         adapter.notifyDataSetChanged();
@@ -128,16 +128,12 @@ public class WallpapersFrag extends Fragment {
             }
         });
 
-
-
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void updateUI(){
         TextView coins = (TextView) getActivity().findViewById(R.id.coins);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
     }
-
 
 }

@@ -28,8 +28,6 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
 
     }
 
-
-
     public interface RecyclerViewClickListener {
         void onClick(View view, int position);
     }

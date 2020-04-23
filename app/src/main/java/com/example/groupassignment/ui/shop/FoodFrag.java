@@ -39,23 +39,6 @@ public class FoodFrag extends Fragment {
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
 
-        /*recyclerView = root.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(layoutManager);
-
-        FoodAdapter.RecyclerViewClickListener listener = new FoodAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                clickResponse(position);
-
-            }
-        };
-
-        adapter = new FoodAdapter(listener);
-        recyclerView.setAdapter(adapter);*/
-
         buyFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +79,7 @@ public class FoodFrag extends Fragment {
                             int foodQty = Integer.parseInt(sqLiteHelper.getData(SQLiteHelper.COL_4,2));
                             sqLiteHelper.update(2, "'Food'", "'Food'", foodQty + 1);
 
-                            onViewCreated(v,null);
+                            updateUI();
                             dialog.dismiss();
                             Toast.makeText(getContext(), "Food has been added to your inventory!", Toast.LENGTH_LONG).show();
 
@@ -116,8 +99,7 @@ public class FoodFrag extends Fragment {
 
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void updateUI(){
         TextView coins = (TextView) getActivity().findViewById(R.id.coins);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");

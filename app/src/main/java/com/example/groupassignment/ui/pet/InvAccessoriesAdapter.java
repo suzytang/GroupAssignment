@@ -2,6 +2,7 @@ package com.example.groupassignment.ui.pet;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,21 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
             return;
         }
         // Cursor gets the name of the accessory
-        final String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+        String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
+
+        // Makes textview saying 'Applied' visible if accessory is applied and decreases opacity of recyclerview list item
+        SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
+        if (sqLiteHelper.isApplied(accessory)) {
+            holder.itemName.setAlpha((float) 0.1);
+            holder.image.setAlpha((float) 0.1);
+            holder.apply.setText("Remove");
+            holder.applied.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemName.setAlpha((float) 1);
+            holder.image.setAlpha((float) 1);
+            holder.apply.setText("Apply");
+            holder.applied.setVisibility(View.INVISIBLE);
+        }
 
         // Set text and image for accessory in recyclerview
         holder.itemName.setText(accessory);
@@ -72,6 +87,7 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView itemName;
+        public TextView applied;
         public Button apply;
         public ImageView image;
 
@@ -79,6 +95,7 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
             super(itemView);
 
             this.itemName = itemView.findViewById(R.id.itemName);
+            this.applied = itemView.findViewById(R.id.applied);
             this.apply = itemView.findViewById(R.id.apply);
             this.image = itemView.findViewById(R.id.image);
 
@@ -87,37 +104,47 @@ public class InvAccessoriesAdapter extends RecyclerView.Adapter<InvAccessoriesAd
         }
         @Override
         public void onClick(View v) {
+
             if(!cursor.moveToPosition(getAdapterPosition())) {
                 return;
             }
-
             SQLiteHelper sqLiteHelper = new SQLiteHelper(context);
 
             // Get NAME based on the item selected
             String accessory = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
 
-            // Switch statement to apply based on grouping of accessories by SUBCATEGORY
-            // User can only apply 1 of each of the following subcategories at a time: Glasses, Wig, Hat
-            // If user attempts to apply another item of the same SUBCATEGORY, current item is removed and replaced
-            switch(accessory){
-                case "Glasses":
-                case "Sunglasses":
-                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Glasses'");
-                    break;
-                case "Wig":
-                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Wig'");
-                    break;
-                case "Pirate Hat":
-                case "Cap":
-                case "Top Hat":
-                    sqLiteHelper.applyAccessories("'"+accessory+"'","'Hat'");
-                    break;
+            if(apply.getText().equals("Apply")){
+
+                // Switch statement to apply based on grouping of accessories by SUBCATEGORY
+                // User can only apply 1 of each of the following subcategories at a time: Glasses, Wig, Hat
+                // If user attempts to apply another item of the same SUBCATEGORY, current item is removed and replaced
+                switch(accessory){
+                    case "Glasses":
+                    case "Sunglasses":
+                        sqLiteHelper.applyAccessories("'"+accessory+"'","'Glasses'");
+                        break;
+                    case "Wig":
+                        sqLiteHelper.applyAccessories("'"+accessory+"'","'Wig'");
+                        break;
+                    case "Pirate Hat":
+                    case "Cap":
+                    case "Top Hat":
+                        sqLiteHelper.applyAccessories("'"+accessory+"'","'Hat'");
+                        break;
+                }
+
+                // Toast feedback to user to inform them that the accessory has been applied
+                Toast.makeText(context,  "The accessory has been applied",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+
+                sqLiteHelper.removeItem("'"+accessory+"'");
+
+                // Toast feedback to user to inform them that the accessory has been removed
+                Toast.makeText(context,  "The accessory has been removed",
+                        Toast.LENGTH_SHORT).show();
             }
-            // Toast feedback to user to inform them that the accessory has been applied
-            Toast.makeText(context,  "The accessory has been applied",
-                    Toast.LENGTH_LONG).show();
-
-
+            notifyDataSetChanged();
         }
 
     }

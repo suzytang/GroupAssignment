@@ -25,7 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.learn.LearnFlashcards" />
-        <activity android:name=".ui.shop.ShopPopup" />
         <activity android:name=".ui.pet.PetInventory" />
         <activity android:name=".MainActivity_Learn" />
     </application>

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "322637955758.db";
+    public static final String DATABASE_NAME = "3268767856733439955758.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String PET_TABLE = "pet_table";
     public static final String COL_1 = "ID";
@@ -85,9 +85,9 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    public void clearAccessories(String category)  {
+    public void removeItem (String name)  {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = " +0+ " where CATEGORY = "+category);
+        db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = 0 where NAME = "+name);
         db.close();
     }
 
@@ -125,11 +125,22 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     public String getInventory(String column, String whereColumn, String where){
         SQLiteDatabase db = this.getWritableDatabase();
         String data;
-        Cursor csr = db.rawQuery("select " +column+ " from "+TABLE_NAME+" WHERE " + whereColumn+ " = " +where+ " AND APPLIED = "+1, null);
+        Cursor csr = db.rawQuery("select " +column+ " from "+TABLE_NAME+" WHERE " + whereColumn+ " = " +where+ " AND APPLIED = 1", null);
         csr.moveToFirst();
         data = csr.getString(csr.getColumnIndex(column));
         return data;
     }
+
+    public String getNotApplied(String column, String whereColumn, String where){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String data;
+        Cursor csr = db.rawQuery("select " +column+ " from "+TABLE_NAME+" WHERE " + whereColumn+ " = " +where+ " AND APPLIED = 0", null);
+        csr.moveToFirst();
+        data = csr.getString(csr.getColumnIndex(column));
+        return data;
+    }
+
+
 
     public int getSum(String category){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -181,6 +192,20 @@ public class SQLiteHelper extends SQLiteOpenHelper{
             return  true;
         }
     }
+
+    public boolean isApplied(String itemName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int applied;
+        Cursor csr = db.rawQuery("select " +APPLIED+ " from "+TABLE_NAME+" WHERE " +COL_2+ " = '" +itemName+"'", null);
+        csr.moveToFirst();
+        applied = csr.getInt(csr.getColumnIndex(APPLIED));
+        if (applied == 0) {
+            return false;
+        } else {
+            return  true;
+        }
+    }
+
 
 
     /*public Cursor getAllData() {
