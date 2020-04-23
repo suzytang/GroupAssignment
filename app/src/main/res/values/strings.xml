@@ -1,6 +1,7 @@
 <resources>
-    <string
-        name="yandex"><a href="http://translate.yandex.com/">Powered by Yandex.Translate</a></string>
+    <string name="petsource"><a href="https://dribbble.com/vaneltia">Shiba Inu Dog - Opt 2 by Alfrey Davilla</a></string>
+    <string name="yandex"><a href="http://translate.yandex.com/">Powered by Yandex.Translate</a></string>
+    <string name="flaticon"><a href="https://www.flaticon.com/">Icons made by Freepik and Those Icons from www.flaticon.com</a></string>
     <string name="app_name">GroupAssignment</string>
     <string name="title_pet">Pet</string>
     <string name="title_learn">Learn</string>

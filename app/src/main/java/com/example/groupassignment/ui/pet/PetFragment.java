@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -191,8 +192,17 @@ public class PetFragment extends Fragment implements View.OnClickListener{
             case R.id.info:
                 // Dialog for credits
                 dialog = new Dialog(getActivity());
-
                 dialog.setContentView(R.layout.credits);
+
+                // Link to XML
+                TextView yandex = dialog.findViewById(R.id.yandex);
+                TextView petSource = dialog.findViewById(R.id.petSource);
+                TextView iconsSource = dialog.findViewById(R.id.iconsSource);
+
+                // Link to credits
+                yandex.setMovementMethod(LinkMovementMethod.getInstance());
+                petSource.setMovementMethod(LinkMovementMethod.getInstance());
+                iconsSource.setMovementMethod(LinkMovementMethod.getInstance());
 
                 // Decreases the opacity of the background (fragment_pet_test) and displays dialog
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

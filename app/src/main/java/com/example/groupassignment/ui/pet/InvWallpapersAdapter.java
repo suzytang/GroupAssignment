@@ -56,6 +56,11 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
             holder.image.setAlpha((float) 0.1);
             holder.apply.setText("Remove");
             holder.applied.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemName.setAlpha((float) 1);
+            holder.image.setAlpha((float) 1);
+            holder.apply.setText("Apply");
+            holder.applied.setVisibility(View.INVISIBLE);
         }
 
         // Set text and image for wallpaper in recyclerview
@@ -119,33 +124,17 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
                 // This makes sure only 1 wallpaper can be applied at one time
                 sqLiteHelper.applyInventory("'"+wallpaper+"'", "'Wallpapers'");
 
-                // Makes textview saying 'Applied' visible if accessory is applied and decreases opacity of recyclerview list item
-                if (sqLiteHelper.isApplied(wallpaper)) {
-                    itemName.setAlpha((float) 0.1);
-                    image.setAlpha((float) 0.1);
-                    apply.setAlpha((float) 0.1);
-                    applied.setVisibility(View.VISIBLE);
-                }
-
                 // Toast feedback to user to inform them that the accessory has been applied
                 Toast.makeText(context,  "The wallpaper has been applied",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             } else {
                 sqLiteHelper.removeItem("'"+wallpaper+"'");
 
-                // Reverts to original view upon pressing Remove
-                if (sqLiteHelper.isApplied(wallpaper) == false) {
-                    itemName.setAlpha((float) 1);
-                    image.setAlpha((float) 1);
-                    apply.setText("Apply");
-                    applied.setVisibility(View.INVISIBLE);
-                }
                 // Toast feedback to user to inform them that the wallpaper has been removed
                 Toast.makeText(context,  "The wallpaper has been removed",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
-
-
+            notifyDataSetChanged();
         }
 
     }
