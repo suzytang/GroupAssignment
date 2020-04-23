@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -21,36 +22,25 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper dB;
     private Dialog dialog;
     private ProgressBar progressBar;
     private TextView progressText;
+    private GifImageView gif;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         dB = new DatabaseHelper(this);
-//        String result = "";
-//        for (int i = 1; i < 10; i++) {
-//            for (int j = 1; j < 11; j++) {
-//                TranslateRequest tR = new TranslateRequest();
-//                try {
-//                    result = tR.execute(dB.getEnglish(i, j)).get();
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                String resultFormatted = result.replace("'", "''");
-//                dB.setTranslation(resultFormatted, i, j);
-//            }
-//        }
 
         if (!dB.translated()) {
-            new TranslateRequest1().execute();
-//            loadDatabase();
+
+            new TranslateDatabase().execute();
         }
 
 
@@ -64,65 +54,16 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
-//    public class TranslateRequestDB extends AsyncTask<String, Integer, Void> {
-//        private static final String TAG = "MyTask";
-//        Dialog dialog = new Dialog(MainActivity.this);
-//
-//        public TranslateRequestDB() {
-//        }
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            this.dialog.setContentView(R.layout.load_database);
-//            this.dialog.setCanceledOnTouchOutside(false);
-//            this.dialog.setCancelable(false);
-//            this.dialog.show();
-////            progressBar = this.dialog.findViewById(R.id.progressBar);
-////            progressBar.setMax(100);
-//            textView2 = this.dialog.findViewById(R.id.textView2);
-//            textView2.setText(String.valueOf("works"));
-//        }
-//
-//        @Override
-//        protected Void doInBackground(String... params) {
-//            textView2.setText(String.valueOf("works"));
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void x) {
-//            dB = new DatabaseHelper(getApplicationContext());
-//            String result = "";
-//            for (int i = 1; i < 10; i++) {
-//                for (int j = 1; j < 11; j++) {
-//                    TranslateRequest tR = new TranslateRequest();
-//                    try {
-//                        result = tR.execute(dB.getEnglish(i, j)).get();
-//                    } catch (ExecutionException e) {
-//                        e.printStackTrace();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    String resultFormatted = result.replace("'", "''");
-//                    dB.setTranslation(resultFormatted, i, j);
-//                }
-//            }
-//            TextView textView2 = this.dialog.findViewById(R.id.textView2);
-//            textView2.setText(String.valueOf("Database Loaded"));
-//            dB.setTranslation("S''il vous plaît",1,6);
-//            dialog.dismiss();
-//            super.onPostExecute(x);
-//        }
-//    }
 
-    public class TranslateRequest1 extends AsyncTask<String, Integer, Void> {
+    public class TranslateDatabase extends AsyncTask<String, Integer, Void> {
 
         String apiKey = "trnsl.1.1.20200406T153746Z.c0ca0cc13fd27e06.701385e6275a5b9d89b1707cac023168fd297934";
         String language = "en-fr";
         private static final String TAG = "MyTask";
         Dialog dialog = new Dialog(MainActivity.this);
 
-        public TranslateRequest1() {
+
+        public TranslateDatabase() {
         }
 
         @Override
@@ -133,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             this.dialog.setCancelable(false);
             this.dialog.show();
             progressBar = this.dialog.findViewById(R.id.progressBar);
+            gif = this.dialog.findViewById(R.id.gifImageView);
+            gif.setImageResource(R.drawable.gif1);
             progressBar.setMax(90);
             progressText = this.dialog.findViewById(R.id.progressText);
             progressText.setText(("Database loading..."));
@@ -140,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... params) {
-            int x = 0;
+            int x = 1;
             for (int i = 1; i < 10; i++) {
                 for (int j = 1; j < 11; j++) {
                     String text = dB.getEnglish(i, j);
@@ -184,14 +127,33 @@ public class MainActivity extends AppCompatActivity {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             progressBar.setProgress(values[0]);
-            progressText.setText("Loaded "+values[0]+" of 90");
+//            progressText.setText("Loading "+values[0]+" of 90");
             Log.d(TAG, "onProgressUpdate: Update number " + values[0]);
+            switch (values[0]) {
+                case 10:
+                case 50:
+                    gif.setImageResource(R.drawable.gif2);
+                    break;
+                case 20:
+                case 60:
+                    gif.setImageResource(R.drawable.gif3);
+                    break;
+                case 30:
+                case 70:
+                    gif.setImageResource(R.drawable.gif4);
+                    break;
+                case 40:
+                case 80:
+                    gif.setImageResource(R.drawable.gif5);
+                    break;
+            }
         }
 
         @Override
         protected void onPostExecute(Void x) {
             super.onPostExecute(x);
             dialog.dismiss();
+            Toast.makeText(MainActivity.this, "Database loaded", Toast.LENGTH_SHORT).show();;
         }
     }
 }
