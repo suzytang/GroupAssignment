@@ -3,6 +3,7 @@ package com.example.groupassignment.ui.pet;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -26,14 +27,15 @@ public class PetFragment extends Fragment implements View.OnClickListener{
 
     private Shop shop = new Shop();
     private Dialog dialog;
+    ImageButton feedButton, inventoryButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pet_test, container, false);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
 
-        ImageButton inventoryButton = (ImageButton) root.findViewById(R.id.inventoryButton);
-        ImageButton feedButton = (ImageButton) root.findViewById(R.id.feedButton);
+        inventoryButton = (ImageButton) root.findViewById(R.id.inventoryButton);
+        feedButton = (ImageButton) root.findViewById(R.id.feedButton);
         ImageView info = (ImageView) root.findViewById(R.id.info);
 
         ImageView wallpaper = (ImageView) root.findViewById(R.id.wallpaper);
@@ -151,6 +153,11 @@ public class PetFragment extends Fragment implements View.OnClickListener{
     }
 
     public void updateUI(){
+        feedButton.setImageResource(R.drawable.feed);
+        AnimationDrawable feed = (AnimationDrawable) feedButton.getDrawable();
+        feed.start();
+
+
         TextView status = (TextView) getActivity().findViewById(R.id.status);
         TextView foodQty = (TextView) getActivity().findViewById(R.id.foodQty);
 
