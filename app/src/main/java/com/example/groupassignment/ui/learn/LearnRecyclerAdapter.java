@@ -20,6 +20,8 @@ public class LearnRecyclerAdapter extends RecyclerView.Adapter<LearnRecyclerAdap
     private Context mContext;
     private ArrayList<LearnCategories> categories;
 
+    // The following code is modified from: INFS3634 Week 4 - Simple RecyclerView Example
+
     // Constructor
     public LearnRecyclerAdapter(Context context,ArrayList<LearnCategories> categories) {
         this.categories = categories;

@@ -7,9 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by ProgrammingKnowledge on 4/3/2015.
- */
+// The following code is modified from: Programming Knowledge (2015)
+// Android SQLite Database Tutorial 5
+// http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "42362422234qewq223423423423242342343222342342323423233242347.db";
     private static final int DATABASE_VERSION = 1;
@@ -134,6 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS language_table");
         onCreate(db);
     }
+    // Modified code stops here
 
     public void dbClean(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -157,6 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
             // French
             case 5:
+                db.execSQL("update learn_table set Translation = 'S''il vous plaît' where Expression = 'Please'");
                 db.execSQL("update learn_table set Translation = 'Autobus' where Expression = 'Bus'");
                 db.execSQL("update learn_table set Translation = 'Avion' where Expression = 'Plane'");
                 break;
@@ -332,5 +335,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return exists;
     }
-
 }

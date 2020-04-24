@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LanguageActivity"></activity>
         <activity android:name=".MainActivity_Self_Learn" />
-        <activity android:name=".ui.selflearn.Translator" />
+        <activity android:name=".ui.learn.Translator" />
         <activity android:name=".ui.learn.Practice" />
         <activity android:name=".ui.learn.QuizResults" />
         <activity android:name=".ui.learn.QuizTest" />

@@ -1,4 +1,4 @@
-package com.example.groupassignment.ui.selflearn;
+package com.example.groupassignment.ui.learn;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -237,6 +237,12 @@ public class Translator extends AppCompatActivity {
         translatedSpeech.setVisibility(View.INVISIBLE);
     }
 
+    // The following code is modified from: Oxford Dictionaries API Documentation
+    // https://developer.oxforddictionaries.com/documentation#!/Entries/get_entries_source_lang_word_id
+    // and Yandex Translate API Domcumentation
+    // https://tech.yandex.com/translate/doc/dg/reference/translate-docpage/
+
+    // Translate AsyncTask which calls API and returns result
     public class TranslateRequest extends AsyncTask<String, Integer, String> {
 
         public TranslateRequest() {
@@ -246,28 +252,32 @@ public class Translator extends AppCompatActivity {
         protected String doInBackground(String... params) {
             String text = params[0];
             try {
+                // Create URL and connection
                 URL url = new URL("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + apiKey
                         + "&text=" + text + "&lang=" + myDb.getCode());
                 HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
 
-                // read the output from the server
+                // Read output
                 BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 StringBuilder stringBuilder = new StringBuilder();
 
+                // Get line
                 String line = null;
                 while ((line = reader.readLine()) != null) {
                     stringBuilder.append(line + "\n");
                 }
 
-                //Making result human readable
+                // Get String
                 String resultString = stringBuilder.toString().trim();
 
-                //Getting the characters between [ and ]
+                // Get characters between [ and ]
                 resultString = resultString.substring(resultString.indexOf('[') + 1);
                 resultString = resultString.substring(1, resultString.indexOf("]") - 1);
 
+                // Format and return translation result
                 Log.d("Translation Result:", resultString);
-                return resultString;
+                String resultFormatted = resultString.replace("'", "''");
+                return resultFormatted;
 
             } catch (Exception e) {
                 e.printStackTrace();

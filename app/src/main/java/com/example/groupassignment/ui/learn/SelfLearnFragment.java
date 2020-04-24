@@ -1,4 +1,4 @@
-package com.example.groupassignment.ui.selflearn;
+package com.example.groupassignment.ui.learn;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.groupassignment.DatabaseHelper;
 import com.example.groupassignment.R;
-import com.example.groupassignment.ui.learn.LearnFlashcards;
-import com.example.groupassignment.ui.learn.Practice;
-import com.example.groupassignment.ui.learn.QuizTest;
 
 public class SelfLearnFragment extends Fragment {
 

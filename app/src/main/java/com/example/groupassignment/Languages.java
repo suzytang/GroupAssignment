@@ -3,6 +3,7 @@ package com.example.groupassignment;
 import java.util.ArrayList;
 import java.util.Locale;
 
+// Languages class for RecyclerView and setting Locale for TTS
 public class Languages {
     private String language;
     private Locale locale;
