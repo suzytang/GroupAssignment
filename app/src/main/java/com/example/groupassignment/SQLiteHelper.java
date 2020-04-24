@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
+// The following code is modified from: Programming Knowledge (2015)
+// Android SQLite Database Tutorial 5
+// http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class SQLiteHelper extends SQLiteOpenHelper{
     public static final String DATABASE_NAME = "326830898423237784324979343665866758.db";
@@ -63,6 +65,7 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(db);
     }
+    // Modified code stops here
 
     public void resetPetData() {
         SQLiteDatabase db = this.getWritableDatabase();

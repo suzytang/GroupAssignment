@@ -18,6 +18,10 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.MyView
     private ArrayList<Languages> languages;
     RecyclerViewClickListener listener;
 
+    // The following code is modified from: Coding in Flow (2017)
+    // 'SQLite + RecyclerView - Part 2 - CURSOR AND RECYCLERVIEW ADAPTER - Android Studio Tutorial'
+    // https://www.youtube.com/watch?v=_m-Ve-BAYe0&t=
+
     // Constructor
     public LanguageAdapter(Context context,ArrayList<Languages> languages, RecyclerViewClickListener listener) {
         this.languages = languages;

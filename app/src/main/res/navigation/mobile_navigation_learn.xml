@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_selflearn"
-        android:name="com.example.groupassignment.ui.selflearn.SelfLearnFragment"
+        android:name="com.example.groupassignment.ui.learn.SelfLearnFragment"
         android:label="@string/title_selflearn"
         tools:layout="@layout/fragment_selflearn" />
 

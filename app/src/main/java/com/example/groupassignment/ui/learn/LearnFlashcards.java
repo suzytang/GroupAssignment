@@ -31,6 +31,8 @@ public class LearnFlashcards extends AppCompatActivity {
     private TextToSpeech translatedTTS, englishTTS;
     private ImageButton translatedSpeech, englishSpeech, next, prev;
     private TextView question, frontText, backText, yandex;
+
+    //  The following code uses https://github.com/wajahatkarim3/EasyFlipView
     private EasyFlipView easyFlipView;
 
     @Override
@@ -65,8 +67,7 @@ public class LearnFlashcards extends AppCompatActivity {
             this.setTitle("Self-Learn Flashcards");
         }
 
-
-        // @Suzy pls do source code
+        //  Set FlipView
         easyFlipView = findViewById(R.id.easyFlipView);
         easyFlipView.setFlipDuration(500);
         easyFlipView.setFlipEnabled(true);

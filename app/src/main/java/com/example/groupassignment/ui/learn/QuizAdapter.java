@@ -19,6 +19,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     private Context mContext;
     private ArrayList<QuizAnswers> mQuiz;
 
+    // The following code is modified from: INFS3634 Week 4 - Simple RecyclerView Example
+
     // Constructor
     public QuizAdapter(Context context, ArrayList<QuizAnswers> quizAnswers) {
         mContext = context;
