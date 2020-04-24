@@ -143,7 +143,7 @@
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toEndOf="@+id/level"
         app:layout_constraintTop_toTopOf="@+id/wallpaper"
-        app:srcCompat="@drawable/money" />
+        app:srcCompat="@drawable/dollar" />
 
     <ImageView
         android:id="@+id/food"
