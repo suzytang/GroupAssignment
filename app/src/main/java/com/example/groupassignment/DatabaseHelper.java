@@ -135,6 +135,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void dbClean(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int ID = getID();
+        switch (ID){
+            // Korean
+            case 2:
+                db.execSQL("update learn_table set Translation = '아니' where Expression = 'No'");
+                db.execSQL("update learn_table set Translation = '만나서 반갑습니다' where Expression = 'Nice to meet you'");
+                db.execSQL("update learn_table set Translation = '나는 조금 말한다' where Expression = 'I speak a little...'");
+                db.execSQL("update learn_table set Translation = '어떻게 가나 요' where Expression = 'How do I get to...?'");
+                db.execSQL("update learn_table set Translation = '나는 머물고 싶다...박' where Expression = 'I’d like to stay for...nights.'");
+                break;
+            // Japanese
+            case 3:
+                db.execSQL("update learn_table set Translation = 'いいえ' where Expression = 'No'");
+                break;
+            // German
+            case 4:
+                db.execSQL("update learn_table set Translation = 'Auf Wiedersehen' where Expression = 'Goodbye'");
+                break;
+            // French
+            case 5:
+                db.execSQL("update learn_table set Translation = 'Autobus' where Expression = 'Bus'");
+                db.execSQL("update learn_table set Translation = 'Avion' where Expression = 'Plane'");
+                break;
+            // Italian
+            case 6:
+                db.execSQL("update learn_table set Translation = 'Piacere di conoscerti' where Expression = 'Nice to meet you'");
+                db.execSQL("update learn_table set Translation = 'Lei parl inglese' where Expression = 'Do you speak English?'");
+                db.execSQL("update learn_table set Translation = 'Lasciami solo' where Expression = 'Leave me alone'");
+                break;
+        }
+    }
+
     public void resetLearnData() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("update learn_table set "+COL_6+" = " +0);
