@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "4236242223424242342343222342323327.db";
+    public static final String DATABASE_NAME = "423624222342234234242342343222342342323423233242347.db";
     private static final int DATABASE_VERSION = 1;
     public static final String COL_1 = "Level";
     public static final String COL_2 = "Position";
@@ -33,6 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('German', 'en-de', 0)");
         db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('French', 'en-fr', 0)");
         db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('Italian', 'en-it', 0)");
+        db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('English', 'en-en', 0)");
 
         db.execSQL("create table learn_table (ID INTEGER PRIMARY KEY AUTOINCREMENT,Level INTEGER,Position INTEGER, Expression TEXT, Translation TEXT, Answered INT, Completed INT)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+COL_5+", "+COL_6+") VALUES (1, 1, 'Hello', null, 0, 0)");
@@ -134,6 +135,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void resetLearnData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update learn_table set "+COL_6+" = " +0);
+        db.execSQL("update learn_table set "+COL_5+" = " +0);
+        db.close();
+    }
+
     public void setLanguage(String language)  {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("update language_table set Applied = " +0);
@@ -155,13 +163,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         }
     }
-//    public String getLanguage()  {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor csr = db.rawQuery("select Language from language_table where Applied = "+1,null);
-//        csr.moveToFirst();
-//        String language = csr.getString(csr.getColumnIndex("Language"));
-//        return language;
-//    }
 
     public String getCode()  {
         SQLiteDatabase db = this.getWritableDatabase();

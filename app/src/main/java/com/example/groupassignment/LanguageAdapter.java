@@ -30,7 +30,7 @@ public class LanguageAdapter extends RecyclerView.Adapter<LanguageAdapter.MyView
         void onClick(View view, int position);
     }
 
-    // Inflate learn_levels and return view
+    // Inflate languages_list and return view
     @Override
     public LanguageAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.languages_list, parent, false);

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class LanguageActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
     private DatabaseHelper myDb;
+    private SQLiteHelper dB;
     private Dialog dialog, languageDialog;
     private ProgressBar progressBar;
     private TextView progressText;
@@ -40,6 +42,10 @@ public class LanguageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_languages);
+
+        myDb = new DatabaseHelper(this);
+        dB = new SQLiteHelper(this);
+        this.setTitle("Set Language");
 
         // Initialise recyclerView
         recyclerView = findViewById(R.id.recyclerView);
@@ -67,22 +73,20 @@ public class LanguageActivity extends AppCompatActivity {
     }
 
     public void clickResponse(int position) {
-        changeLanguage(languages.get(position).getLanguage());
-    }
-
-    public void changeLanguage(String lang) {
+        String lang = languages.get(position).getLanguage();
         if (!myDb.checkCurrent(lang)) {
             myDb.setLanguage(lang);
+            adapter.notifyDataSetChanged();
             new TranslateDatabase().execute();
-        } else {
-            Toast.makeText(this, "Current language is already set to" + lang, Toast.LENGTH_LONG);
+            dB.resetPetData();
+            myDb.resetLearnData();
         }
     }
 
     public class TranslateDatabase extends AsyncTask<String, Integer, Void> {
 
         private static final String TAG = "MyTask";
-        Dialog dialog = new Dialog(getApplicationContext());
+        Dialog dialog = new Dialog(LanguageActivity.this);
 
 
         public TranslateDatabase() {
@@ -175,7 +179,9 @@ public class LanguageActivity extends AppCompatActivity {
         protected void onPostExecute(Void x) {
             super.onPostExecute(x);
             dialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Database loaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LanguageActivity.this, "Database loaded", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         }
     }
 }

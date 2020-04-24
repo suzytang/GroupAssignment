@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.groupassignment.LanguageActivity;
 import com.example.groupassignment.MainActivity;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
@@ -218,8 +219,8 @@ public class PetFragment extends Fragment implements View.OnClickListener{
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        ((MainActivity) getActivity()).selectLanguage();
-//                        checkDialog.dismiss();
+                        Intent intent = new Intent(getActivity(), LanguageActivity.class);
+                        startActivity(intent);
                     }
                 });
 

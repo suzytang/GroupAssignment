@@ -56,16 +56,7 @@ public class Languages {
         languages.add(new Languages("German", Locale.GERMAN, R.drawable.germany, "Category II"));
         languages.add(new Languages("French", Locale.FRENCH, R.drawable.france, "Category I"));
         languages.add(new Languages("Italian", Locale.ITALIAN, R.drawable.italy, "Category I"));
+        languages.add(new Languages("English", Locale.ENGLISH, R.drawable.uk, "For Testing"));
         return languages;
     }
-//
-//    public static Locale getLocale(int i) {
-//        ArrayList<Language> locales = setLocale();
-//        for (int j = 0; j < locales.size(); j++) {
-//          if (j==i-1) {
-//              return locales.get(j);
-//          }
-//        }
-//        return null;
-//    }
 }
