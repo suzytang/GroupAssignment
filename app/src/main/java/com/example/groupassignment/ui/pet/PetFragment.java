@@ -30,7 +30,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
     private Shop shop = new Shop();
     private Dialog dialog, checkDialog, languageDialog;
     ImageButton feedButton, inventoryButton;
-    ImageView info, changeLanguage;
+    ImageView info, changeLanguage, hunger, wallpaper;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,17 +42,23 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         info = root.findViewById(R.id.info);
         changeLanguage = root.findViewById(R.id.changeLanguage);
 
-        ImageView wallpaper = root.findViewById(R.id.wallpaper);
+        wallpaper = root.findViewById(R.id.wallpaper);
+        hunger = root.findViewById(R.id.hunger);
 
         TextView coins = root.findViewById(R.id.coins);
         TextView level = root.findViewById(R.id.level);
-        TextView status = root.findViewById(R.id.status);
         TextView foodQty = root.findViewById(R.id.foodQty);
 
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
         level.setText(sqLiteHelper.getPetData(SQLiteHelper.LVL));
-        status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
         foodQty.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 2)+ " can(s)");
+
+        String status = sqLiteHelper.getPetData(SQLiteHelper.STATUS);
+        if(status.equals("Satisfied")){
+            hunger.setImageResource(R.drawable.satisfied);
+        } else {
+            hunger.setImageResource(R.drawable.hungry);
+        }
 
         // Gets the sum of AMOUNT column where CATEGORY = 'Wallpapers'
         int wallpaperAmount = sqLiteHelper.getSum("'Wallpapers'");
@@ -151,7 +157,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         if(timeElapsed >= 5*60*60*1000){
             // if timeElapsed is greater than 5 hours, status will be changed to 'Hungry' in the database and UI
             sqLiteHelper.updatePetData(SQLiteHelper.STATUS, "Hungry",1);
-            status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
+            hunger.setImageResource(R.drawable.hungry);
         }
         return root;
     }
@@ -161,13 +167,12 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         AnimationDrawable feed = (AnimationDrawable) feedButton.getDrawable();
         feed.start();
 
-
         TextView status = (TextView) getActivity().findViewById(R.id.status);
         TextView foodQty = (TextView) getActivity().findViewById(R.id.foodQty);
 
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
         // Sets status once pet has been fed to 'Satisfied'
-        status.setText(sqLiteHelper.getPetData(SQLiteHelper.STATUS));
+        hunger.setImageResource(R.drawable.satisfied);
         // Decreases FoodQty text once pet has been fed
         foodQty.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 2)+ " can(s)");
 

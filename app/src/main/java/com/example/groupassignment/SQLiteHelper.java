@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "326830898423237784324979343665866758.db";
+    public static final String DATABASE_NAME = "3268345787565357697985866758.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String PET_TABLE = "pet_table";
     public static final String COL_1 = "ID";

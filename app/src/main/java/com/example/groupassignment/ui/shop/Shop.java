@@ -67,12 +67,12 @@ public class Shop {
 
     public static ArrayList<Shop> getAccessories() {
         ArrayList<Shop> accessories = new ArrayList<>();
-        accessories.add(new Shop("Sunglasses", "Accessories", 20 ,0, R.drawable.sunglasses));
-        accessories.add(new Shop("Cap", "Accessories", 20,0, R.drawable.cap));
-        accessories.add(new Shop("Top Hat", "Accessories", 20,0, R.drawable.top_hat));
-        accessories.add(new Shop("Glasses", "Accessories", 20,0, R.drawable.glasses));
-        accessories.add(new Shop("Pirate Hat", "Accessories", 20,0, R.drawable.pirate_hat));
-        accessories.add(new Shop("Wig", "Accessories", 20,0, R.drawable.wig));
+        accessories.add(new Shop("Sunglasses", "Accessories", 50 ,0, R.drawable.sunglasses));
+        accessories.add(new Shop("Cap", "Accessories", 100,0, R.drawable.cap));
+        accessories.add(new Shop("Top Hat", "Accessories", 100,0, R.drawable.top_hat));
+        accessories.add(new Shop("Glasses", "Accessories", 50,0, R.drawable.glasses));
+        accessories.add(new Shop("Pirate Hat", "Accessories", 100,0, R.drawable.pirate_hat));
+        accessories.add(new Shop("Wig", "Accessories", 100,0, R.drawable.wig));
 
 
         return accessories;
@@ -81,12 +81,12 @@ public class Shop {
 
     public static ArrayList<Shop> getWallpapers() {
         ArrayList<Shop> wallpapers = new ArrayList<>();
-        wallpapers.add(new Shop("Striped", "Wallpapers", 20,0, R.drawable.striped_wallpaper));
-        wallpapers.add(new Shop("Polka Dots", "Wallpapers", 20,0, R.drawable.polkadot_wallpaper));
-        wallpapers.add(new Shop("Pink", "Wallpapers", 20,0, R.drawable.pink_wallpaper));
-        wallpapers.add(new Shop("Black", "Wallpapers", 20,0, R.drawable.black_wallpaper));
-        wallpapers.add(new Shop("Red", "Wallpapers", 20,0, R.drawable.red_wallpaper));
-        wallpapers.add(new Shop("Green", "Wallpapers", 20,0, R.drawable.green_wallpaper));
+        wallpapers.add(new Shop("Striped", "Wallpapers", 150,0, R.drawable.striped_wallpaper));
+        wallpapers.add(new Shop("Polka Dots", "Wallpapers", 150,0, R.drawable.polkadot_wallpaper));
+        wallpapers.add(new Shop("Pink", "Wallpapers", 100,0, R.drawable.pink_wallpaper));
+        wallpapers.add(new Shop("Black", "Wallpapers", 100,0, R.drawable.black_wallpaper));
+        wallpapers.add(new Shop("Red", "Wallpapers", 100,0, R.drawable.red_wallpaper));
+        wallpapers.add(new Shop("Green", "Wallpapers", 100,0, R.drawable.green_wallpaper));
 
 
 

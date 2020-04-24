@@ -42,6 +42,8 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
 
         String name = shop.getWallpapers().get(position).getItemName();
 
+        holder.imageBG.setVisibility(View.INVISIBLE);
+
         db = new SQLiteHelper(context);
         // Decreases opacity of item if it has been bought and makes "Owned" textview visible
         if (db.isBought(name)) {
@@ -72,6 +74,7 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView itemName, itemPrice;
         ImageView image;
+        ImageView imageBG;
         TextView owned;
         WallpapersAdapter.RecyclerViewClickListener listener;
 
@@ -84,6 +87,7 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
             this.itemName = itemView.findViewById(R.id.itemName);
             this.itemPrice = itemView.findViewById(R.id.itemPrice);
             this.image = itemView.findViewById(R.id.image);
+            this.imageBG = itemView.findViewById(R.id.imageBG);
             this.owned = itemView.findViewById(R.id.owned);
         }
 

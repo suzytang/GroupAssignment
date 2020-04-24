@@ -78,13 +78,14 @@ public class WallpapersFrag extends Fragment {
         Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
         Button buyButton = (Button) dialog.findViewById(R.id.buyButton);
         ImageView image = (ImageView) dialog.findViewById(R.id.image);
+        ImageView imageBG = (ImageView) dialog.findViewById(R.id.imageBG);
         TextView shopItem = (TextView) dialog.findViewById(R.id.shopItem);
         TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
 
         shopItem.setText(shop.getWallpapers().get(position).getItemName());
         shopPrice.setText(shop.getWallpapers().get(position).getItemPrice() + " coins");
         image.setImageResource(shop.getWallpapers().get(position).getImage());
-
+        imageBG.setVisibility(View.INVISIBLE);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
