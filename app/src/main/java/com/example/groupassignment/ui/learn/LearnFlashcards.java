@@ -6,20 +6,18 @@ import android.speech.tts.TextToSpeech;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.groupassignment.DatabaseHelper;
-import com.example.groupassignment.MainActivity_Learn;
 import com.example.groupassignment.R;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.Locale;
 
-import static com.example.groupassignment.ui.learn.Locales.getLocale;
+import static com.example.groupassignment.Languages.getLanguages;
 
 public class LearnFlashcards extends AppCompatActivity {
 
@@ -149,7 +147,7 @@ public class LearnFlashcards extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
-                    int result = translatedTTS.setLanguage(getLocale(myDb.getID()));
+                    int result = translatedTTS.setLanguage(getLanguages().get(myDb.getID()-1).getLocale());
 
                     if (result == TextToSpeech.LANG_MISSING_DATA
                             || result == TextToSpeech.LANG_NOT_SUPPORTED) {

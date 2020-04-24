@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.groupassignment.MainActivity;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
 import com.example.groupassignment.ui.shop.Shop;
@@ -26,24 +27,26 @@ import com.example.groupassignment.ui.shop.Shop;
 public class PetFragment extends Fragment implements View.OnClickListener{
 
     private Shop shop = new Shop();
-    private Dialog dialog;
+    private Dialog dialog, checkDialog, languageDialog;
     ImageButton feedButton, inventoryButton;
+    ImageView info, changeLanguage;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pet_test, container, false);
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
 
-        inventoryButton = (ImageButton) root.findViewById(R.id.inventoryButton);
-        feedButton = (ImageButton) root.findViewById(R.id.feedButton);
-        ImageView info = (ImageView) root.findViewById(R.id.info);
+        inventoryButton = root.findViewById(R.id.inventoryButton);
+        feedButton = root.findViewById(R.id.feedButton);
+        info = root.findViewById(R.id.info);
+        changeLanguage = root.findViewById(R.id.changeLanguage);
 
-        ImageView wallpaper = (ImageView) root.findViewById(R.id.wallpaper);
+        ImageView wallpaper = root.findViewById(R.id.wallpaper);
 
-        TextView coins = (TextView) root.findViewById(R.id.coins);
-        TextView level = (TextView) root.findViewById(R.id.level);
-        TextView status = (TextView) root.findViewById(R.id.status);
-        TextView foodQty = (TextView) root.findViewById(R.id.foodQty);
+        TextView coins = root.findViewById(R.id.coins);
+        TextView level = root.findViewById(R.id.level);
+        TextView status = root.findViewById(R.id.status);
+        TextView foodQty = root.findViewById(R.id.foodQty);
 
         coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
         level.setText(sqLiteHelper.getPetData(SQLiteHelper.LVL));
@@ -136,7 +139,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         feedButton.setOnClickListener(this);
         inventoryButton.setOnClickListener(this);
         info.setOnClickListener(this);
-
+        changeLanguage.setOnClickListener(this);
         // Gets System time last assigned from the database
         long time = sqLiteHelper.getPetTime(SQLiteHelper.TIME);
         // Variable timeElapsed is calculated by subtracting current time from time assigned in the database
@@ -196,6 +199,39 @@ public class PetFragment extends Fragment implements View.OnClickListener{
                             "You don't have any food left!", Toast.LENGTH_LONG).show();
                 }
                 break;
+            case R.id.changeLanguage:
+                checkDialog = new Dialog(getActivity());
+                checkDialog.setContentView(R.layout.exit_dialog);
+                // Declare buttons and link XML
+                Button yes = checkDialog.findViewById(R.id.yes);
+                Button no = checkDialog.findViewById(R.id.no);
+                TextView check = checkDialog.findViewById(R.id.exit);
+                check.setText("Change languages?");
+                TextView checkInfo = checkDialog.findViewById(R.id.exitInfo);
+                checkInfo.setText("This is a permanent change so all your progress will be lost.");
+
+                // Show dialog
+                checkDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                checkDialog.show();
+
+                // If yes, return to menu
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        ((MainActivity) getActivity()).selectLanguage();
+//                        checkDialog.dismiss();
+                    }
+                });
+
+                // If no, dismiss dialog and return to current page
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        checkDialog.dismiss();
+                    }
+                });
+
+                break;
             case R.id.info:
                 // Dialog for credits
                 dialog = new Dialog(getActivity());
@@ -228,4 +264,5 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         }
 
     }
+
 }

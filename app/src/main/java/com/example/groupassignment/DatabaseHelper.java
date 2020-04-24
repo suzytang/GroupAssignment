@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "42362422234234234322234232342334324223423222324212321211111123311133113123312651217.db";
+    public static final String DATABASE_NAME = "4236242223424242342343222342323327.db";
     private static final int DATABASE_VERSION = 1;
     public static final String COL_1 = "Level";
     public static final String COL_2 = "Position";
@@ -141,13 +141,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String getLanguage()  {
+    public boolean checkCurrent(String language) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor csr = db.rawQuery("select Language from language_table where Applied = "+1,null);
         csr.moveToFirst();
-        String language = csr.getString(csr.getColumnIndex("Language"));
-        return language;
+        try {
+            if (csr.getString(csr.getColumnIndex("Language")).equalsIgnoreCase(language)){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
+//    public String getLanguage()  {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor csr = db.rawQuery("select Language from language_table where Applied = "+1,null);
+//        csr.moveToFirst();
+//        String language = csr.getString(csr.getColumnIndex("Language"));
+//        return language;
+//    }
 
     public String getCode()  {
         SQLiteDatabase db = this.getWritableDatabase();

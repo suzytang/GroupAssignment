@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.groupassignment.DatabaseHelper;
-import com.example.groupassignment.MainActivity_Learn;
 import com.example.groupassignment.MainActivity_Self_Learn;
 import com.example.groupassignment.R;
 
@@ -30,7 +29,7 @@ import java.util.concurrent.ExecutionException;
 import javax.net.ssl.HttpsURLConnection;
 
 import static com.example.groupassignment.MainActivity.apiKey;
-import static com.example.groupassignment.ui.learn.Locales.getLocale;
+import static com.example.groupassignment.Languages.getLanguages;
 
 public class Translator extends AppCompatActivity {
 
@@ -142,7 +141,7 @@ public class Translator extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
-                    int result = translatedTTS.setLanguage(getLocale(myDb.getID()));
+                    int result = translatedTTS.setLanguage(getLanguages().get(myDb.getID()-1).getLocale());
 
                     if (result == TextToSpeech.LANG_MISSING_DATA
                             || result == TextToSpeech.LANG_NOT_SUPPORTED) {
