@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.method.LinkMovementMethod;
@@ -19,12 +20,17 @@ import com.example.groupassignment.DatabaseHelper;
 import com.example.groupassignment.MainActivity_Learn;
 import com.example.groupassignment.MainActivity_Self_Learn;
 import com.example.groupassignment.R;
-import com.example.groupassignment.TranslateRequest;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.groupassignment.ui.learn.LearnFlashcards.lang;
+import javax.net.ssl.HttpsURLConnection;
+
+import static com.example.groupassignment.MainActivity.apiKey;
+import static com.example.groupassignment.ui.learn.Locales.getLocale;
 
 public class Translator extends AppCompatActivity {
 
@@ -37,7 +43,6 @@ public class Translator extends AppCompatActivity {
     private Context context;
     private DatabaseHelper myDb = new DatabaseHelper(this);
     private String userInput;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +125,7 @@ public class Translator extends AppCompatActivity {
                     toast.show();
                 } else {
                     // Store data and show feedback as toast
-                    myDb.storeUserData(enterWord.getText().toString(),translatedText.getText().toString());
+                    myDb.storeUserData(enterWord.getText().toString(), translatedText.getText().toString());
                     Toast toast = Toast.makeText(context, "Your expression has been stored.", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -137,7 +142,7 @@ public class Translator extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
-                    int result = translatedTTS.setLanguage(lang);
+                    int result = translatedTTS.setLanguage(getLocale(myDb.getID()));
 
                     if (result == TextToSpeech.LANG_MISSING_DATA
                             || result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -155,18 +160,18 @@ public class Translator extends AppCompatActivity {
         englishTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-            if (status == TextToSpeech.SUCCESS) {
-                int result = englishTTS.setLanguage(Locale.ENGLISH);
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = englishTTS.setLanguage(Locale.ENGLISH);
 
-                if (result == TextToSpeech.LANG_MISSING_DATA
-                        || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported");
+                    if (result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "Language not supported");
+                    } else {
+                        englishSpeech.setEnabled(true);
+                    }
                 } else {
-                    englishSpeech.setEnabled(true);
+                    Log.e("TTS", "Initialization failed");
                 }
-            } else {
-                Log.e("TTS", "Initialization failed");
-            }
             }
         });
 
@@ -174,7 +179,7 @@ public class Translator extends AppCompatActivity {
         englishSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak(englishTTS,enterWord.getText().toString());
+                speak(englishTTS, enterWord.getText().toString());
             }
         });
 
@@ -182,7 +187,7 @@ public class Translator extends AppCompatActivity {
         translatedSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak(translatedTTS,translatedText.getText().toString());
+                speak(translatedTTS, translatedText.getText().toString());
             }
         });
     }
@@ -226,10 +231,54 @@ public class Translator extends AppCompatActivity {
     }
 
     // Clear text
-    public void clearInput(){
+    public void clearInput() {
         enterWord.setText("");
         translatedText.setText("");
         enableStore(false);
         translatedSpeech.setVisibility(View.INVISIBLE);
+    }
+
+    public class TranslateRequest extends AsyncTask<String, Integer, String> {
+
+        public TranslateRequest() {
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String text = params[0];
+            try {
+                URL url = new URL("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + apiKey
+                        + "&text=" + text + "&lang=" + myDb.getCode());
+                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+
+                // read the output from the server
+                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line + "\n");
+                }
+
+                //Making result human readable
+                String resultString = stringBuilder.toString().trim();
+
+                //Getting the characters between [ and ]
+                resultString = resultString.substring(resultString.indexOf('[') + 1);
+                resultString = resultString.substring(1, resultString.indexOf("]") - 1);
+
+                Log.d("Translation Result:", resultString);
+                return resultString;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.toString();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+        }
     }
 }

@@ -19,11 +19,10 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.Locale;
 
-import static java.util.Locale.FRENCH;
+import static com.example.groupassignment.ui.learn.Locales.getLocale;
 
 public class LearnFlashcards extends AppCompatActivity {
-    // Locale for translated Text to Speech
-    final public static Locale lang = FRENCH;
+
 
     // DatabaseHelper for queries
     DatabaseHelper myDb = new DatabaseHelper(this);
@@ -150,7 +149,7 @@ public class LearnFlashcards extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
-                    int result = translatedTTS.setLanguage(lang);
+                    int result = translatedTTS.setLanguage(getLocale(myDb.getID()));
 
                     if (result == TextToSpeech.LANG_MISSING_DATA
                             || result == TextToSpeech.LANG_NOT_SUPPORTED) {

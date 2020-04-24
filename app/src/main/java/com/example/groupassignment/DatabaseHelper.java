@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "4236242222212321211111123311133113123312651217.db";
+    public static final String DATABASE_NAME = "42362422234234234322234232342334324223423222324212321211111123311133113123312651217.db";
     private static final int DATABASE_VERSION = 1;
     public static final String COL_1 = "Level";
     public static final String COL_2 = "Position";
@@ -26,6 +26,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("create table language_table (ID INTEGER PRIMARY KEY AUTOINCREMENT,Language TEXT,Code TEXT, Applied INT)");
+        db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('Chinese', 'en-zh', 0)");
+        db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('Korean', 'en-ko', 0)");
+        db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('Japanese', 'en-ja', 0)");
+        db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('German', 'en-de', 0)");
+        db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('French', 'en-fr', 0)");
+        db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('Italian', 'en-it', 0)");
+
         db.execSQL("create table learn_table (ID INTEGER PRIMARY KEY AUTOINCREMENT,Level INTEGER,Position INTEGER, Expression TEXT, Translation TEXT, Answered INT, Completed INT)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+COL_5+", "+COL_6+") VALUES (1, 1, 'Hello', null, 0, 0)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+COL_5+", "+COL_6+") VALUES (1, 2, 'Goodbye', null, 0, 0)");
@@ -117,29 +125,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+COL_5+", "+COL_6+") VALUES (9, 8, 'Call the...', null, 0, 0)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+COL_5+", "+COL_6+") VALUES (9, 9, 'Can I use your phone?', null, 0, 0)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+COL_5+", "+COL_6+") VALUES (9, 10, 'Leave me alone', null, 0, 0)");
-
-//        String result = "";
-//
-//        for (int i = 1; i < 10; i++) {
-//            for (int j = 1; j < 11; j++) {
-//                TranslateRequest tR = new TranslateRequest();
-//                try {
-//                    result = tR.execute(getEnglish(db, i, j)).get();
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                String resultFormatted = result.replace("'", "''");
-//                db.execSQL("update learn_table set " + COL_4 + " = '" + resultFormatted + "' where "+COL_1+" = "+i+" AND "+COL_2+" = "+j);
-//            }
-//        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS learn_table");
+        db.execSQL("DROP TABLE IF EXISTS language_table");
         onCreate(db);
+    }
+
+    public void setLanguage(String language)  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update language_table set Applied = " +0);
+        db.execSQL("update language_table set Applied = " +1+ " where Language = "+"'"+language+"'");
+        db.close();
+    }
+
+    public String getLanguage()  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor csr = db.rawQuery("select Language from language_table where Applied = "+1,null);
+        csr.moveToFirst();
+        String language = csr.getString(csr.getColumnIndex("Language"));
+        return language;
+    }
+
+    public String getCode()  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor csr = db.rawQuery("select Code from language_table where Applied = "+1,null);
+        csr.moveToFirst();
+        String code = csr.getString(csr.getColumnIndex("Code"));
+        return code;
+    }
+
+    public int getID()  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor csr = db.rawQuery("select ID from language_table where Applied = "+1,null);
+        csr.moveToFirst();
+        int ID = csr.getInt(csr.getColumnIndex("ID"));
+        return ID;
     }
 
     public boolean translated() {
@@ -156,14 +179,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         }
     }
-
-//    public String getEnglish(SQLiteDatabase db, int level, int position) {
-//        String word;
-//        Cursor csr = db.rawQuery("select "+COL_3+" from learn_table where "+COL_1+" = "+level+" AND "+COL_2+" = "+position,null);
-//        csr.moveToFirst();
-//        word = csr.getString(csr.getColumnIndex(COL_3));
-//        return word;
-//    }
 
     public String getEnglish(int level, int position) {
         SQLiteDatabase db = this.getWritableDatabase();

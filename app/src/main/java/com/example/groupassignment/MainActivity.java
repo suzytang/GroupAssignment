@@ -1,9 +1,12 @@
 package com.example.groupassignment;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.groupassignment.ui.learn.QuizResults;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
@@ -24,9 +28,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class MainActivity extends AppCompatActivity {
-    private DatabaseHelper dB;
-    private Dialog dialog;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final String apiKey = "trnsl.1.1.20200406T153746Z.c0ca0cc13fd27e06.701385e6275a5b9d89b1707cac023168fd297934";
+    private DatabaseHelper myDb;
+    private Dialog dialog, languageDialog;
     private ProgressBar progressBar;
     private TextView progressText;
     private GifImageView gif;
@@ -36,13 +41,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dB = new DatabaseHelper(this);
+        myDb = new DatabaseHelper(this);
 
-        if (!dB.translated()) {
-
-            new TranslateDatabase().execute();
+        if (!myDb.translated()) {
+            selectLanguage();
         }
-
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
@@ -57,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
     public class TranslateDatabase extends AsyncTask<String, Integer, Void> {
 
-        String apiKey = "trnsl.1.1.20200406T153746Z.c0ca0cc13fd27e06.701385e6275a5b9d89b1707cac023168fd297934";
-        String language = "en-fr";
         private static final String TAG = "MyTask";
         Dialog dialog = new Dialog(MainActivity.this);
 
@@ -86,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
             int x = 1;
             for (int i = 1; i < 10; i++) {
                 for (int j = 1; j < 11; j++) {
-                    String text = dB.getEnglish(i, j);
+                    String text = myDb.getEnglish(i, j);
                     try {
                         URL url = new URL("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + apiKey
-                                + "&text=" + text + "&lang=" + language);
+                                + "&text=" + text + "&lang=" + myDb.getCode());
                         HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
 
                         // read the output from the server
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Translation Result:", resultString);
 
                         String resultFormatted = resultString.replace("'", "''");
-                        dB.setTranslation(resultFormatted, i, j);
+                        myDb.setTranslation(resultFormatted, i, j);
                         x++;
                         publishProgress(x);
 
@@ -154,6 +155,67 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(x);
             dialog.dismiss();
             Toast.makeText(MainActivity.this, "Database loaded", Toast.LENGTH_SHORT).show();;
+        }
+    }
+
+    private void selectLanguage() {
+        // Create dialog
+        languageDialog = new Dialog(this);
+        languageDialog.setContentView(R.layout.language_dialog);
+
+        // Link to XMl
+        ImageButton germany = languageDialog.findViewById(R.id.germany);
+        ImageButton france = languageDialog.findViewById(R.id.france);
+        ImageButton italy = languageDialog.findViewById(R.id.italy);
+        ImageButton korea = languageDialog.findViewById(R.id.korea);
+        ImageButton japan = languageDialog.findViewById(R.id.japan);
+        ImageButton china = languageDialog.findViewById(R.id.china);
+
+        // Set on click listener for each flag
+        germany.setOnClickListener(this);
+        france.setOnClickListener(this);
+        italy.setOnClickListener(this);
+        korea.setOnClickListener(this);
+        japan.setOnClickListener(this);
+        china.setOnClickListener(this);
+
+        languageDialog.show();
+        languageDialog.setCanceledOnTouchOutside(false);
+        languageDialog.setCancelable(false);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.germany:
+                myDb.setLanguage("German");
+                languageDialog.dismiss();
+                new TranslateDatabase().execute();
+                break;
+            case R.id.france:
+                myDb.setLanguage("French");
+                languageDialog.dismiss();
+                new TranslateDatabase().execute();
+                break;
+            case R.id.italy:
+                myDb.setLanguage("Italian");
+                languageDialog.dismiss();
+                new TranslateDatabase().execute();
+                break;
+            case R.id.korea:
+                myDb.setLanguage("Korean");
+                languageDialog.dismiss();
+                new TranslateDatabase().execute();
+                break;
+            case R.id.japan:
+                myDb.setLanguage("Japanese");
+                languageDialog.dismiss();
+                new TranslateDatabase().execute();
+                break;
+            case R.id.china:
+                myDb.setLanguage("Chinese");
+                languageDialog.dismiss();
+                new TranslateDatabase().execute();
+                break;
         }
     }
 }
