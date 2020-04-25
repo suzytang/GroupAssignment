@@ -277,29 +277,6 @@
         tools:visibility="invisible" />
 
     <ImageView
-        android:id="@+id/info"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/information" />
-
-    <ImageView
-        android:id="@+id/changeLanguage"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toStartOf="@+id/info"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/global" />
-
-    <ImageView
         android:id="@+id/imageView6"
         android:layout_width="169dp"
         android:layout_height="152dp"

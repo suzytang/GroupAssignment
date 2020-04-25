@@ -237,11 +237,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public String getEnglish(int level, int position) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String word;
         Cursor csr = db.rawQuery("select "+COL_3+" from learn_table where "+COL_1+" = "+level+" AND "+COL_2+" = "+position,null);
-        csr.moveToFirst();
-        word = csr.getString(csr.getColumnIndex(COL_3));
-        return word;
+        try {
+            String word = "";
+            if (csr.moveToFirst()) {
+                word = csr.getString(csr.getColumnIndex(COL_3));
+            }
+            return word;
+        }
+        finally {
+            if (csr != null) {
+                csr.close();
+            }
+        }
     }
 
     public boolean answered(int level, int position) {
