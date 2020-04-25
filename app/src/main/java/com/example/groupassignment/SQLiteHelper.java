@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class SQLiteHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "3268345787565357697985866758.db";
+    public static final String DATABASE_NAME = "3268345745674575357697985866758.db";
     public static final String TABLE_NAME = "inventory_table";
     public static final String PET_TABLE = "pet_table";
     public static final String COL_1 = "ID";
@@ -72,6 +72,8 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         db.execSQL("update "+TABLE_NAME+" set "+COL_4+" = " +0);
         db.execSQL("update "+TABLE_NAME+" set "+APPLIED+" = " +0);
         db.execSQL("update "+PET_TABLE+" set "+LVL+" = " +1);
+        //  Adding 200 coins for testing
+        db.execSQL("update "+TABLE_NAME+" set "+COL_4+" = " +200+ " where ID = " +1);
         db.close();
     }
 
@@ -205,25 +207,6 @@ public class SQLiteHelper extends SQLiteOpenHelper{
         }
     }
 
-
-
-    /*public Cursor getAllData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
-        return res;
-    }
-
-
-    public Integer deleteData (String id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
-    }
-
-    public void reset () throws SQLException {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL ("drop table "+TABLE_NAME);
-        db.close ();
-    }*/
 
 
 }
