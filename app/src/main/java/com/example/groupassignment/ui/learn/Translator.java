@@ -200,9 +200,9 @@ public class Translator extends AppCompatActivity {
         userInput = enterWord.getText().toString();
         // Check if user input is empty
         if (userInput.equals("")) {
+            clearInput();
             // Set text error, disable store and make translated TTS button invisible
             inputLayout.setError("Error: please enter an expression first");
-            clearInput();
         } else {
             String result = null;
             TranslateRequest tR = new TranslateRequest();
