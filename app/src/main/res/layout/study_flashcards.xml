@@ -53,11 +53,11 @@
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+        app:layout_constraintEnd_toEndOf="@+id/easyFlipView"
+        app:layout_constraintStart_toStartOf="@+id/easyFlipView"
         app:layout_constraintTop_toBottomOf="@+id/easyFlipView" />
 
 <!--    <Button-->
