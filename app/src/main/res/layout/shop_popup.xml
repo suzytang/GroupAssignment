@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
-    android:layout_height="280dp"
+    android:layout_height="290dp"
     android:layout_gravity="center"
     android:background="@android:color/background_light">
 
@@ -27,17 +27,14 @@
         android:id="@+id/shopPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginLeft="96dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginRight="95dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginRight="130dp"
         android:layout_marginBottom="14dp"
-        android:text="TextView"
-        android:textSize="16sp"
+        android:text="000"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/cancelButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageBG" />
 
     <ImageView
@@ -113,6 +110,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@color/colorAccent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="34dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        app:layout_constraintEnd_toStartOf="@+id/shopPrice"
+        app:layout_constraintTop_toBottomOf="@+id/imageBG"
+        app:srcCompat="@drawable/dollar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

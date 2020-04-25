@@ -37,7 +37,7 @@ public class SQLiteHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,CATEGORY TEXT, SUBCATEGORY TEXT, AMOUNT INTEGER,APPLIED INTEGER)");
-        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (1,'Coins','Coins','Coins', 10000, 0)");
+        db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (1,'Coins','Coins','Coins', 0, 0)");
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (2,'Food','Food','Food',0, 0)");
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (3,'Sunglasses','Accessories','Glasses',0, 0)");
         db.execSQL("insert into "+TABLE_NAME +" ("+COL_1+", "+COL_2+", "+COL_3+", "+SUBCATEGORY+", "+COL_4+", "+APPLIED+") VALUES (4,'Cap','Accessories','Hat',0, 0)");

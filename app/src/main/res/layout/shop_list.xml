@@ -44,7 +44,7 @@
         android:layout_marginRight="10dp"
         app:layout_constraintEnd_toStartOf="@+id/coins"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/dollar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

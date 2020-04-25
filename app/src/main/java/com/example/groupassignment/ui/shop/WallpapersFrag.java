@@ -58,7 +58,7 @@ public class WallpapersFrag extends Fragment {
         recyclerView.setAdapter(adapter);
 
         TextView coins = (TextView) root.findViewById(R.id.coins);
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " onCreate");
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
 
         return root;
 
@@ -83,7 +83,7 @@ public class WallpapersFrag extends Fragment {
         TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
 
         shopItem.setText(shop.getWallpapers().get(position).getItemName());
-        shopPrice.setText(shop.getWallpapers().get(position).getItemPrice() + " coins");
+        shopPrice.setText(Integer.toString(shop.getWallpapers().get(position).getItemPrice()));
         image.setImageResource(shop.getWallpapers().get(position).getImage());
         imageBG.setVisibility(View.INVISIBLE);
 

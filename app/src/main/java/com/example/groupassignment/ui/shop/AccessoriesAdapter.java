@@ -52,16 +52,18 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             holder.itemName.setAlpha((float) 0.1);
             holder.itemPrice.setAlpha((float) 0.1);
             holder.image.setAlpha((float) 0.1);
+            holder.coinImage.setAlpha((float) 0.1);
             holder.owned.setVisibility(View.VISIBLE);
         } else {
             holder.itemName.setAlpha((float) 1);
             holder.itemPrice.setAlpha((float) 1);
             holder.image.setAlpha((float) 1);
+            holder.coinImage.setAlpha((float) 1);
             holder.owned.setVisibility(View.INVISIBLE);
         }
 
         holder.itemName.setText(name);
-        holder.itemPrice.setText(shop.getAccessories().get(position).getItemPrice() + " coins");
+        holder.itemPrice.setText(Integer.toString(shop.getAccessories().get(position).getItemPrice()));
         holder.image.setImageResource(shop.getAccessories().get(position).getImage());
 
     }
@@ -76,6 +78,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
         TextView itemName;
         TextView itemPrice;
         ImageView image;
+        ImageView coinImage;
         TextView owned;
         RecyclerViewClickListener listener;
 
@@ -88,6 +91,7 @@ public class AccessoriesAdapter extends RecyclerView.Adapter<AccessoriesAdapter.
             this.itemName = itemView.findViewById(R.id.itemName);
             this.itemPrice = itemView.findViewById(R.id.itemPrice);
             this.image = itemView.findViewById(R.id.image);
+            this.coinImage = itemView.findViewById(R.id.coinImage);
             this.owned = itemView.findViewById(R.id.owned);
         }
 

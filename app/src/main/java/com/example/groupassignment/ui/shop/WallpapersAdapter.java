@@ -40,9 +40,9 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
     @Override
     public void onBindViewHolder(WallpapersAdapter.MyViewHolder holder, int position) {
 
-        String name = shop.getWallpapers().get(position).getItemName();
-
         holder.imageBG.setVisibility(View.INVISIBLE);
+
+        String name = shop.getWallpapers().get(position).getItemName();
 
         db = new SQLiteHelper(context);
         // Decreases opacity of item if it has been bought and makes "Owned" textview visible
@@ -50,16 +50,18 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
             holder.itemName.setAlpha((float) 0.1);
             holder.itemPrice.setAlpha((float) 0.1);
             holder.image.setAlpha((float) 0.1);
+            holder.coinImage.setAlpha((float) 0.1);
             holder.owned.setVisibility(View.VISIBLE);
         } else {
             holder.itemName.setAlpha((float) 1);
             holder.itemPrice.setAlpha((float) 1);
             holder.image.setAlpha((float) 1);
+            holder.coinImage.setAlpha((float) 1);
             holder.owned.setVisibility(View.INVISIBLE);
         }
 
         holder.itemName.setText(name);
-        holder.itemPrice.setText(shop.getWallpapers().get(position).getItemPrice() + " coins");
+        holder.itemPrice.setText(Integer.toString(shop.getWallpapers().get(position).getItemPrice()));
         holder.image.setImageResource(shop.getWallpapers().get(position).getImage());
 
 
@@ -75,6 +77,7 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
         TextView itemName, itemPrice;
         ImageView image;
         ImageView imageBG;
+        ImageView coinImage;
         TextView owned;
         WallpapersAdapter.RecyclerViewClickListener listener;
 
@@ -87,6 +90,7 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
             this.itemName = itemView.findViewById(R.id.itemName);
             this.itemPrice = itemView.findViewById(R.id.itemPrice);
             this.image = itemView.findViewById(R.id.image);
+            this.coinImage = itemView.findViewById(R.id.coinImage);
             this.imageBG = itemView.findViewById(R.id.imageBG);
             this.owned = itemView.findViewById(R.id.owned);
         }

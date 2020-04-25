@@ -45,6 +45,8 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
         if(!cursor.moveToPosition(position)){
             return;
         }
+
+        holder.imageBG.setVisibility(View.INVISIBLE);
         // Cursor gets the name of the wallpaper
         final String wallpaper = cursor.getString(cursor.getColumnIndex(SQLiteHelper.COL_2));
 
@@ -96,6 +98,7 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
         public TextView applied;
         public Button apply;
         public ImageView image;
+        ImageView imageBG;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -104,6 +107,7 @@ public class InvWallpapersAdapter extends RecyclerView.Adapter<InvWallpapersAdap
             this.applied = itemView.findViewById(R.id.applied);
             this.apply = itemView.findViewById(R.id.apply);
             this.image = itemView.findViewById(R.id.image);
+            this.imageBG = itemView.findViewById(R.id.imageBG);
 
             apply.setOnClickListener(this);
 

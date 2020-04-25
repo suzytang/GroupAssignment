@@ -80,7 +80,7 @@ public class AccessoriesFrag extends Fragment {
         TextView shopPrice = (TextView) dialog.findViewById(R.id.shopPrice);
 
         shopItem.setText(shop.getAccessories().get(position).getItemName());
-        shopPrice.setText(shop.getAccessories().get(position).getItemPrice() + " coins");
+        shopPrice.setText(Integer.toString(shop.getAccessories().get(position).getItemPrice()));
         image.setImageResource(shop.getAccessories().get(position).getImage());
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
