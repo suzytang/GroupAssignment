@@ -164,6 +164,9 @@ public class PetFragment extends Fragment implements View.OnClickListener{
 
     public void updateUI(){
         feedButton.setImageResource(R.drawable.feed);
+        // Animation code modified from: Abhishek Panwar (2017)
+        // https://www.youtube.com/watch?v=UNrjVaAPrr0
+        // 'FRAME ANIMATION ANDROID STUDIO TUTORIAL | DEVELOPING AN APP'
         AnimationDrawable feed = (AnimationDrawable) feedButton.getDrawable();
         feed.start();
 
