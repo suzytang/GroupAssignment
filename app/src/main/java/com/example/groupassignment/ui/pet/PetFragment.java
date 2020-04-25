@@ -30,7 +30,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
     private Shop shop = new Shop();
     private Dialog dialog, checkDialog;
     ImageButton feedButton, inventoryButton;
-    ImageView info, changeLanguage, hunger, wallpaper;
+    ImageView hunger, wallpaper;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,8 +39,6 @@ public class PetFragment extends Fragment implements View.OnClickListener{
 
         inventoryButton = root.findViewById(R.id.inventoryButton);
         feedButton = root.findViewById(R.id.feedButton);
-        info = root.findViewById(R.id.info);
-        changeLanguage = root.findViewById(R.id.changeLanguage);
 
         wallpaper = root.findViewById(R.id.wallpaper);
         hunger = root.findViewById(R.id.hunger);
@@ -145,8 +143,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         }
         feedButton.setOnClickListener(this);
         inventoryButton.setOnClickListener(this);
-        info.setOnClickListener(this);
-        changeLanguage.setOnClickListener(this);
+
         // Gets System time last assigned from the database
         long time = sqLiteHelper.getPetTime(SQLiteHelper.TIME);
         // Variable timeElapsed is calculated by subtracting current time from time assigned in the database
@@ -204,68 +201,6 @@ public class PetFragment extends Fragment implements View.OnClickListener{
                     Toast.makeText(getActivity(),
                             "You don't have any food left!", Toast.LENGTH_LONG).show();
                 }
-                break;
-            case R.id.changeLanguage:
-                checkDialog = new Dialog(getActivity());
-                checkDialog.setContentView(R.layout.exit_dialog);
-                // Declare buttons and link XML
-                Button yes = checkDialog.findViewById(R.id.yes);
-                Button no = checkDialog.findViewById(R.id.no);
-                TextView check = checkDialog.findViewById(R.id.exit);
-                check.setText("Change languages?");
-                TextView checkInfo = checkDialog.findViewById(R.id.exitInfo);
-                checkInfo.setText("This is a permanent change so all your progress will be lost.");
-
-                // Show dialog
-                checkDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                checkDialog.show();
-
-                // If yes, return to menu
-                yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), LanguageActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-                // If no, dismiss dialog and return to current page
-                no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        checkDialog.dismiss();
-                    }
-                });
-
-                break;
-            case R.id.info:
-                // Dialog for credits
-                dialog = new Dialog(getActivity());
-                dialog.setContentView(R.layout.credits);
-
-                // Link to XML
-                TextView yandex = dialog.findViewById(R.id.yandex);
-                TextView petSource = dialog.findViewById(R.id.petSource);
-                TextView iconsSource = dialog.findViewById(R.id.iconsSource);
-
-                // Link to credits
-                yandex.setMovementMethod(LinkMovementMethod.getInstance());
-                petSource.setMovementMethod(LinkMovementMethod.getInstance());
-                iconsSource.setMovementMethod(LinkMovementMethod.getInstance());
-
-                // Decreases the opacity of the background (fragment_pet_test) and displays dialog
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-
-                // Button dismisses dialog when pressed
-                Button closeButton = (Button) dialog.findViewById(R.id.closeButton);
-                closeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
                 break;
         }
 
