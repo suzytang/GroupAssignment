@@ -66,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        SQLiteHelper sqLiteHelper = new SQLiteHelper(this);
-        sqLiteHelper.updateData(SQLiteHelper.COL_4, 10000, 1);
     }
 
     // The following code is modified from: Onur Çevik (2019)
