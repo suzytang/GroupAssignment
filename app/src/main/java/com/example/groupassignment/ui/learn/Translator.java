@@ -216,9 +216,15 @@ public class Translator extends AppCompatActivity {
             // Check if english input matches translation
             if (result.equals(userInput)) {
                 // Set text error, disable store and make translated TTS button invisible
-                inputLayout.setError("Error: no translation available");
-                translatedSpeech.setVisibility(View.INVISIBLE);
-                enableStore(false);
+                if (myDb.checkCurrent("English")) {
+                    translatedText.setText(result);
+                    translatedSpeech.setVisibility(View.VISIBLE);
+                    enableStore(true);
+                } else {
+                    inputLayout.setError("Error: no translation available");
+                    translatedSpeech.setVisibility(View.INVISIBLE);
+                    enableStore(false);
+                }
             } else {
                 // Set text as translation, enable store and
                 // make translated TTS button visible
