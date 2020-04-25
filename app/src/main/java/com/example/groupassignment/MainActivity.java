@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LanguageActivity.class);
             startActivity(intent);
         }
-        myDb.dbClean();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);

@@ -203,6 +203,7 @@ public class LanguageActivity extends AppCompatActivity {
             super.onPostExecute(x);
             // Dismiss dialog and return to main activity
             dialog.dismiss();
+            myDb.dbClean();
             Toast.makeText(LanguageActivity.this, "Database loaded", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
