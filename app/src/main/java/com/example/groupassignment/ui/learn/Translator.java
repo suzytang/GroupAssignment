@@ -7,9 +7,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,6 +23,7 @@ import android.widget.Toast;
 import com.example.groupassignment.DatabaseHelper;
 import com.example.groupassignment.MainActivity_Self_Learn;
 import com.example.groupassignment.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -35,9 +40,10 @@ public class Translator extends AppCompatActivity {
 
     // Declare variables
     private TextToSpeech translatedTTS, englishTTS;
-    private ImageButton translatedSpeech, englishSpeech, clearText;
+    private ImageButton translatedSpeech, englishSpeech;
     private Button translate, store;
     private TextView translatedText, yandex;
+    private TextInputLayout inputLayout;
     private EditText enterWord;
     private Context context;
     private DatabaseHelper myDb = new DatabaseHelper(this);
@@ -54,62 +60,25 @@ public class Translator extends AppCompatActivity {
 
         // Link to XML
         translatedText = findViewById(R.id.translatedText);
-        enterWord = findViewById(R.id.enterWord);
+        enterWord = findViewById(R.id.enterWord1);
+        inputLayout = findViewById(R.id.enterWord);
         translatedSpeech = findViewById(R.id.translatedSpeech);
         translatedSpeech.setVisibility(View.INVISIBLE);
         englishSpeech = findViewById(R.id.englishSpeech);
         translate = findViewById(R.id.translate);
         store = findViewById(R.id.storeButton);
-        clearText = findViewById(R.id.clearText);
+        // Credit Yandex
         yandex = findViewById(R.id.yandexCredit);
         yandex.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Disable store on create
         enableStore(false);
 
-        // Clear text on click
-        clearText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearInput();
-            }
-        });
-
         // Attempt to translate input on click
         translate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userInput = enterWord.getText().toString();
-                // Check if user input is empty
-                if (userInput.equals("")) {
-                    // Set text error, disable store and make translated TTS button invisible
-                    translatedText.setText("Error: please enter an expression first");
-                    translatedSpeech.setVisibility(View.INVISIBLE);
-                    enableStore(false);
-                } else {
-                    String result = null;
-                    TranslateRequest tR = new TranslateRequest();
-                    try {
-                        result = tR.execute(userInput).get();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    // Check if english input matches translation
-                    if (result.equals(userInput)) {
-                        // Set text error, disable store and make translated TTS button invisible
-                        translatedText.setText("Error: no translation available");
-                        translatedSpeech.setVisibility(View.INVISIBLE);
-                        enableStore(false);
-                    } else {
-                        // Set text as translation, enable store and
-                        // make translated TTS button visible
-                        translatedText.setText(result);
-                        translatedSpeech.setVisibility(View.VISIBLE);
-                        enableStore(true);
-                    }
-                }
+                translateText();
             }
         });
 
@@ -129,6 +98,34 @@ public class Translator extends AppCompatActivity {
                     toast.show();
                 }
                 clearInput();
+            }
+        });
+
+        // The follow code is modified from: Juned Mughal (2016)
+        // 'How to Use addTextChangedListener in EditText android'
+        // https://www.android-examples.com/use-addtextchangedlistener-in-edittext-android/
+        enterWord.addTextChangedListener(new TextWatcher() {
+             @Override
+             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+             }
+
+             @Override
+             public void onTextChanged(CharSequence s, int start, int before, int count) {
+             }
+
+             @Override
+             public void afterTextChanged(Editable s) {
+                 inputLayout.setError(null);
+             }
+         });
+
+        enterWord.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -178,7 +175,12 @@ public class Translator extends AppCompatActivity {
         englishSpeech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak(englishTTS, enterWord.getText().toString());
+                if (!enterWord.getText().toString().equalsIgnoreCase("")) {
+                    speak(englishTTS, enterWord.getText().toString());
+                } else {
+                    Toast toast = Toast.makeText(context, "Please enter an expression first.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 
@@ -191,6 +193,39 @@ public class Translator extends AppCompatActivity {
         });
     }
 
+    private void translateText() {
+        userInput = enterWord.getText().toString();
+        // Check if user input is empty
+        if (userInput.equals("")) {
+            // Set text error, disable store and make translated TTS button invisible
+            inputLayout.setError("Error: please enter an expression first");
+            translatedSpeech.setVisibility(View.INVISIBLE);
+            enableStore(false);
+        } else {
+            String result = null;
+            TranslateRequest tR = new TranslateRequest();
+            try {
+                result = tR.execute(userInput).get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            // Check if english input matches translation
+            if (result.equals(userInput)) {
+                // Set text error, disable store and make translated TTS button invisible
+                inputLayout.setError("Error: no translation available");
+                translatedSpeech.setVisibility(View.INVISIBLE);
+                enableStore(false);
+            } else {
+                // Set text as translation, enable store and
+                // make translated TTS button visible
+                translatedText.setText(result);
+                translatedSpeech.setVisibility(View.VISIBLE);
+                enableStore(true);
+            }
+        }
+    }
     // Set speak rate to slower since users are learning and create method to start audio
     private void speak(TextToSpeech TTS, String text) {
         TTS.setSpeechRate((float) 0.75);
