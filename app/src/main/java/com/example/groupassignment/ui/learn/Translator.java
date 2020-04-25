@@ -120,6 +120,9 @@ public class Translator extends AppCompatActivity {
              }
          });
 
+        // The follow code is modified from: Aleks G (2012)
+        // 'restrict edittext to single line'
+        // https://stackoverflow.com/questions/10978038/restrict-edittext-to-single-line
         enterWord.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -199,8 +202,7 @@ public class Translator extends AppCompatActivity {
         if (userInput.equals("")) {
             // Set text error, disable store and make translated TTS button invisible
             inputLayout.setError("Error: please enter an expression first");
-            translatedSpeech.setVisibility(View.INVISIBLE);
-            enableStore(false);
+            clearInput();
         } else {
             String result = null;
             TranslateRequest tR = new TranslateRequest();
@@ -226,6 +228,7 @@ public class Translator extends AppCompatActivity {
             }
         }
     }
+
     // Set speak rate to slower since users are learning and create method to start audio
     private void speak(TextToSpeech TTS, String text) {
         TTS.setSpeechRate((float) 0.75);
