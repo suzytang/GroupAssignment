@@ -47,7 +47,7 @@ public class PetFragment extends Fragment implements View.OnClickListener{
         TextView level = root.findViewById(R.id.level);
         TextView foodQty = root.findViewById(R.id.foodQty);
 
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
         level.setText(sqLiteHelper.getPetData(SQLiteHelper.LVL));
         foodQty.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 2)+ " can(s)");
 
