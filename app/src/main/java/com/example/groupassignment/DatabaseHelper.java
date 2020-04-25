@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "2342osj243276786762342334232233242347234242389342424323434324bnks525524ka4234.db";
+    public static final String DATABASE_NAME = "2342osj2432767867622432343342334232233242347234242389342424323434324bnks525524ka4234.db";
     private static final int DATABASE_VERSION = 1;
     public static final String COL_1 = "Level";
     public static final String COL_2 = "Position";

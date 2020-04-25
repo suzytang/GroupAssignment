@@ -126,48 +126,43 @@ public class LanguageActivity extends AppCompatActivity {
             for (int i = 1; i < 10; i++) {
                 for (int j = 1; j < 11; j++) {
                     String text = myDb.getEnglish(i, j);
-                    if (myDb.checkCurrent("English")) {
-                        myDb.setTranslation(text, i, j);
-                        publishProgress(90);
-                    } else {
-                        try {
-                            // Create URL and connection
-                            URL url = new URL("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + apiKey
-                                    + "&text=" + text + "&lang=" + myDb.getCode());
-                            HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+                    try {
+                        // Create URL and connection
+                        URL url = new URL("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + apiKey
+                                + "&text=" + text + "&lang=" + myDb.getCode());
+                        HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
 
-                            // Read output
-                            BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                            StringBuilder stringBuilder = new StringBuilder();
+                        // Read output
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                        StringBuilder stringBuilder = new StringBuilder();
 
-                            // Get line
-                            String line = null;
-                            while ((line = reader.readLine()) != null) {
-                                stringBuilder.append(line + "\n");
-                            }
-
-                            // Get String
-                            String resultString = stringBuilder.toString().trim();
-
-                            // Get characters between [ and ]
-                            resultString = resultString.substring(resultString.indexOf('[') + 1);
-                            resultString = resultString.substring(1, resultString.indexOf("]") - 1);
-
-                            Log.d("Translation Result:", resultString);
-
-                            // Format and store translation result
-                            String resultFormatted = resultString.replace("'", "''");
-                            myDb.setTranslation(resultFormatted, i, j);
-
-                            // Update progress
-                            x++;
-
-                            // Publish progress
-                            publishProgress(x);
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        // Get line
+                        String line = null;
+                        while ((line = reader.readLine()) != null) {
+                            stringBuilder.append(line + "\n");
                         }
+
+                        // Get String
+                        String resultString = stringBuilder.toString().trim();
+
+                        // Get characters between [ and ]
+                        resultString = resultString.substring(resultString.indexOf('[') + 1);
+                        resultString = resultString.substring(1, resultString.indexOf("]") - 1);
+
+                        Log.d("Translation Result:", resultString);
+
+                        // Format and store translation result
+                        String resultFormatted = resultString.replace("'", "''");
+                        myDb.setTranslation(resultFormatted, i, j);
+
+                        // Update progress
+                        x++;
+
+                        // Publish progress
+                        publishProgress(x);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
