@@ -28,7 +28,7 @@ import com.example.groupassignment.ui.shop.Shop;
 public class PetFragment extends Fragment implements View.OnClickListener{
 
     private Shop shop = new Shop();
-    private Dialog dialog, checkDialog, languageDialog;
+    private Dialog dialog, checkDialog;
     ImageButton feedButton, inventoryButton;
     ImageView info, changeLanguage, hunger, wallpaper;
 
