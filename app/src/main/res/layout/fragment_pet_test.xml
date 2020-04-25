@@ -29,6 +29,17 @@
         app:srcCompat="@android:color/background_dark" />
 
     <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="72dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/foodQty"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/coins"
+        app:srcCompat="@drawable/trophy" />
+
+    <ImageView
         android:id="@+id/floor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,18 +121,16 @@
         android:id="@+id/level"
         android:layout_width="17dp"
         android:layout_height="43dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="50dp"
-        android:shadowColor="#000000"
         android:shadowDx="5"
         android:shadowDy="5"
         android:shadowRadius="5"
+        android:text="1"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/coins" />
 
     <ImageView
         android:id="@+id/coinImage"
@@ -129,7 +138,7 @@
         android:layout_height="25dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/level"
         app:layout_constraintTop_toTopOf="@+id/wallpaper"
         app:srcCompat="@drawable/dollar" />
@@ -185,14 +194,14 @@
     <ImageButton
         android:id="@+id/inventoryButton"
         android:layout_width="64dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:background="?android:selectableItemBackground"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/foodQty"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info"
+        app:layout_constraintTop_toTopOf="@+id/coins"
         app:srcCompat="@drawable/bag" />
 
     <ImageView
@@ -271,9 +280,9 @@
         android:id="@+id/info"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/information" />
@@ -282,9 +291,9 @@
         android:id="@+id/changeLanguage"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toStartOf="@+id/info"
         app:layout_constraintTop_toTopOf="parent"
@@ -292,15 +301,13 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="172dp"
-        android:layout_height="161dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="276dp"
+        android:layout_width="169dp"
+        android:layout_height="152dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="265dp"
         app:layout_constraintBottom_toBottomOf="@+id/pet"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/food"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/thought" />
 
     <TextView
