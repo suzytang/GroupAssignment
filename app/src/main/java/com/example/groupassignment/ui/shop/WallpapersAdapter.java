@@ -40,8 +40,6 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
     @Override
     public void onBindViewHolder(WallpapersAdapter.MyViewHolder holder, int position) {
 
-        holder.imageBG.setVisibility(View.INVISIBLE);
-
         String name = shop.getWallpapers().get(position).getItemName();
 
         db = new SQLiteHelper(context);
@@ -76,7 +74,6 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView itemName, itemPrice;
         ImageView image;
-        ImageView imageBG;
         ImageView coinImage;
         TextView owned;
         WallpapersAdapter.RecyclerViewClickListener listener;
@@ -91,7 +88,6 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.My
             this.itemPrice = itemView.findViewById(R.id.itemPrice);
             this.image = itemView.findViewById(R.id.image);
             this.coinImage = itemView.findViewById(R.id.coinImage);
-            this.imageBG = itemView.findViewById(R.id.imageBG);
             this.owned = itemView.findViewById(R.id.owned);
         }
 
