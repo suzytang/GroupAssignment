@@ -34,7 +34,7 @@ public class Practice extends AppCompatActivity {
     int correct;
     private ImageView strike1, strike2, strike3;
     private ImageButton refresh;
-    private TextView englishTF, translatedTF, resultTF, correctTF, selection, yandex;
+    private TextView englishTF, translatedTF, resultTF, correctTF, selection, yandex, scoreText;
     private ImageButton trueButton, falseButton;
     private Dialog dialog;
     private Dialog exitDialog;
@@ -48,6 +48,7 @@ public class Practice extends AppCompatActivity {
         strike1 = findViewById(R.id.strike1);
         strike2 = findViewById(R.id.strike2);
         strike3 = findViewById(R.id.strike3);
+        scoreText = findViewById(R.id.scoreText);
 
         refresh = findViewById(R.id.refresh);
         trueButton = findViewById(R.id.trueButton);
@@ -74,10 +75,10 @@ public class Practice extends AppCompatActivity {
         if (category != 0) {
             amount = 10;
             this.setTitle(LearnCategories.getCategories().get(category - 1).getCategoryName()
-                    + " True or False Practice");
+                    + " True or False Game");
         } else {
             amount = myDb.countUserData();
-            this.setTitle("Self-Learn True or False Practice");
+            this.setTitle("Self-Learn True or False Game");
         }
 
         // Clear UI
@@ -168,6 +169,7 @@ public class Practice extends AppCompatActivity {
                 // If user answers correctly, number of correct increases
                 if (showResult(userAnswer, correctAnswer)) {
                     correct++;
+                    scoreText.setText(String.valueOf(correct));
                 }
             }
         });
@@ -181,6 +183,7 @@ public class Practice extends AppCompatActivity {
                 userAnswer = false;
                 if (showResult(userAnswer, correctAnswer)) {
                     correct++;
+                    scoreText.setText(String.valueOf(correct));
                 }
             }
         });
@@ -356,6 +359,7 @@ public class Practice extends AppCompatActivity {
     private void resetUI() {
         correct = 0;
         strikes = 0;
+        scoreText.setText(String.valueOf(correct));
         strike1.setVisibility(View.INVISIBLE);
         strike2.setVisibility(View.INVISIBLE);
         strike3.setVisibility(View.INVISIBLE);

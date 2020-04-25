@@ -29,6 +29,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
         app:layout_constraintBottom_toTopOf="@+id/question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,25 +45,50 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:ems="10"
-        android:hint="Enter Translation"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+<!--    <EditText-->
+<!--        android:id="@+id/input"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="12dp"-->
+<!--        android:layout_marginLeft="12dp"-->
+<!--        android:layout_marginEnd="12dp"-->
+<!--        android:layout_marginRight="12dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Enter Translation"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/submit"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input"
+            android:layout_width="0dp"
+            android:hint="Enter Translation"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            app:boxStrokeColor="@color/colorAccent"
+            app:hintTextColor="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@+id/submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input1"
+            android:layout_width="match_parent"
+            android:singleLine="true"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/submit"
@@ -71,7 +97,7 @@
         android:backgroundTint="@color/colorAccent"
         android:text="submit"
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/yandexCredit4"
         app:layout_constraintEnd_toEndOf="@+id/input"
         app:layout_constraintTop_toTopOf="parent" />
 

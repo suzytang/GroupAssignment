@@ -109,6 +109,7 @@
         android:layout_marginBottom="16dp"
         android:gravity="center|center_horizontal|center_vertical"
         android:text="Take Quiz"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/function4"
@@ -123,6 +124,7 @@
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="Translate and Store"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/function4"
         app:layout_constraintEnd_toEndOf="@+id/function1"
@@ -136,6 +138,7 @@
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="Learn with Flashcards"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/function3"
         app:layout_constraintEnd_toEndOf="@+id/function2"
@@ -149,6 +152,7 @@
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="Play\nTrue or False"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/function3"
@@ -163,6 +167,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -215,6 +220,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Unlock by storing 10 words"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
         app:layout_constraintEnd_toEndOf="@+id/function2"
         app:layout_constraintStart_toStartOf="@+id/function2"
         app:layout_constraintTop_toBottomOf="@+id/lock3" />
@@ -225,6 +231,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Unlock by storing 5 words"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
         app:layout_constraintEnd_toEndOf="@+id/function4"
         app:layout_constraintStart_toStartOf="@+id/function4"
         app:layout_constraintTop_toBottomOf="@+id/lock3" />
@@ -235,6 +242,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Unlock by storing 3 words"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
         app:layout_constraintEnd_toEndOf="@+id/function2"
         app:layout_constraintStart_toStartOf="@+id/function2"
         app:layout_constraintTop_toBottomOf="@+id/lock2" />

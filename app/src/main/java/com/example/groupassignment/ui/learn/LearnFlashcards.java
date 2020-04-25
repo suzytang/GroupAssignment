@@ -90,7 +90,7 @@ public class LearnFlashcards extends AppCompatActivity {
 
 
         // Set first flashcard
-        question.setText((i)+"/"+amount);
+        question.setText((i)+" / "+amount);
         frontText.setText(myDb.pullData("Expression",category,i));
         backText.setText(myDb.pullData("Translation",category,i));
 
@@ -223,7 +223,7 @@ public class LearnFlashcards extends AppCompatActivity {
     private void updateFlashCards() {
         frontText.setText(myDb.pullData("Expression",category,i));
         backText.setText(myDb.pullData("Translation",category,i));
-        question.setText((i)+"/"+ amount);
+        question.setText((i)+" / "+ amount);
     }
 }
 

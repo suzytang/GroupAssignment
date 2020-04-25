@@ -18,6 +18,8 @@ import com.example.groupassignment.MainActivity_Learn;
 import com.example.groupassignment.MainActivity_Self_Learn;
 import com.example.groupassignment.R;
 import com.example.groupassignment.SQLiteHelper;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +29,7 @@ public class QuizTest extends AppCompatActivity {
     // Declare variables
     private Button submit;
     private TextView progress, question, yandex;
-    private EditText input;
+    private TextInputEditText input;
     private int category, i, score, amount;
     private DatabaseHelper myDb = new DatabaseHelper(this);
     private ArrayList<QuizAnswers> quizAnswers;
@@ -55,7 +57,7 @@ public class QuizTest extends AppCompatActivity {
         submit = findViewById(R.id.submit);
         progress = findViewById(R.id.progress);
         question = findViewById(R.id.question);
-        input = findViewById(R.id.input);
+        input = findViewById(R.id.input1);
         // Credit yandex API
         yandex = findViewById(R.id.yandexCredit4);
         yandex.setMovementMethod(LinkMovementMethod.getInstance());
@@ -89,7 +91,7 @@ public class QuizTest extends AppCompatActivity {
 
         // Set text with respective information
         submit.setText("Submit");
-        progress.setText(i + "/"+amount);
+        progress.setText(i + " / "+amount);
         question.setText(myDb.pullData("Expression",category,shuffle.get(i-1)));
 
         // User submits answer
@@ -144,7 +146,7 @@ public class QuizTest extends AppCompatActivity {
                     if (i <= amount) {
                         question.setText(
                                 myDb.pullData("Expression",category,shuffle.get(i-1)));
-                        progress.setText((i) + "/"+ amount);
+                        progress.setText((i) + " / "+ amount);
                         input.getText().clear();
                     } else {
                         quizOver();

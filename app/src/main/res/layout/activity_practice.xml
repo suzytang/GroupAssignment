@@ -6,41 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.learn.Practice">
 
-    <!--    <Button-->
-    <!--        android:id="@+id/menu"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginBottom="16dp"-->
-    <!--        android:backgroundTint="@color/colorAccent"-->
-    <!--        android:text="menu"-->
-    <!--        android:textColor="@android:color/background_light"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/learn" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/learn"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginBottom="16dp"-->
-    <!--        android:backgroundTint="@color/colorAccent"-->
-    <!--        android:text="learn"-->
-    <!--        android:textColor="@android:color/background_light"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/storeButton" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/storeButton"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:layout_marginRight="16dp"-->
-    <!--        android:layout_marginBottom="16dp"-->
-    <!--        android:backgroundTint="@color/colorAccent"-->
-    <!--        android:text="quiz"-->
-    <!--        android:textColor="@android:color/background_light"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
-
     <TextView
         android:id="@+id/yandexCredit2"
         android:layout_width="wrap_content"
@@ -63,7 +28,7 @@
         android:layout_marginRight="32dp"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="24sp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintBottom_toTopOf="@+id/equal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -78,7 +43,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="="
-        android:textSize="24sp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintBottom_toTopOf="@+id/translatedTF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -95,7 +60,7 @@
         android:layout_marginBottom="32dp"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="24sp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintBottom_toTopOf="@+id/trueButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -109,11 +74,12 @@
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:textSize="18sp"
+        android:text="correct"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selection" />
+        app:layout_constraintTop_toBottomOf="@+id/refresh" />
 
     <TextView
         android:id="@+id/correctTF"
@@ -124,10 +90,12 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:gravity="center"
+        android:text="long text"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resultTF" />
+        app:layout_constraintTop_toBottomOf="@+id/selection" />
 
     <ImageButton
         android:id="@+id/falseButton"
@@ -137,7 +105,7 @@
         android:layout_marginRight="64dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/yandexCredit2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/trueButton"
@@ -163,10 +131,12 @@
         android:id="@+id/selection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="selected"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/refresh" />
+        app:layout_constraintTop_toBottomOf="@+id/resultTF" />
 
     <ImageView
         android:id="@+id/strike1"
@@ -212,5 +182,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/falseButton"
         app:srcCompat="@drawable/next" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/strike3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/strike3"
+        app:srcCompat="@drawable/tick" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

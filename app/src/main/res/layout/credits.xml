@@ -27,8 +27,8 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:text="Credits"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
