@@ -11,38 +11,65 @@
         android:id="@+id/translatedText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginRight="56dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/enterWord" />
 
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/enterWord"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="12dp"-->
+<!--        android:layout_marginLeft="12dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Enter Word"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:maxLength="50"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/clearText"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/enterWord"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:hint="Enter Word"
-        android:inputType="textPersonName"
-        android:maxLength="50"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/translatedText"
-        app:layout_constraintEnd_toStartOf="@+id/clearText"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="Enter expression"
+        app:boxStrokeColor="@color/colorAccent"
+        app:counterEnabled="true"
+        app:counterMaxLength="120"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:hintTextColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="@+id/translatedText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterWord1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="120" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/translate"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorAccent"
         android:text="Translate"
         android:textColor="@android:color/background_light"
@@ -51,7 +78,7 @@
 
     <Button
         android:id="@+id/storeButton"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -65,8 +92,9 @@
         android:id="@+id/englishSpeech"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@null"
         android:tint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/enterWord"
@@ -78,28 +106,14 @@
         android:id="@+id/translatedSpeech"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:background="@null"
         android:tint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/translatedText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/translatedText"
         app:layout_constraintTop_toTopOf="@+id/translatedText"
         app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
-
-    <ImageButton
-        android:id="@+id/clearText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@null"
-        android:tint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="@+id/englishSpeech"
-        app:layout_constraintEnd_toStartOf="@+id/englishSpeech"
-        app:layout_constraintStart_toEndOf="@+id/enterWord"
-        app:srcCompat="@android:drawable/ic_input_delete" />
 
     <TextView
         android:id="@+id/yandexCredit"
