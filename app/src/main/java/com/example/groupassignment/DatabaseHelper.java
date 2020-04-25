@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "2kal2343sjdgbo2343sgjdbogw.db";
+    public static final String DATABASE_NAME = "2342osj243276786762342334232233242347234242389342424323434324bnks525524ka4234.db";
     private static final int DATABASE_VERSION = 1;
     public static final String COL_1 = "Level";
     public static final String COL_2 = "Position";
@@ -28,13 +28,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table language_table (ID INTEGER PRIMARY KEY AUTOINCREMENT,Language TEXT,Code TEXT, Applied INT)");
+        db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('English', 'en-en', 0)");
         db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('Chinese', 'en-zh', 0)");
         db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('Korean', 'en-ko', 0)");
         db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('Japanese', 'en-ja', 0)");
         db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('German', 'en-de', 0)");
         db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('French', 'en-fr', 0)");
         db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('Italian', 'en-it', 0)");
-        db.execSQL("insert into language_table ('Language', 'Code', 'Applied') VALUES ('English', 'en-en', 0)");
 
         db.execSQL("create table learn_table (ID INTEGER PRIMARY KEY AUTOINCREMENT,Level INTEGER,Position INTEGER, Expression TEXT, Translation TEXT, Answered INT, Completed INT)");
         db.execSQL("insert into learn_table ("+COL_1+", "+COL_2+", "+COL_3+", "+COL_4+", "+COL_5+", "+COL_6+") VALUES (1, 1, 'Hello', null, 0, 0)");
@@ -238,18 +238,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String getEnglish(int level, int position) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor csr = db.rawQuery("select "+COL_3+" from learn_table where "+COL_1+" = "+level+" AND "+COL_2+" = "+position,null);
-        try {
-            String word = "";
-            if (csr.moveToFirst()) {
-                word = csr.getString(csr.getColumnIndex(COL_3));
-            }
-            return word;
-        }
-        finally {
-            if (csr != null) {
-                csr.close();
-            }
-        }
+        csr.moveToFirst();
+        String word = "";
+        word = csr.getString(csr.getColumnIndex(COL_3));
+        return word;
     }
 
     public boolean answered(int level, int position) {

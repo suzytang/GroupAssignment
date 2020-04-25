@@ -51,13 +51,13 @@ public class Languages {
 
     public static ArrayList<Languages> getLanguages() {
         ArrayList<Languages> languages = new ArrayList<>();
+        languages.add(new Languages("English", Locale.ENGLISH, R.drawable.uk, "For Testing"));
         languages.add(new Languages("Chinese", Locale.CHINESE, R.drawable.china, "Category V"));
         languages.add(new Languages("Korean", Locale.KOREAN, R.drawable.southkorea, "Category V"));
         languages.add(new Languages("Japanese", Locale.JAPANESE, R.drawable.japan, "Category V"));
         languages.add(new Languages("German", Locale.GERMAN, R.drawable.germany, "Category II"));
         languages.add(new Languages("French", Locale.FRENCH, R.drawable.france, "Category I"));
         languages.add(new Languages("Italian", Locale.ITALIAN, R.drawable.italy, "Category I"));
-        languages.add(new Languages("English", Locale.ENGLISH, R.drawable.uk, "For Testing"));
         return languages;
     }
 }
