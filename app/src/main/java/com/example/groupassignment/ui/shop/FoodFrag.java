@@ -38,7 +38,7 @@ public class FoodFrag extends Fragment {
         Button buyFood = (Button) root.findViewById(R.id.buyFood);
 
         SQLiteHelper sqLiteHelper = new SQLiteHelper(getActivity());
-        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1)+ " coins");
+        coins.setText(sqLiteHelper.getData(SQLiteHelper.COL_4, 1));
 
         buyFood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +53,7 @@ public class FoodFrag extends Fragment {
                 ImageView image = (ImageView) dialog.findViewById(R.id.image);
 
                 itemName.setText("Food");
-                itemPrice.setText("20 coins");
+                itemPrice.setText("20");
                 image.setImageResource(R.drawable.food_full);
 
 

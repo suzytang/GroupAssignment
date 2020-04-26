@@ -27,6 +27,8 @@
         android:id="@+id/shopPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="130dp"
         android:layout_marginRight="130dp"
@@ -35,6 +37,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/cancelButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/image" />
 
     <ImageView
@@ -105,10 +108,13 @@
         android:id="@+id/imageView5"
         android:layout_width="34dp"
         android:layout_height="28dp"
+        android:layout_marginStart="123dp"
+        android:layout_marginLeft="123dp"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="3dp"
         android:layout_marginRight="3dp"
         app:layout_constraintEnd_toStartOf="@+id/shopPrice"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image"
         app:srcCompat="@drawable/dollar" />
 
