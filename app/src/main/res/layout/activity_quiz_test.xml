@@ -51,21 +51,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/input"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="12dp"-->
-<!--        android:layout_marginLeft="12dp"-->
-<!--        android:layout_marginEnd="12dp"-->
-<!--        android:layout_marginRight="12dp"-->
-<!--        android:ems="10"-->
-<!--        android:hint="Enter Translation"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/submit"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input"
             android:layout_width="0dp"

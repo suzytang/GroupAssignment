@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,6 +32,7 @@ public class QuizTest extends AppCompatActivity {
     private Button submit;
     private TextView progress, question, yandex;
     private TextInputEditText input;
+    private TextInputLayout inputLayout;
     private int category, i, score, amount;
     private DatabaseHelper myDb = new DatabaseHelper(this);
     private ArrayList<QuizAnswers> quizAnswers;
@@ -58,6 +61,8 @@ public class QuizTest extends AppCompatActivity {
         progress = findViewById(R.id.progress);
         question = findViewById(R.id.question);
         input = findViewById(R.id.input1);
+        inputLayout = findViewById(R.id.input);
+
         // Credit yandex API
         yandex = findViewById(R.id.yandexCredit4);
         yandex.setMovementMethod(LinkMovementMethod.getInstance());
@@ -94,68 +99,74 @@ public class QuizTest extends AppCompatActivity {
         progress.setText(i + " / "+amount);
         question.setText(myDb.pullData("Expression",category,shuffle.get(i-1)));
 
-        // User submits answer
+        // User clicks submit button
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (i < amount+1) {
-                    // Get expression
-                    String expression =
-                            myDb.pullData("Expression",category,shuffle.get(i-1));
-                    // Get correct translation
-                    String translation =
-                            myDb.pullData("Translation",category,shuffle.get(i-1));
-                    // Format to ensure no issues with single quotations or cases
-                    String userText =
-                            input.getText()
-                                    .toString().toLowerCase().replace("’", "'");
-                    String matchTranslation =
-                            translation.toLowerCase().replace("’", "'");
-
-                    // Check if user input matches correct translation;
-                    // return 0 = incorrect, 1 = correct and has previously answered question,
-                    // 2 = correct for the first time
-                    if (userText.equals(matchTranslation)) {
-                        // Check if this question has been answered correctly before
-                        if (myDb.answered(category,shuffle.get(i-1))) {
-                            score = 1;
-                        } else {
-                            score = 2;
-                            myDb.setAnswered(category,shuffle.get(i-1));
-                        }
-                    } else {
-                        score = 0;
-                    }
-
-                    // Add question, expression, result, input and correct translation
-                    // to Array List
-                    QuizAnswers answer = new QuizAnswers(
-                            i, expression, score, input.getText().toString(), translation);
-                    quizAnswers.add(answer);
-
-                    // Increment
-                    i++;
-
-                    // If final question change submit to complete
-                    if (i == amount) {
-                        submit.setText("Complete");
-                    }
-
-                    // If there are still expressions to be tested, set new question,
-                    // else start quiz over dialog and clear text
-                    if (i <= amount) {
-                        question.setText(
-                                myDb.pullData("Expression",category,shuffle.get(i-1)));
-                        progress.setText((i) + " / "+ amount);
-                        input.getText().clear();
-                    } else {
-                        quizOver();
-                        input.getText().clear();
-                    }
-                }
+                submit();
             }
         });
     }
+
+    // Submit method for submit button and on press enter
+    private void submit() {
+        if (i < amount+1) {
+            // Get expression
+            String expression =
+                    myDb.pullData("Expression",category,shuffle.get(i-1));
+            // Get correct translation
+            String translation =
+                    myDb.pullData("Translation",category,shuffle.get(i-1));
+            // Format to ensure no issues with single quotations or cases
+            String userText =
+                    input.getText()
+                            .toString().toLowerCase().replace("’", "'");
+            String matchTranslation =
+                    translation.toLowerCase().replace("’", "'");
+
+            // Check if user input matches correct translation;
+            // return 0 = incorrect, 1 = correct and has previously answered question,
+            // 2 = correct for the first time
+            if (userText.equals(matchTranslation)) {
+                // Check if this question has been answered correctly before
+                if (myDb.answered(category,shuffle.get(i-1))) {
+                    score = 1;
+                } else {
+                    score = 2;
+                    myDb.setAnswered(category,shuffle.get(i-1));
+                }
+            } else {
+                score = 0;
+            }
+
+            // Add question, expression, result, input and correct translation
+            // to Array List
+            QuizAnswers answer = new QuizAnswers(
+                    i, expression, score, input.getText().toString(), translation);
+            quizAnswers.add(answer);
+
+            // Increment
+            i++;
+
+            // If final question change submit to complete
+            if (i == amount) {
+                submit.setText("Complete");
+            }
+
+            // If there are still expressions to be tested, set new question,
+            // else start quiz over dialog and clear text
+            if (i <= amount) {
+                question.setText(
+                        myDb.pullData("Expression",category,shuffle.get(i-1)));
+                progress.setText((i) + " / "+ amount);
+                input.getText().clear();
+            } else {
+                quizOver();
+                input.getText().clear();
+            }
+        }
+    }
+
     private void quizOver() {
         // Create dialog
         dialog = new Dialog(this);
